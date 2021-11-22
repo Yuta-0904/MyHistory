@@ -11,3 +11,9 @@ window.axios.interceptors.request.use(config => {
 
   return config
 })
+
+//axiosエラーの際はerrorモジュールではなく、error.responseを上書きするよう処理追記
+window.axios.interceptors.response.use(
+  response => response,
+  error => error.response || error
+)
