@@ -5,6 +5,8 @@ import VueRouter from 'vue-router'
 import TaskList from './pages/TaskList.vue'
 import Login from './pages/Login.vue'
 
+import store from './store' // ★　追加
+
 // VueRouterプラグインを使用する
 // これによって<RouterView />コンポーネントなどを使うことができる
 Vue.use(VueRouter)
@@ -22,7 +24,15 @@ export default new VueRouter({
     {
         path: '/login',
         name: 'login',
-        component: Login
+        component: Login,
+        beforeEnter (to, from, next) {
+          ///ログイン中であればtopページに返却するよう条件判定
+          if (store.getters['auth/check']) {
+            next('/')
+          } else {
+            next()
+          }
+        }
     }
   ]
 });

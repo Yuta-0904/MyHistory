@@ -41,9 +41,14 @@
             {{ menuItem.name }}
           </v-tab>
           <v-tab>
-                <RouterLink class="button button--link" to="/login">
-                    Login / Register
-                </RouterLink>
+                <div v-if="isLogin" class="navbar__item">
+                  ログイン中
+                </div>
+                <div v-else class="navbar__item">
+                  <RouterLink class="button button--link" to="/login">
+                      Login / Register
+                  </RouterLink>
+                </div>
           </v-tab>
         </v-tabs>
       </v-app-bar>
@@ -65,6 +70,14 @@ export default {
             }
       }
     },
+    computed: {
+    isLogin () {
+      return this.$store.getters['auth/check']
+    },
+    username () {
+      return this.$store.getters['auth/username']
+    }
+  }
 }
 </script>
 <style scoped>
