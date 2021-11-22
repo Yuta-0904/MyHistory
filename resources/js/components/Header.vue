@@ -40,6 +40,11 @@
           >
             {{ menuItem.name }}
           </v-tab>
+          <v-tab>
+                <RouterLink class="button button--link" to="/login">
+                    Login / Register
+                </RouterLink>
+          </v-tab>
         </v-tabs>
       </v-app-bar>
   </header>
@@ -66,6 +71,10 @@ export default {
 .v-toolbar__title {
   overflow: visible !important;
   margin-right: 50px !important;
+}
+
+.v-application a {
+    color: hsla(0,0%,100%,.6);
 }
 
 </style>
