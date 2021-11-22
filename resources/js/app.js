@@ -10,6 +10,7 @@ import '@mdi/font/css/materialdesignicons.css'//vuetifyアイコン追加
 
 Vue.use(Vuetify);
 
+
 new Vue({
     el: '#app',
     router, // ルーティングの定義を読み込む

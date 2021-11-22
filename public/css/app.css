@@ -10962,3 +10962,19 @@ a.text-dark:focus {
   }
 }
 
+/* メディアクエリブレークポイント */
+
+/* PC */
+
+/* タブレット */
+
+/* スマホ */
+
+.v-main {
+  padding: 0 !important;
+}
+
+h1 {
+  color: red;
+}
+
