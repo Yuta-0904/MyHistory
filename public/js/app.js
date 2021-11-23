@@ -2133,7 +2133,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _constans__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../constans */ "./resources/js/constans.js");
 //
 //
 //
@@ -2190,21 +2189,16 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
-      drawer: false,
-      menuItems: _constans__WEBPACK_IMPORTED_MODULE_0__["default"].menuItems
+      drawer: false
     };
   },
-  methods: {
-    handleResize: function handleResize() {
-      if (window.innerWidth >= 960) {
-        this.drawer = false;
-      }
-    }
-  },
+  methods: {},
   computed: {
     isLogin: function isLogin() {
       return this.$store.getters['auth/check'];
@@ -2397,6 +2391,114 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
   })),
   created: function created() {
     this.clearError();
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/pages/TaskList.vue?vue&type=script&lang=js&":
+/*!**************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/pages/TaskList.vue?vue&type=script&lang=js& ***!
+  \**************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+/* harmony default export */ __webpack_exports__["default"] = ({
+  data: function data() {
+    return {
+      testList: [],
+      taskList: {
+        name: ''
+      }
+    };
+  },
+  methods: {
+    taskListsGet: function taskListsGet() {
+      var _this = this;
+
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
+        var response;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                _context.next = 2;
+                return axios.get('/api/task-list');
+
+              case 2:
+                response = _context.sent;
+                _this.testList = response.data.taskList;
+
+              case 4:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee);
+      }))();
+    },
+    addTask: function addTask() {
+      var _this2 = this;
+
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2() {
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
+          while (1) {
+            switch (_context2.prev = _context2.next) {
+              case 0:
+                _context2.next = 2;
+                return _this2.$store.dispatch('task/taskListsCreate', _this2.taskList);
+
+              case 2:
+                _this2.name = "";
+
+                _this2.taskListsGet();
+
+              case 4:
+              case "end":
+                return _context2.stop();
+            }
+          }
+        }, _callee2);
+      }))();
+    }
+  },
+  watch: {
+    $route: {
+      handler: function handler() {
+        this.taskListsGet();
+      },
+      immediate: true
+    }
   }
 });
 
@@ -4465,14 +4567,23 @@ var render = function () {
             [
               _c(
                 "v-list-item-group",
-                _vm._l(_vm.menuItems, function (menuItem, index) {
-                  return _c(
+                [
+                  _vm.isLogin
+                    ? _c(
+                        "v-list-item",
+                        { attrs: { to: "/" } },
+                        [_c("v-list-item-title", [_vm._v("TASK")])],
+                        1
+                      )
+                    : _vm._e(),
+                  _vm._v(" "),
+                  _c(
                     "v-list-item",
-                    { key: index, attrs: { to: menuItem.link } },
-                    [_c("v-list-item-title", [_vm._v(_vm._s(menuItem.name))])],
+                    { attrs: { to: "/login" } },
+                    [_c("v-list-item-title", [_vm._v("Login / Register")])],
                     1
-                  )
-                }),
+                  ),
+                ],
                 1
               ),
             ],
@@ -4508,17 +4619,11 @@ var render = function () {
             "v-tabs",
             { staticClass: "d-md-block d-none" },
             [
-              _vm._l(_vm.menuItems, function (menuItem, index) {
-                return _c(
-                  "v-tab",
-                  { key: index, attrs: { to: menuItem.link } },
-                  [
-                    _vm._v(
-                      "\n          " + _vm._s(menuItem.name) + "\n        "
-                    ),
-                  ]
-                )
-              }),
+              _vm.isLogin
+                ? _c("v-tab", { attrs: { to: "/" } }, [
+                    _vm._v("\n          TASK\n        "),
+                  ])
+                : _vm._e(),
               _vm._v(" "),
               _c("v-tab", [
                 _vm.isLogin
@@ -4546,7 +4651,7 @@ var render = function () {
                     ),
               ]),
             ],
-            2
+            1
           ),
         ],
         1
@@ -4930,9 +5035,76 @@ var render = function () {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("h1", [_vm._v("Task List")])
+  return _c("div", [
+    _c("h1", [_vm._v("タスクリスト一覧")]),
+    _vm._v(" "),
+    _c(
+      "ul",
+      _vm._l(_vm.testList, function (taskList) {
+        return _c("li", { key: taskList.id, staticClass: "mb-1" }, [
+          _vm._v("\n\t\t\t" + _vm._s(taskList) + " \n\t\t"),
+        ])
+      }),
+      0
+    ),
+    _vm._v(" "),
+    _c("div", { staticClass: "panel" }, [
+      _c(
+        "form",
+        {
+          staticClass: "form",
+          on: {
+            submit: function ($event) {
+              $event.preventDefault()
+              return _vm.addTask.apply(null, arguments)
+            },
+          },
+        },
+        [
+          _c("label", { attrs: { for: "taskListName" } }, [_vm._v("Name")]),
+          _vm._v(" "),
+          _c("input", {
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model",
+                value: _vm.taskList.name,
+                expression: "taskList.name",
+              },
+            ],
+            staticClass: "form__item",
+            attrs: { type: "text", id: "taskListName" },
+            domProps: { value: _vm.taskList.name },
+            on: {
+              input: function ($event) {
+                if ($event.target.composing) {
+                  return
+                }
+                _vm.$set(_vm.taskList, "name", $event.target.value)
+              },
+            },
+          }),
+          _vm._v(" "),
+          _vm._m(0),
+        ]
+      ),
+    ]),
+  ])
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function () {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "form__button" }, [
+      _c(
+        "button",
+        { staticClass: "btn btn-secondary", attrs: { type: "submit" } },
+        [_vm._v("addTaskList")]
+      ),
+    ])
+  },
+]
 render._withStripped = true
 
 
@@ -68193,27 +68365,6 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "./resources/js/constans.js":
-/*!**********************************!*\
-  !*** ./resources/js/constans.js ***!
-  \**********************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ({
-  menuItems: [{
-    name: 'TASK',
-    link: '/'
-  }, {
-    name: 'LOGIN',
-    link: '/login'
-  }]
-});
-
-/***/ }),
-
 /***/ "./resources/js/pages/Login.vue":
 /*!**************************************!*\
   !*** ./resources/js/pages/Login.vue ***!
@@ -68293,15 +68444,17 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _TaskList_vue_vue_type_template_id_e63afe68___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./TaskList.vue?vue&type=template&id=e63afe68& */ "./resources/js/pages/TaskList.vue?vue&type=template&id=e63afe68&");
-/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+/* harmony import */ var _TaskList_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./TaskList.vue?vue&type=script&lang=js& */ "./resources/js/pages/TaskList.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
-var script = {}
+
+
 
 
 /* normalize component */
 
-var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_1__["default"])(
-  script,
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _TaskList_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
   _TaskList_vue_vue_type_template_id_e63afe68___WEBPACK_IMPORTED_MODULE_0__["render"],
   _TaskList_vue_vue_type_template_id_e63afe68___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
   false,
@@ -68315,6 +68468,20 @@ var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_
 if (false) { var api; }
 component.options.__file = "resources/js/pages/TaskList.vue"
 /* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/pages/TaskList.vue?vue&type=script&lang=js&":
+/*!******************************************************************!*\
+  !*** ./resources/js/pages/TaskList.vue?vue&type=script&lang=js& ***!
+  \******************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_TaskList_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib??ref--4-0!../../../node_modules/vue-loader/lib??vue-loader-options!./TaskList.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/pages/TaskList.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_TaskList_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
 
 /***/ }),
 
@@ -68422,7 +68589,15 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vue_router__WEBPACK_IMPORTED_MODU
   routes: [{
     path: '/',
     name: 'taskList',
-    component: _pages_TaskList_vue__WEBPACK_IMPORTED_MODULE_2__["default"]
+    component: _pages_TaskList_vue__WEBPACK_IMPORTED_MODULE_2__["default"],
+    beforeEnter: function beforeEnter(to, from, next) {
+      ///未ログインであればログインページに返却するよう条件判定
+      if (!_store__WEBPACK_IMPORTED_MODULE_4__["default"].getters['auth/check']) {
+        next('/login');
+      } else {
+        next();
+      }
+    }
   }, {
     path: '/login',
     name: 'login',
@@ -68707,19 +68882,118 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
 /* harmony import */ var _auth__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./auth */ "./resources/js/store/auth.js");
 /* harmony import */ var _error__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./error */ "./resources/js/store/error.js");
+/* harmony import */ var _task__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./task */ "./resources/js/store/task.js");
 
 
 
  // ★ 追加
 
+
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__["default"]);
 var store = new vuex__WEBPACK_IMPORTED_MODULE_1__["default"].Store({
   modules: {
     auth: _auth__WEBPACK_IMPORTED_MODULE_2__["default"],
-    error: _error__WEBPACK_IMPORTED_MODULE_3__["default"]
+    error: _error__WEBPACK_IMPORTED_MODULE_3__["default"],
+    task: _task__WEBPACK_IMPORTED_MODULE_4__["default"]
   }
 });
 /* harmony default export */ __webpack_exports__["default"] = (store);
+
+/***/ }),
+
+/***/ "./resources/js/store/task.js":
+/*!************************************!*\
+  !*** ./resources/js/store/task.js ***!
+  \************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
+var state = {
+  taskLists: []
+};
+var getters = {};
+var mutations = {
+  setTaskLists: function setTaskLists(state, taskLists) {
+    state.taskLists = taskLists;
+  },
+  addTaskList: function addTaskList(state, taskList) {
+    state.taskLists.push({
+      id: taskList.id,
+      user_id: taskList.user_id,
+      name: taskList.name,
+      created_at: taskList.created_at,
+      updated_at: taskList.updated_at,
+      deleted_at: null
+    });
+  }
+};
+var actions = {
+  //タスクリスト取得
+  taskListsGet: function taskListsGet(context) {
+    return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
+      var response, taskList;
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
+        while (1) {
+          switch (_context.prev = _context.next) {
+            case 0:
+              _context.next = 2;
+              return axios.get('/api/task-list');
+
+            case 2:
+              response = _context.sent;
+              taskList = response.data.taskList || null;
+              context.commit('setTaskLists', taskList);
+
+            case 5:
+            case "end":
+              return _context.stop();
+          }
+        }
+      }, _callee);
+    }))();
+  },
+  //タスクリスト新規作成
+  taskListsCreate: function taskListsCreate(context, data) {
+    return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2() {
+      var response;
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
+        while (1) {
+          switch (_context2.prev = _context2.next) {
+            case 0:
+              _context2.next = 2;
+              return axios.post('/api/task-list', data);
+
+            case 2:
+              response = _context2.sent;
+              context.commit('addTaskList', response.data.taskList);
+
+            case 4:
+            case "end":
+              return _context2.stop();
+          }
+        }
+      }, _callee2);
+    }))();
+  }
+};
+/* harmony default export */ __webpack_exports__["default"] = ({
+  //namespacedをtrueにすることでアクション呼び出す際に"モジュール/actions名"の形を第一に引数にできる。
+  namespaced: true,
+  state: state,
+  getters: getters,
+  mutations: mutations,
+  actions: actions
+});
 
 /***/ }),
 

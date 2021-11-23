@@ -2,6 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\TaskListController;
 
 /*
 |--------------------------------------------------------------------------
@@ -29,3 +30,9 @@ Route::post('/logout', 'Auth\LoginController@logout')->name('logout');
 
 // ログインユーザー取得
 Route::get('/user', fn() => Auth::user())->name('user');
+
+// タスクリストリスト登録
+Route::get('/task-list', [TaskListController::class,'get'])->name('taskList');
+
+// タスクリストリスト登録
+Route::post('/task-list', [TaskListController::class,'create'])->name('taskListCreate');

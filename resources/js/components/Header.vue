@@ -15,11 +15,15 @@
         >
           <v-list-item-group>
             <v-list-item
-            v-for="(menuItem,index) in menuItems"
-            :key="index"
-            :to="menuItem.link"
+              to="/"
+              v-if="isLogin"
             >
-              <v-list-item-title>{{ menuItem.name }}</v-list-item-title>
+              <v-list-item-title>TASK</v-list-item-title>
+            </v-list-item>
+             <v-list-item
+              to="/login"
+            >
+              <v-list-item-title>Login / Register</v-list-item-title>
             </v-list-item>
           </v-list-item-group>
         </v-list>
@@ -34,11 +38,10 @@
         <v-toolbar-title>MyHistory</v-toolbar-title>
         <v-tabs class="d-md-block d-none">
           <v-tab
-            v-for="(menuItem, index) in menuItems"
-            :key="index"
-            :to="menuItem.link"
+            to="/"
+            v-if="isLogin"
           >
-            {{ menuItem.name }}
+            TASK
           </v-tab>
           <v-tab>
                 <div v-if="isLogin" class="navbar__item">
@@ -55,20 +58,16 @@
   </header>
 </template>
 <script>
-import constans from '../constans';
+
 export default {
     data(){
         return {
             drawer:false,
-            menuItems: constans.menuItems
+            
         }
     },
     methods: {
-      handleResize(){
-         if (window.innerWidth >= 960) {
-                this.drawer = false
-            }
-      }
+     
     },
     computed: {
     isLogin () {

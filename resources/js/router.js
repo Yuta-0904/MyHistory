@@ -20,7 +20,15 @@ export default new VueRouter({
     { 
         path: '/',
         name: 'taskList',
-        component: TaskList
+        component: TaskList,
+        beforeEnter (to, from, next) {
+          ///未ログインであればログインページに返却するよう条件判定
+          if (!store.getters['auth/check']) {
+            next('/login')
+          } else {
+            next()
+          }
+        }
     },
     {
         path: '/login',
