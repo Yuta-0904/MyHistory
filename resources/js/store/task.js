@@ -35,7 +35,6 @@ const actions = {
   async taskListsCreate (context, data) {
     const response = await axios.post('/api/task-list',data)
     context.commit('addTaskList', response.data.taskList)
-    
   },
 }
 

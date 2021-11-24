@@ -7,6 +7,7 @@ use App\Http\Requests\TaskListRequest;
 use App\TaskList;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\DB;
 
 class TaskListController extends Controller
 {
@@ -18,8 +19,15 @@ class TaskListController extends Controller
 
     public function get()
     {
-        $taskList = TaskList::where('user_id',Auth::id())->get()->sortByDesc('created_at');
-        return response()->json(['taskList' => $taskList],201);
+        //認証ユーザの値のみ取得
+        $taskLists = TaskList::all()->where('user_id',Auth::id());
+
+        foreach ($taskLists as $taskList) {
+            ///リストに紐づいているタスクカードも取得
+            $taskList->cards->sortByDesc('created_at');
+        }
+      
+        return response()->json(['taskList' => $taskLists],201);
     }
 
     public function create(TaskListRequest $request, TaskList $taskList)

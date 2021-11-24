@@ -3,8 +3,23 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class TaskCard extends Model
 {
-    //
+    //fillやfirstOrCreateをコントローラで使う際は必須
+    protected $fillable = [
+        'name','content','status','limit','list_id'
+    ];
+
+    public function user():BelongsTo
+    {
+        return $this->belongsTo('App\User');
+    }
+
+    public function list():BelongsTo
+    {
+        return $this->belongsTo('App\TaskList');
+    }
 }
