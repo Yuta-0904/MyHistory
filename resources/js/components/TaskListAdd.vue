@@ -34,7 +34,6 @@ export default {
       async addList(){
           await this.$store.dispatch('task/taskListsCreate', this.taskList)
           this.taskList.name = ""
-          this.$emit('taskListsGet')
         },
         clear(){
         this.taskList.name = ''

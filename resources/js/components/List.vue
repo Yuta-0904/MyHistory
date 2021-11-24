@@ -11,6 +11,11 @@
             <v-hover v-slot="{ hover }"><span @click="removeList" :class="{ 'on-hover': hover }">X</span></v-hover>
         </v-card-title>
     </v-card-text>
+    
+    <v-card-text>
+        <TaskCardAdd :listIndex="listIndex" />
+    </v-card-text>
+    
     <TaskCard v-for="taskCard in taskCards"
         :key="taskCard.id"
         :taskCard ="taskCard"
@@ -21,13 +26,13 @@
 </template>
 
 <script>
-// import CardAdd from "./CardAdd.vue"
+import TaskCardAdd from "./TaskCardAdd.vue"
 import TaskCard from './TaskCard.vue'
 
 export default {
     name:'List',
     components: {
-        // CardAdd,
+        TaskCardAdd,
         TaskCard,
     },
     props:{
@@ -50,17 +55,18 @@ export default {
     },
     methods:{
         removeList(){
-            if(confirm('本当にこのリストを削除しますか?')){
-                // this.$store.dispatch('removelist',{listIndex: this.listIndex})
-                console.log('DELETE');
+            if(confirm('リストを削除するとリスト内のタスクも削除されますがよろしいでしょうか?')){
+                axios.delete('/api/task-list/' + this.listIndex) 
+				     .then(response => {
+				     	alert(response.data.message);
+				     })
+				     .catch(error => {
+                         console.log(error);
+                         alert('削除に失敗しました');
+                     })
             }
         },
     },
-    // computed:{
-    //     taskCardProp() {
-    //         console.log(this.taskCards);
-    //     }
-    // }
 }
 </script>
 

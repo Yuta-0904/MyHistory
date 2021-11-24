@@ -8,29 +8,27 @@
         </v-card-title>
         <v-row>
           <v-col cols="4" class="ml-6 mb-3 mt-2">
-                <task-list-add
-                @taskListsGet = "taskListsGet"
-                />
+            <task-list-add/>
           </v-col>
         </v-row>
-        <!-- <div class="d-flex justify-center flex-wrap"> -->
-          <v-card
-          class="d-flex justify-center flex-wrap"
-          color="grey lighten-2 my-5 py-5"
-          >
-              <List 
-              v-for= "taskList in taskLists"
-              :key = "taskList.id"
-              :name = "taskList.name"
-              :listIndex = "taskList.id"
-              :taskCards = 'taskList.cards' 
-              />
-          </v-card>
-        <!-- </div> -->
+
+        <v-card
+        class="d-flex justify-center flex-wrap"
+        color="grey lighten-2 my-5 py-5"
+        >
+            <List 
+            v-for= "taskList in taskLists"
+            :key = "taskList.id"
+            :name = "taskList.name"
+            :listIndex = "taskList.id"
+            :taskCards = 'taskList.cards' 
+            />
+        </v-card>
     </div>
 </template>
 
 <script>
+import { mapState } from 'vuex'
 import TaskListAdd from '../components/TaskListAdd.vue'
 import List from '../components/List.vue'
 	export default {
@@ -52,11 +50,12 @@ import List from '../components/List.vue'
           const response = await axios.get('/api/task-list')
           this.taskLists = response.data.taskList 
         },
-        async addTask() {
-          await this.$store.dispatch('task/taskListsCreate', this.taskList)
-          this.name = ""
-          this.taskListsGet ()
-        },
+    },
+    computed: {
+      ...mapState({
+          stateTaskLists: state => state.task.taskLists,
+          stateTaskCards: state => state.task.taskCards,
+      })
     },
     watch: {
     $route: {
@@ -64,6 +63,18 @@ import List from '../components/List.vue'
         this.taskListsGet()
       },
       immediate: true
+    },
+    stateTaskLists: {
+      handler () {
+        this.taskListsGet()
+      },
+      deep: true,
+    },
+    stateTaskCards: {
+      handler () {
+        this.taskListsGet()
+      },
+      deep: true,
     },
   }
 	}

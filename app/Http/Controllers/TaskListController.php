@@ -21,7 +21,6 @@ class TaskListController extends Controller
     {
         //認証ユーザの値のみ取得
         $taskLists = TaskList::all()->where('user_id',Auth::id());
-
         foreach ($taskLists as $taskList) {
             ///リストに紐づいているタスクカードも取得
             $taskList->cards->sortByDesc('created_at');
@@ -38,5 +37,15 @@ class TaskListController extends Controller
         $taskList->save();
 
         return response()->json(['taskList' => $taskList],201);
+    }
+
+    public function delete(TaskList $taskList)
+    {        
+        $taskList->cards()->each(function ($cards) {
+            $cards->delete();
+        });
+        
+        $taskList->delete();
+        return response()->json(['message' => '削除が完了しました'],201);
     }
 }

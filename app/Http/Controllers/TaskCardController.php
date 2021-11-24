@@ -16,18 +16,42 @@ class TaskCardController extends Controller
         $this->middleware('auth');
     }
 
-    public function get(){
-        $taskCards = TaskCard::where('user_id',Auth::id())->get()->sortByDesc('created_at');
-        //log::info($taskCards);
+    // public function get(){
+    //     $taskCards = TaskCard::where('user_id',Auth::id())->get()->sortByDesc('created_at');
+    //     //log::info($taskCards);
         
         
-        return response()->json(['taskCards' => $taskCards],201);
-    }
+    //     return response()->json(['taskCards' => $taskCards],201);
+    // }
 
-    public function create(TaskListRequest $request, TaskCard $taskCard)
+    public function create(TaskCardRequest $request, TaskCard $taskCard)
     {
-        $taskCard->fill($request->all());
-        $taskCard->user_id = $request->user()->id;
+        $user_id = $request->user()->id;
+        $status = $request->status;
+        
+        switch ($status){
+            case '未着手':
+                $status = 0;
+                break;
+            case '対応中':
+                $status = 1;
+                break;
+            case '保留':
+                $status = 2;
+                break;
+            default:
+                $status = 3;
+        }
+        
+        $taskCard->fill([
+            'user_id' => $user_id,
+            'list_id' => $request->list_id,
+            'name' => $request->name,
+            'content' => $request->content,
+            'status' => $status,
+            'limit' => $request->limit,
+        ]);
+
         $taskCard->save();
         return response()->json(['taskCard' => $taskCard],201);
     }

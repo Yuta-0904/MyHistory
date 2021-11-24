@@ -1,5 +1,6 @@
 const state = {
   taskLists: [],
+  taskCards: [],
 }
 
 const getters = {
@@ -21,6 +22,22 @@ const mutations = {
         deleted_at:null
     })
   },
+
+  addTaskCard(state,taskCard){
+    state.taskCards.push({
+        id: taskCard.id,
+        user_id: taskCard.user_id,
+        list_id: taskCard.list_id,
+        name: taskCard.name,
+        content: taskCard.content,
+        status: taskCard.status,
+        limit: taskCard.limit,
+        created_at: taskCard.created_at,
+        updated_at: taskCard.updated_at,
+        deleted_at:null
+    })
+  }
+
 }
 
 const actions = {
@@ -35,6 +52,12 @@ const actions = {
   async taskListsCreate (context, data) {
     const response = await axios.post('/api/task-list',data)
     context.commit('addTaskList', response.data.taskList)
+  },
+
+  //タスクカード新規作成
+  async taskCardCreate (context, data) {
+    const response = await axios.post('/api/task-card',data)
+    context.commit('addTaskCard', response.data.taskCard)
   },
 }
 
