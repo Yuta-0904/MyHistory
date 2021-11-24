@@ -54,11 +54,12 @@ export default {
         }
     },
     methods:{
-        removeList(){
+       async removeList(){
             if(confirm('リストを削除するとリスト内のタスクも削除されますがよろしいでしょうか?')){
-                axios.delete('/api/task-list/' + this.listIndex) 
+                await axios.delete('/api/task-list/' + this.listIndex) 
 				     .then(response => {
 				     	alert(response.data.message);
+                        this.$store.dispatch('task/taskListsGet')
 				     })
 				     .catch(error => {
                          console.log(error);

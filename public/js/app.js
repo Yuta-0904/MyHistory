@@ -2220,8 +2220,16 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _TaskCardAdd_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./TaskCardAdd.vue */ "./resources/js/components/TaskCardAdd.vue");
-/* harmony import */ var _TaskCard_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./TaskCard.vue */ "./resources/js/components/TaskCard.vue");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _TaskCardAdd_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./TaskCardAdd.vue */ "./resources/js/components/TaskCardAdd.vue");
+/* harmony import */ var _TaskCard_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./TaskCard.vue */ "./resources/js/components/TaskCard.vue");
+
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
 //
 //
 //
@@ -2254,8 +2262,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'List',
   components: {
-    TaskCardAdd: _TaskCardAdd_vue__WEBPACK_IMPORTED_MODULE_0__["default"],
-    TaskCard: _TaskCard_vue__WEBPACK_IMPORTED_MODULE_1__["default"]
+    TaskCardAdd: _TaskCardAdd_vue__WEBPACK_IMPORTED_MODULE_1__["default"],
+    TaskCard: _TaskCard_vue__WEBPACK_IMPORTED_MODULE_2__["default"]
   },
   props: {
     name: {
@@ -2275,14 +2283,35 @@ __webpack_require__.r(__webpack_exports__);
   },
   methods: {
     removeList: function removeList() {
-      if (confirm('リストを削除するとリスト内のタスクも削除されますがよろしいでしょうか?')) {
-        axios["delete"]('/api/task-list/' + this.listIndex).then(function (response) {
-          alert(response.data.message);
-        })["catch"](function (error) {
-          console.log(error);
-          alert('削除に失敗しました');
-        });
-      }
+      var _this = this;
+
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                if (!confirm('リストを削除するとリスト内のタスクも削除されますがよろしいでしょうか?')) {
+                  _context.next = 3;
+                  break;
+                }
+
+                _context.next = 3;
+                return axios["delete"]('/api/task-list/' + _this.listIndex).then(function (response) {
+                  alert(response.data.message);
+
+                  _this.$store.dispatch('task/taskListsGet');
+                })["catch"](function (error) {
+                  console.log(error);
+                  alert('削除に失敗しました');
+                });
+
+              case 3:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee);
+      }))();
     }
   }
 });
@@ -2298,7 +2327,14 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-//
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
 //
 //
 //
@@ -2317,7 +2353,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: 'Card',
+  name: "Card",
   props: {
     taskCard: {
       type: Object,
@@ -2333,12 +2369,35 @@ __webpack_require__.r(__webpack_exports__);
   },
   methods: {
     removeCard: function removeCard() {
-      if (confirm('本当にこの子のカードを削除しますか?')) {
-        this.$store.dispatch('removeCard', {
-          cardIndex: this.cardIndex,
-          listIndex: this.listIndex
-        });
-      }
+      var _this = this;
+
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                if (!confirm("タスクを削除してもよろしいでしょうか?")) {
+                  _context.next = 3;
+                  break;
+                }
+
+                _context.next = 3;
+                return axios["delete"]("/api/task-card/" + _this.taskCard.id).then(function (response) {
+                  alert(response.data.message);
+
+                  _this.$store.dispatch("task/taskListsGet");
+                })["catch"](function (error) {
+                  console.log(error);
+                  alert("削除に失敗しました");
+                });
+
+              case 3:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee);
+      }))();
     }
   }
 });
@@ -2897,7 +2956,25 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
   watch: {
     $route: {
       handler: function handler() {
-        this.taskListsGet();
+        var _this2 = this;
+
+        return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2() {
+          return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
+            while (1) {
+              switch (_context2.prev = _context2.next) {
+                case 0:
+                  _this2.taskListsGet();
+
+                  _context2.next = 3;
+                  return _this2.$store.dispatch('task/taskListsGet');
+
+                case 3:
+                case "end":
+                  return _context2.stop();
+              }
+            }
+          }, _callee2);
+        }))();
       },
       immediate: true
     },
@@ -5288,7 +5365,7 @@ var render = function () {
         "v-card-title",
         { staticClass: "justify-space-between" },
         [
-          _vm._v("\n    " + _vm._s(_vm.taskCard) + "\n  "),
+          _vm._v("\n        " + _vm._s(_vm.taskCard) + "\n        "),
           _c("v-hover", {
             scopedSlots: _vm._u([
               {
@@ -5314,7 +5391,7 @@ var render = function () {
       ),
       _vm._v(" "),
       _c("v-card-subtitle", [
-        _vm._v("\n    " + _vm._s(_vm.listIndex) + "\n  "),
+        _vm._v("\n        " + _vm._s(_vm.listIndex) + "\n    "),
       ]),
     ],
     1
@@ -70094,31 +70171,31 @@ var getters = {};
 var mutations = {
   setTaskLists: function setTaskLists(state, taskLists) {
     state.taskLists = taskLists;
-  },
-  addTaskList: function addTaskList(state, taskList) {
-    state.taskLists.push({
-      id: taskList.id,
-      user_id: taskList.user_id,
-      name: taskList.name,
-      created_at: taskList.created_at,
-      updated_at: taskList.updated_at,
-      deleted_at: null
-    });
-  },
-  addTaskCard: function addTaskCard(state, taskCard) {
-    state.taskCards.push({
-      id: taskCard.id,
-      user_id: taskCard.user_id,
-      list_id: taskCard.list_id,
-      name: taskCard.name,
-      content: taskCard.content,
-      status: taskCard.status,
-      limit: taskCard.limit,
-      created_at: taskCard.created_at,
-      updated_at: taskCard.updated_at,
-      deleted_at: null
-    });
-  }
+  } //   addTaskList(state,taskList){
+  //     state.taskLists.push({
+  //         id: taskList.id,
+  //         user_id: taskList.user_id,
+  //         name: taskList.name,
+  //         created_at: taskList.created_at,
+  //         updated_at: taskList.updated_at,
+  //         deleted_at:null
+  //     })
+  //   },
+  //   addTaskCard(state,taskCard){
+  //     state.taskCards.push({
+  //         id: taskCard.id,
+  //         user_id: taskCard.user_id,
+  //         list_id: taskCard.list_id,
+  //         name: taskCard.name,
+  //         content: taskCard.content,
+  //         status: taskCard.status,
+  //         limit: taskCard.limit,
+  //         created_at: taskCard.created_at,
+  //         updated_at: taskCard.updated_at,
+  //         deleted_at:null
+  //     })
+  //   }
+
 };
 var actions = {
   //タスクリスト取得
@@ -70148,7 +70225,7 @@ var actions = {
   //タスクリスト新規作成
   taskListsCreate: function taskListsCreate(context, data) {
     return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2() {
-      var response;
+      var response, taskList;
       return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
         while (1) {
           switch (_context2.prev = _context2.next) {
@@ -70157,10 +70234,15 @@ var actions = {
               return axios.post('/api/task-list', data);
 
             case 2:
-              response = _context2.sent;
-              context.commit('addTaskList', response.data.taskList);
+              _context2.next = 4;
+              return axios.get('/api/task-list');
 
             case 4:
+              response = _context2.sent;
+              taskList = response.data.taskList || null;
+              context.commit('setTaskLists', taskList);
+
+            case 7:
             case "end":
               return _context2.stop();
           }
@@ -70171,7 +70253,7 @@ var actions = {
   //タスクカード新規作成
   taskCardCreate: function taskCardCreate(context, data) {
     return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee3() {
-      var response;
+      var response, taskList;
       return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee3$(_context3) {
         while (1) {
           switch (_context3.prev = _context3.next) {
@@ -70180,10 +70262,15 @@ var actions = {
               return axios.post('/api/task-card', data);
 
             case 2:
-              response = _context3.sent;
-              context.commit('addTaskCard', response.data.taskCard);
+              _context3.next = 4;
+              return axios.get('/api/task-list');
 
             case 4:
+              response = _context3.sent;
+              taskList = response.data.taskList || null;
+              context.commit('setTaskLists', taskList);
+
+            case 7:
             case "end":
               return _context3.stop();
           }

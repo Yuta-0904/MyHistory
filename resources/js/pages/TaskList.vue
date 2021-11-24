@@ -48,7 +48,7 @@ import List from '../components/List.vue'
         async taskListsGet () {
           // authストアのloginアクションを呼び出す
           const response = await axios.get('/api/task-list')
-          this.taskLists = response.data.taskList 
+          this.taskLists = response.data.taskList
         },
     },
     computed: {
@@ -59,8 +59,9 @@ import List from '../components/List.vue'
     },
     watch: {
     $route: {
-      handler () {
+     async handler () {
         this.taskListsGet()
+        await this.$store.dispatch('task/taskListsGet')
       },
       immediate: true
     },

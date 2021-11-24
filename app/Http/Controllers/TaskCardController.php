@@ -42,7 +42,7 @@ class TaskCardController extends Controller
             default:
                 $status = 3;
         }
-        
+
         $taskCard->fill([
             'user_id' => $user_id,
             'list_id' => $request->list_id,
@@ -54,5 +54,11 @@ class TaskCardController extends Controller
 
         $taskCard->save();
         return response()->json(['taskCard' => $taskCard],201);
+    }
+
+    public function delete(TaskCard $taskCard)
+    {         
+        $taskCard->delete();
+        return response()->json(['message' => '削除が完了しました'],201);
     }
 }

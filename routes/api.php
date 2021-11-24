@@ -38,6 +38,7 @@ Route::get('/task-list', [TaskListController::class,'get'])->name('taskList');
 // タスクリスト登録
 Route::post('/task-list', [TaskListController::class,'create'])->name('taskListCreate');
 
+// タスクリスト削除
 Route::delete('/task-list/{taskList}', [TaskListController::class,'delete'])->name('taskListDelete');
 
 // タスクカード取得
@@ -45,3 +46,6 @@ Route::get('/task-card', [TaskCardController::class,'get'])->name('taskCard');
 
 // タスクカード登録
 Route::post('/task-card', [TaskCardController::class,'create'])->name('taskCardCreate');
+
+// タスクカード削除
+Route::delete('/task-card/{taskCard}', [TaskCardController::class,'delete'])->name('taskCardDelete');
