@@ -1,18 +1,23 @@
 <template>
-    <v-card class="mx-auto my-3" width="250px" style="min-width: 250px">
-        <v-card-title class="justify-space-between">
-            {{ taskCard }}
-            <v-hover v-slot="{ hover }"
-                ><span @click="removeCard" :class="{ 'on-hover': hover }"
-                    >X</span
-                ></v-hover
-            >
-        </v-card-title>
-
-        <v-card-subtitle>
-            {{ listIndex }}
-        </v-card-subtitle>
-    </v-card>
+    <router-link :to="{ name: 'taskDetail', params: { id: taskCard.id } }">
+        <v-card class="mx-auto my-3" width="250px" style="min-width: 250px">
+            <v-card-title class="justify-space-between">
+                {{ taskCard.name }}
+                <v-hover v-slot="{ hover }"
+                    ><span @click="removeCard" :class="{ 'on-hover': hover }"
+                        >X</span
+                    ></v-hover
+                >
+            </v-card-title>
+            <v-card-text>
+                {{ taskCard.content }}
+            </v-card-text>
+            <v-card-subtitle> タスク状況：{{ statusName }} </v-card-subtitle>
+            <v-card-subtitle>
+                タスクリミット：{{ taskCard.limit }}
+            </v-card-subtitle>
+        </v-card>
+    </router-link>
 </template>
 
 <script>
@@ -29,7 +34,9 @@ export default {
         },
     },
     data() {
-        return {};
+        return {
+            status: "",
+        };
     },
     methods: {
         async removeCard() {
@@ -44,6 +51,19 @@ export default {
                         console.log(error);
                         alert("削除に失敗しました");
                     });
+            }
+        },
+    },
+    computed: {
+        statusName: function () {
+            if (this.taskCard.status == 0) {
+                return "未着手";
+            } else if (this.taskCard.status == 1) {
+                return "対応中";
+            } else if (this.taskCard.status == 2) {
+                return "保留";
+            } else if (this.taskCard.status == 3) {
+                return "完了";
             }
         },
     },

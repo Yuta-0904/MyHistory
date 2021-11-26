@@ -1,0 +1,148 @@
+<template>
+    <div>
+        <div>
+            <h1>タスク詳細</h1>
+            <v-card>
+                <v-card>
+                    <v-card-title>タスク名</v-card-title>
+                    <v-text-field
+                        v-model="editForm.name"
+                        value="editForm.name"
+                        label="Message"
+                        counter
+                        maxlength="50"
+                        full-width
+                        height="60px"
+                    >
+                    </v-text-field>
+                </v-card>
+                <v-card>
+                    <v-card-title>タスク内容</v-card-title>
+                    <v-textarea
+                        v-model="editForm.content"
+                        value="editForm.content"
+                        label="Message"
+                        counter
+                        maxlength="120"
+                        full-width
+                        height="60px"
+                    >
+                    </v-textarea>
+                </v-card>
+                <v-card>
+                    <v-card-title>タスクステータス</v-card-title>
+                    <v-select
+                        v-model="editForm.status"
+                        :items="items"
+                        :label="editForm.status"
+                        required
+                        full-width
+                    ></v-select>
+                </v-card>
+                <v-card>
+                    <v-menu v-model="menu">
+                        <template v-slot:activator="{ on, attrs }">
+                            <v-text-field
+                                v-model="text"
+                                :label="date"
+                                prepend-icon="mdi-calendar"
+                                v-bind="attrs"
+                                v-on="on"
+                                clearable
+                                class="mx-auto"
+                            ></v-text-field>
+                        </template>
+                        <v-date-picker
+                            v-model="editForm.limit"
+                            @input="formatDate(editForm.limit)"
+                        ></v-date-picker>
+                    </v-menu>
+                </v-card>
+            </v-card>
+            <v-btn
+                class="d-flex mx-auto mb-3 px-10"
+                @click="UpdateCard"
+                :class="[
+                    isEditing || contentExists
+                        ? 'cyan red--text text--lighten-5'
+                        : 'indigo darken-4 blue--text text--lighten-5',
+                ]"
+            >
+                TaskUpdate
+            </v-btn>
+        </div>
+    </div>
+</template>
+
+<script>
+// import moment from "moment";
+export default {
+    data() {
+        return {
+            taskCard: "",
+            editForm: {
+                id: this.$route.params.id,
+                name: "",
+                content: "",
+                status: "",
+                limit: "",
+            },
+            items: ["未着手", "対応中", "保留", "完了"],
+            menu: "",
+            text: "",
+            date: "",
+            isEditing: false,
+        };
+    },
+    async created() {
+        await axios
+            .get("/api/task-card/" + this.editForm.id)
+            .then((response) => {
+                this.editForm.name = response.data.taskCard.name;
+                this.editForm.content = response.data.taskCard.content;
+
+                this.date = response.data.date;
+                this.editForm.limit = response.data.taskCard.limit;
+                if (response.data.taskCard.status == 0) {
+                    this.editForm.status = "未着手";
+                } else if (response.data.taskCard.status == 1) {
+                    this.editForm.status = "対応中";
+                } else if (response.data.taskCard.status == 2) {
+                    this.editForm.status = "保留";
+                } else if (response.data.taskCard.status == 3) {
+                    this.editForm.status = "完了";
+                }
+            })
+            .catch((error) => console.log(error));
+    },
+    methods: {
+        async UpdateCard() {
+            await this.$store.dispatch("task/taskCardUpdate", this.editForm);
+            this.$router.push("/");
+        },
+        formatDate(date) {
+            if (!date) return null;
+            const [year, month, day] = date.split("-");
+            this.text = `${year}年${month}月${day}日`;
+            this.menu = false;
+            return;
+        },
+        startEdit() {
+            this.isEditing = true;
+        },
+        finishEdit() {
+            this.isEditing = false;
+        },
+    },
+    computed: {
+        contentExists() {
+            return (
+                this.editForm.name.length > 0 &&
+                this.editForm.content.length > 0 &&
+                this.editForm.limit.length > 0 &&
+                this.editForm.status.length > 0
+            );
+        },
+    },
+};
+</script>

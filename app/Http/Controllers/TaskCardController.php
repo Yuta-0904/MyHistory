@@ -7,6 +7,7 @@ use App\TaskCard;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
+use Carbon\Carbon;
 
 class TaskCardController extends Controller
 {
@@ -28,7 +29,6 @@ class TaskCardController extends Controller
     {
         $user_id = $request->user()->id;
         $status = $request->status;
-        
         switch ($status){
             case '未着手':
                 $status = 0;
@@ -56,9 +56,45 @@ class TaskCardController extends Controller
         return response()->json(['taskCard' => $taskCard],201);
     }
 
+    public function show(TaskCard $taskCard)
+    {   
+        $carbon = new Carbon($taskCard->limit);
+        $date = $carbon->format('Y年m月d日');
+        // $date1->format('Y/m/d');
+        
+        return response()->json(['taskCard' => $taskCard,'date' => $date],200);
+    }
+
     public function delete(TaskCard $taskCard)
     {         
         $taskCard->delete();
         return response()->json(['message' => '削除が完了しました'],201);
+    }
+
+    public function update(TaskCardRequest $request,TaskCard $taskCard)
+    {         
+        $status = $request->status;
+        switch ($status){
+            case '未着手':
+                $status = 0;
+                break;
+            case '対応中':
+                $status = 1;
+                break;
+            case '保留':
+                $status = 2;
+                break;
+            default:
+                $status = 3;
+        }
+        
+
+        $taskCard->update([
+            'name' => $request->name,
+            'content' => $request->content,
+            'status' => $status,
+            'limit' => $request->limit,
+        ]);
+        return response()->json(['taskCard' => $taskCard],201);
     }
 }

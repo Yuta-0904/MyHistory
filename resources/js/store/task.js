@@ -1,79 +1,85 @@
 const state = {
-  taskLists: [],
-  taskCards: [],
-}
+    taskLists: [],
+    taskCards: [],
+};
 
-const getters = {
-  
-}
+const getters = {};
 
 const mutations = {
-  setTaskLists (state, taskLists) {
-    state.taskLists = taskLists
-  },
+    setTaskLists(state, taskLists) {
+        state.taskLists = taskLists;
+    },
 
-//   addTaskList(state,taskList){
-//     state.taskLists.push({
-//         id: taskList.id,
-//         user_id: taskList.user_id,
-//         name: taskList.name,
-//         created_at: taskList.created_at,
-//         updated_at: taskList.updated_at,
-//         deleted_at:null
-//     })
-//   },
+    //   addTaskList(state,taskList){
+    //     state.taskLists.push({
+    //         id: taskList.id,
+    //         user_id: taskList.user_id,
+    //         name: taskList.name,
+    //         created_at: taskList.created_at,
+    //         updated_at: taskList.updated_at,
+    //         deleted_at:null
+    //     })
+    //   },
 
-//   addTaskCard(state,taskCard){
-//     state.taskCards.push({
-//         id: taskCard.id,
-//         user_id: taskCard.user_id,
-//         list_id: taskCard.list_id,
-//         name: taskCard.name,
-//         content: taskCard.content,
-//         status: taskCard.status,
-//         limit: taskCard.limit,
-//         created_at: taskCard.created_at,
-//         updated_at: taskCard.updated_at,
-//         deleted_at:null
-//     })
-//   }
-
-}
+    //   addTaskCard(state,taskCard){
+    //     state.taskCards.push({
+    //         id: taskCard.id,
+    //         user_id: taskCard.user_id,
+    //         list_id: taskCard.list_id,
+    //         name: taskCard.name,
+    //         content: taskCard.content,
+    //         status: taskCard.status,
+    //         limit: taskCard.limit,
+    //         created_at: taskCard.created_at,
+    //         updated_at: taskCard.updated_at,
+    //         deleted_at:null
+    //     })
+    //   }
+};
 
 const actions = {
-  //タスクリスト取得
-  async taskListsGet (context) {
-    const response = await axios.get('/api/task-list')
-    const taskList = response.data.taskList || null
-    context.commit('setTaskLists', taskList)
-  },
+    //タスクリスト取得
+    async taskListsGet(context) {
+        const response = await axios.get("/api/task-list");
+        const taskList = response.data.taskList || null;
+        context.commit("setTaskLists", taskList);
+    },
 
-  //タスクリスト新規作成
-  async taskListsCreate (context, data) {
-    await axios.post('/api/task-list',data)
-    // context.commit('addTaskList', response.data.taskList)
-    
-    const response = await axios.get('/api/task-list')
-    const taskList = response.data.taskList || null
-    context.commit('setTaskLists', taskList)
-  },
+    //タスクリスト新規作成
+    async taskListsCreate(context, data) {
+        await axios.post("/api/task-list", data);
+        // context.commit('addTaskList', response.data.taskList)
 
-  //タスクカード新規作成
-  async taskCardCreate (context, data) {
-    await axios.post('/api/task-card',data)
-    //context.commit('addTaskCard', response.data.taskCard)
+        const response = await axios.get("/api/task-list");
+        const taskList = response.data.taskList || null;
+        context.commit("setTaskLists", taskList);
+    },
 
-    const response = await axios.get('/api/task-list')
-    const taskList = response.data.taskList || null
-    context.commit('setTaskLists', taskList)
-  },
-}
+    //タスクカード新規作成
+    async taskCardCreate(context, data) {
+        await axios.post("/api/task-card", data);
+        //context.commit('addTaskCard', response.data.taskCard)
+
+        const response = await axios.get("/api/task-list");
+        const taskList = response.data.taskList || null;
+        context.commit("setTaskLists", taskList);
+    },
+
+    //タスクカード更新
+    async taskCardUpdate(context, data) {
+        await axios.patch("/api/task-card/" + data.id, data);
+
+        const response = await axios.get("/api/task-list");
+        const taskList = response.data.taskList || null;
+        context.commit("setTaskLists", taskList);
+    },
+};
 
 export default {
-  //namespacedをtrueにすることでアクション呼び出す際に"モジュール/actions名"の形を第一に引数にできる。
-  namespaced: true,
-  state,
-  getters,
-  mutations,
-  actions
-}
+    //namespacedをtrueにすることでアクション呼び出す際に"モジュール/actions名"の形を第一に引数にできる。
+    namespaced: true,
+    state,
+    getters,
+    mutations,
+    actions,
+};

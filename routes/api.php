@@ -47,5 +47,11 @@ Route::get('/task-card', [TaskCardController::class,'get'])->name('taskCard');
 // タスクカード登録
 Route::post('/task-card', [TaskCardController::class,'create'])->name('taskCardCreate');
 
+// タスクカード詳細取得
+Route::get('/task-card/{taskCard}', [TaskCardController::class,'show'])->name('taskCardShow');
+
 // タスクカード削除
 Route::delete('/task-card/{taskCard}', [TaskCardController::class,'delete'])->name('taskCardDelete');
+
+// タスクカード更新
+Route::patch('/task-card/{taskCard}', [TaskCardController::class,'update'])->name('taskCardUpdate');

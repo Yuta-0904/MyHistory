@@ -7,7 +7,8 @@ use App\Http\Requests\TaskListRequest;
 use App\TaskList;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
-use Illuminate\Support\Facades\DB;
+use Carbon\Carbon;
+
 
 class TaskListController extends Controller
 {
@@ -21,9 +22,19 @@ class TaskListController extends Controller
     {
         //認証ユーザの値のみ取得
         $taskLists = TaskList::all()->where('user_id',Auth::id());
+
+     
         foreach ($taskLists as $taskList) {
             ///リストに紐づいているタスクカードも取得
             $taskList->cards->sortByDesc('created_at');
+
+
+            foreach($taskList->cards as $taskCard) {
+                $carbon = new Carbon($taskCard->limit);
+                $taskCard->limit = $carbon->format('Y年m月d日');
+                log::info($taskCard->limit);
+            }
+           
         }
       
         return response()->json(['taskList' => $taskLists],201);
