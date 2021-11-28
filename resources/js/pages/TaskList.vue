@@ -2,11 +2,9 @@
     <div class="task-lists">
         <h1>タスクリスト一覧</h1>
 
-        <v-card-title
-            class="text-h3 teal--text text--darken-1 text-decoration-underline"
-        >
-            <p>ListTotal:</p>
-        </v-card-title>
+        <v-card-text>
+            <TaskCardAdd :listNames="listNames" />
+        </v-card-text>
         <v-row>
             <v-col cols="4" class="ml-6 mb-3 mt-2">
                 <task-list-add />
@@ -31,11 +29,13 @@
 <script>
 import { mapState } from "vuex";
 import TaskListAdd from "../components/TaskListAdd.vue";
+import TaskCardAdd from "../components/TaskCardAdd.vue";
 import List from "../components/List.vue";
 export default {
     components: {
         TaskListAdd,
         List,
+        TaskCardAdd,
     },
     data() {
         return {
@@ -43,14 +43,20 @@ export default {
             taskList: {
                 name: "",
             },
+            listNames: [],
         };
     },
     methods: {
         async taskListsGet() {
             // authストアのloginアクションを呼び出す
             const response = await axios.get("/api/task-list");
-            console.log(response);
             this.taskLists = response.data.taskList;
+
+            const listNames = [];
+            this.taskLists.forEach(function (taskList) {
+                listNames.push(taskList.name);
+            });
+            this.listNames = listNames;
         },
     },
     computed: {

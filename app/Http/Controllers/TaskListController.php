@@ -32,7 +32,6 @@ class TaskListController extends Controller
             foreach($taskList->cards as $taskCard) {
                 $carbon = new Carbon($taskCard->limit);
                 $taskCard->limit = $carbon->format('Y年m月d日');
-                log::info($taskCard->limit);
             }
            
         }

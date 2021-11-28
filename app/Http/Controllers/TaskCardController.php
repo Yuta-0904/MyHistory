@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\TaskCardRequest;
 use App\TaskCard;
+use App\TaskList;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
@@ -27,6 +28,7 @@ class TaskCardController extends Controller
 
     public function create(TaskCardRequest $request, TaskCard $taskCard)
     {
+        log::info($request);
         $user_id = $request->user()->id;
         $status = $request->status;
         switch ($status){
@@ -43,9 +45,15 @@ class TaskCardController extends Controller
                 $status = 3;
         }
 
+        $list_name = $request->list_name;
+        log::info($list_name);
+        $list = TaskList::where('name',$list_name)->first();
+        log::info($list);
+        $list_id = $list->id;
+        
         $taskCard->fill([
             'user_id' => $user_id,
-            'list_id' => $request->list_id,
+            'list_id' => $list_id,
             'name' => $request->name,
             'content' => $request->content,
             'status' => $status,

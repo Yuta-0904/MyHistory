@@ -4,6 +4,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\TaskListController;
 use App\Http\Controllers\TaskCardController;
+use App\Http\Controllers\LearnCardController;
+use App\Http\Controllers\LearnListController;
 
 /*
 |--------------------------------------------------------------------------
@@ -55,3 +57,12 @@ Route::delete('/task-card/{taskCard}', [TaskCardController::class,'delete'])->na
 
 // タスクカード更新
 Route::patch('/task-card/{taskCard}', [TaskCardController::class,'update'])->name('taskCardUpdate');
+
+// 学習リスト取得
+Route::get('/learn-list', [LearnListController::class,'get'])->name('learnList');
+
+// 学習リスト登録
+// Route::post('/learn-list', [LearnListController::class,'create'])->name('learnListCreate');
+
+// 学習リスト削除
+// Route::delete('/learn-list/{learnList}', [LearnListController::class,'delete'])->name('learnListDelete');

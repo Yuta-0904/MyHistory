@@ -15,24 +15,28 @@
             </v-card-title>
         </v-card-text>
 
-        <TaskCard
+        <!-- <v-card-text>
+            <TaskCardAdd :listIndex="listIndex" />
+        </v-card-text> -->
+
+        <!-- <TaskCard
             v-for="taskCard in taskCards"
             :key="taskCard.id"
             :taskCard="taskCard"
             :listIndex="listIndex"
-        />
+        /> -->
     </v-card>
 </template>
 
 <script>
-import TaskCardAdd from "./TaskCardAdd.vue";
-import TaskCard from "./TaskCard.vue";
+// import TaskCardAdd from "./TaskCardAdd.vue";
+//import TaskCard from "./TaskCard.vue";
 
 export default {
     name: "List",
     components: {
-        TaskCardAdd,
-        TaskCard,
+        // TaskCardAdd,
+        //TaskCard,
     },
     props: {
         name: {
@@ -43,7 +47,7 @@ export default {
             type: Number,
             required: true,
         },
-        taskCards: {
+        learnCards: {
             type: Array,
         },
     },

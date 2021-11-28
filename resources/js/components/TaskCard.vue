@@ -4,7 +4,9 @@
             <v-card-title class="justify-space-between">
                 {{ taskCard.name }}
                 <v-hover v-slot="{ hover }"
-                    ><span @click="removeCard" :class="{ 'on-hover': hover }"
+                    ><span
+                        @click.prevent="removeCard"
+                        :class="{ 'on-hover': hover }"
                         >X</span
                     ></v-hover
                 >
