@@ -28,7 +28,6 @@ class TaskCardController extends Controller
 
     public function create(TaskCardRequest $request, TaskCard $taskCard)
     {
-        log::info($request);
         $user_id = $request->user()->id;
         $status = $request->status;
         switch ($status){
@@ -46,9 +45,7 @@ class TaskCardController extends Controller
         }
 
         $list_name = $request->list_name;
-        log::info($list_name);
         $list = TaskList::where('name',$list_name)->first();
-        log::info($list);
         $list_id = $list->id;
         
         $taskCard->fill([

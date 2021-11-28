@@ -2,7 +2,7 @@
     <form>
         <v-text-field
             v-model="cardForm.name"
-            label="TaskTitle"
+            label="LearnTitle"
             required
             clearable
             @focusin="startEdit"
@@ -14,7 +14,7 @@
         <v-select
             v-model="cardForm.list_name"
             :items="listNames"
-            label="TaskListName"
+            label="LearnListName"
             required
             clearable
             @focusin="startEdit"
@@ -24,7 +24,7 @@
 
         <v-text-field
             v-model="cardForm.content"
-            label="TaskContent"
+            label="LearnContent"
             required
             clearable
             @focusin="startEdit"
@@ -34,32 +34,13 @@
         <v-select
             v-model="cardForm.status"
             :items="items"
-            label="TaskStatus"
+            label="LearnStatus"
             required
             clearable
             @focusin="startEdit"
             @focusout="finishEdit"
             class="mx-auto"
         ></v-select>
-
-        <v-menu v-model="menu">
-            <template v-slot:activator="{ on, attrs }">
-                <v-text-field
-                    v-model="text"
-                    label="TaskLimit"
-                    v-bind="attrs"
-                    v-on="on"
-                    clearable
-                    @focusin="startEdit"
-                    @focusout="finishEdit"
-                    class="mx-auto"
-                ></v-text-field>
-            </template>
-            <v-date-picker
-                v-model="cardForm.limit"
-                @input="formatDate(cardForm.limit)"
-            ></v-date-picker>
-        </v-menu>
 
         <v-btn
             class="d-flex mx-auto mb-3 px-10"
@@ -70,7 +51,7 @@
                     : 'indigo darken-4 blue--text text--lighten-5',
             ]"
         >
-            TaskAdd
+            LearnAdd
         </v-btn>
     </form>
 </template>
@@ -90,13 +71,10 @@ export default {
                 name: "",
                 content: "",
                 status: "",
-                limit: "",
                 list_name: "",
             },
             isEditing: false,
-            menu: "",
-            text: "",
-            items: ["未着手", "対応中", "保留", "完了"],
+            items: ["未着手", "学習中", "保留", "完了"],
             taskListName: [],
         };
     },
@@ -105,7 +83,6 @@ export default {
             return (
                 this.cardForm.name.length > 0 &&
                 this.cardForm.content.length > 0 &&
-                this.cardForm.limit.length > 0 &&
                 this.cardForm.list_name.length > 0 &&
                 this.cardForm.status.length > 0
             );
@@ -113,27 +90,17 @@ export default {
     },
     methods: {
         async addCardToList() {
-            await this.$store.dispatch("task/taskCardCreate", this.cardForm);
+            await this.$store.dispatch("learn/learnCardCreate", this.cardForm);
             this.cardForm.name = "";
             this.cardForm.content = "";
             this.cardForm.status = "";
-            this.cardForm.limit = "";
             this.cardForm.list_name = "";
-            this.menu = false;
-            this.text = "";
         },
         startEdit() {
             this.isEditing = true;
         },
         finishEdit() {
             this.isEditing = false;
-        },
-        formatDate(date) {
-            if (!date) return null;
-            const [year, month, day] = date.split("-");
-            this.text = `${year}${month}${day}`;
-            this.menu = false;
-            return;
         },
     },
 };

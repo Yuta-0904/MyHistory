@@ -60,7 +60,6 @@ export default {
                 await axios
                     .delete("/api/task-list/" + this.listIndex)
                     .then((response) => {
-                        alert(response.data.message);
                         this.$store.dispatch("task/taskListsGet");
                     })
                     .catch((error) => {

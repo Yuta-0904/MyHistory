@@ -61,8 +61,14 @@ Route::patch('/task-card/{taskCard}', [TaskCardController::class,'update'])->nam
 // 学習リスト取得
 Route::get('/learn-list', [LearnListController::class,'get'])->name('learnList');
 
-// 学習リスト登録
-// Route::post('/learn-list', [LearnListController::class,'create'])->name('learnListCreate');
+//学習リスト登録
+Route::post('/learn-list', [LearnListController::class,'create'])->name('learnListCreate');
 
 // 学習リスト削除
-// Route::delete('/learn-list/{learnList}', [LearnListController::class,'delete'])->name('learnListDelete');
+Route::delete('/learn-list/{learnList}', [LearnListController::class,'delete'])->name('learnListDelete');
+
+// 学習カード登録
+Route::post('/learn-card', [LearnCardController::class,'create'])->name('learnCardCreate');
+
+// 学習カード削除
+Route::delete('/learn-card/{learnCard}', [LearnCardController::class,'delete'])->name('learnCardDelete');

@@ -20,22 +20,22 @@ const actions = {
     },
 
     //学習リスト新規作成
-    // async learnListsCreate(context, data) {
-    //     await axios.post("/api/learn-list", data);
+    async learnListsCreate(context, data) {
+        await axios.post("/api/learn-list", data);
 
-    //     const response = await axios.get("/api/learn-list");
-    //     const learnList = response.data.learnList || null;
-    //     context.commit("setLearnLists", learnList);
-    // },
+        const response = await axios.get("/api/learn-list");
+        const learnList = response.data.learnList || null;
+        context.commit("setLearnLists", learnList);
+    },
 
     //学習カード新規作成
-    // async learnCardCreate(context, data) {
-    //     await axios.post("/api/learn-card", data);
+    async learnCardCreate(context, data) {
+        await axios.post("/api/learn-card", data);
 
-    //     const response = await axios.get("/api/learn-list");
-    //     const learnList = response.data.learnList || null;
-    //     context.commit("setLearnLists", learnList);
-    // },
+        const response = await axios.get("/api/learn-list");
+        const learnList = response.data.learnList || null;
+        context.commit("setLearnLists", learnList);
+    },
 
     //学習カード更新
     // async learnCardUpdate(context, data) {

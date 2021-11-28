@@ -15,28 +15,23 @@
             </v-card-title>
         </v-card-text>
 
-        <!-- <v-card-text>
-            <TaskCardAdd :listIndex="listIndex" />
-        </v-card-text> -->
-
-        <!-- <TaskCard
-            v-for="taskCard in taskCards"
-            :key="taskCard.id"
-            :taskCard="taskCard"
+        <LearnCard
+            v-for="learnCard in learnCards"
+            :key="learnCard.id"
+            :learnCard="learnCard"
             :listIndex="listIndex"
-        /> -->
+        />
     </v-card>
 </template>
 
 <script>
-// import TaskCardAdd from "./TaskCardAdd.vue";
-//import TaskCard from "./TaskCard.vue";
+import LearnCard from "./LearnCard.vue";
 
 export default {
     name: "List",
     components: {
         // TaskCardAdd,
-        //TaskCard,
+        LearnCard,
     },
     props: {
         name: {
@@ -58,14 +53,13 @@ export default {
         async removeList() {
             if (
                 confirm(
-                    "リストを削除するとリスト内のタスクも削除されますがよろしいでしょうか?"
+                    "リストを削除するとリスト内の学習記録も削除されますがよろしいでしょうか?"
                 )
             ) {
                 await axios
-                    .delete("/api/task-list/" + this.listIndex)
+                    .delete("/api/learn-list/" + this.listIndex)
                     .then((response) => {
-                        alert(response.data.message);
-                        this.$store.dispatch("task/taskListsGet");
+                        this.$store.dispatch("learn/learnListsGet");
                     })
                     .catch((error) => {
                         console.log(error);

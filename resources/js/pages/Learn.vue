@@ -2,14 +2,14 @@
     <div class="task-lists">
         <h1>学習記録</h1>
 
-        <!-- <v-card-text>
-            <TaskCardAdd :listNames="listNames" />
-        </v-card-text> -->
-        <!-- <v-row>
+        <v-card-text>
+            <LearnCardAdd :listNames="listNames" />
+        </v-card-text>
+        <v-row>
             <v-col cols="4" class="ml-6 mb-3 mt-2">
-                <task-list-add />
+                <learn-list-add />
             </v-col>
-        </v-row> -->
+        </v-row>
 
         <v-card
             class="d-flex justify-center flex-wrap"
@@ -28,14 +28,14 @@
 
 <script>
 import { mapState } from "vuex";
-//import TaskListAdd from "../components/TaskListAdd.vue";
-//import TaskCardAdd from "../components/TaskCardAdd.vue";
+import LearnListAdd from "../components/learn/LearnListAdd.vue";
+import LearnCardAdd from "../components/learn/LearnCardAdd.vue";
 import List from "../components/learn/List.vue";
 export default {
     components: {
-        //TaskListAdd,
+        LearnListAdd,
         List,
-        //TaskCardAdd,
+        LearnCardAdd,
     },
     data() {
         return {

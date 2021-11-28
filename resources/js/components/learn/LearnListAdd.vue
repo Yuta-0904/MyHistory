@@ -1,8 +1,8 @@
 <template>
     <form>
         <v-text-field
-            v-model="taskList.name"
-            label="TaskList"
+            v-model="learnList.name"
+            label="LearnList"
             required
             clearable
             @focusin="startEdit"
@@ -26,7 +26,7 @@
 export default {
     data() {
         return {
-            taskList: {
+            learnList: {
                 name: "",
             },
             isEditing: false,
@@ -34,8 +34,11 @@ export default {
     },
     methods: {
         async addList() {
-            await this.$store.dispatch("task/taskListsCreate", this.taskList);
-            this.taskList.name = "";
+            await this.$store.dispatch(
+                "learn/learnListsCreate",
+                this.learnList
+            );
+            this.learnList.name = "";
         },
         startEdit() {
             this.isEditing = true;
@@ -46,7 +49,7 @@ export default {
     },
     computed: {
         contentExists() {
-            return this.taskList.name.length > 0;
+            return this.learnList.name.length > 0;
         },
     },
 };

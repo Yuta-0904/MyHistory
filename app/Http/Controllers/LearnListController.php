@@ -24,4 +24,24 @@ class LearnListController extends Controller
       
         return response()->json(['learnList' => $learnLists],201);
     }
+
+    public function create(LearnListRequest $request, LearnList $learnList)
+    {
+        
+        $learnList->fill($request->all());
+        $learnList->user_id = $request->user()->id;
+        $learnList->save();
+
+        return response()->json(['taskList' => $learnList],201);
+    }
+
+    public function delete(LearnList $learnList)
+    {        
+        $learnList->cards()->each(function ($cards) {
+            $cards->delete();
+        });
+        
+        $learnList->delete();
+        return response()->json(['message' => '削除が完了しました'],201);
+    }
 }
