@@ -6,6 +6,7 @@ import TaskList from "./pages/TaskList.vue";
 import Login from "./pages/Login.vue";
 import Task from "./pages/Task.vue";
 import Learn from "./pages/Learn.vue";
+import LearnDetail from "./pages/LearnDetail.vue";
 
 import store from "./store"; // ★　追加
 import SystemError from "./pages/errors/System.vue";
@@ -61,6 +62,19 @@ export default new VueRouter({
             path: "/learn",
             name: "learnList",
             component: Learn,
+            beforeEnter(to, from, next) {
+                ///未ログインであればログインページに返却するよう条件判定
+                if (!store.getters["auth/check"]) {
+                    next("/login");
+                } else {
+                    next();
+                }
+            },
+        },
+        {
+            path: "/learn/:id",
+            name: "learnDetail",
+            component: LearnDetail,
             beforeEnter(to, from, next) {
                 ///未ログインであればログインページに返却するよう条件判定
                 if (!store.getters["auth/check"]) {

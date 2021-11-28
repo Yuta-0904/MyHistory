@@ -72,3 +72,9 @@ Route::post('/learn-card', [LearnCardController::class,'create'])->name('learnCa
 
 // 学習カード削除
 Route::delete('/learn-card/{learnCard}', [LearnCardController::class,'delete'])->name('learnCardDelete');
+
+// 学習カード詳細取得
+Route::get('/learn-card/{learnCard}', [LearnCardController::class,'show'])->name('learnCardShow');
+
+// 学習カード更新
+Route::patch('/learn-card/{learnCard}', [LearnCardController::class,'update'])->name('learnCardUpdate');

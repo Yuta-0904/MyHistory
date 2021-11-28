@@ -52,9 +52,41 @@ class LearnCardController extends Controller
         return response()->json(['learnCard' => $learnCard],201);
     }
 
+    public function show(LearnCard $learnCard)
+    {    
+        return response()->json(['learnCard' => $learnCard],200);
+    }
+
     public function delete(LearnCard $learnCard)
     {         
         $learnCard->delete();
         return response()->json(['message' => '削除が完了しました'],201);
+    }
+
+    public function update(LearnCardRequest $request,LearnCard $learnCard)
+    {         
+        log::info($request);
+        $status = $request->status;
+        switch ($status){
+            case '未着手':
+                $status = 0;
+                break;
+            case '学習中':
+                $status = 1;
+                break;
+            case '保留':
+                $status = 2;
+                break;
+            default:
+                $status = 3;
+        }
+        
+
+        $learnCard->update([
+            'name' => $request->name,
+            'content' => $request->content,
+            'status' => $status,
+        ]);
+        return response()->json(['learnCard' => $learnCard],201);
     }
 }

@@ -1,22 +1,22 @@
 <template>
-    <!-- <router-link :to="{ name: 'learnDetail', params: { id: learnCard.id } }"> -->
-    <v-card class="mx-auto my-3" width="250px" style="min-width: 250px">
-        <v-card-title class="justify-space-between">
-            {{ learnCard.name }}
-            <v-hover v-slot="{ hover }"
-                ><span
-                    @click.prevent="removeCard"
-                    :class="{ 'on-hover': hover }"
-                    >X</span
-                ></v-hover
-            >
-        </v-card-title>
-        <v-card-text>
-            {{ learnCard.content }}
-        </v-card-text>
-        <v-card-subtitle> 学習状況：{{ statusName }} </v-card-subtitle>
-    </v-card>
-    <!-- </router-link> -->
+    <router-link :to="{ name: 'learnDetail', params: { id: learnCard.id } }">
+        <v-card class="mx-auto my-3" width="250px" style="min-width: 250px">
+            <v-card-title class="justify-space-between">
+                {{ learnCard.name }}
+                <v-hover v-slot="{ hover }"
+                    ><span
+                        @click.prevent="removeCard"
+                        :class="{ 'on-hover': hover }"
+                        >X</span
+                    ></v-hover
+                >
+            </v-card-title>
+            <v-card-text>
+                {{ learnCard.content }}
+            </v-card-text>
+            <v-card-subtitle> 学習状況：{{ statusName }} </v-card-subtitle>
+        </v-card>
+    </router-link>
 </template>
 
 <script>

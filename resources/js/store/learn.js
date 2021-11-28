@@ -38,13 +38,13 @@ const actions = {
     },
 
     //学習カード更新
-    // async learnCardUpdate(context, data) {
-    //     await axios.patch("/api/learn-card/" + data.id, data);
+    async learnCardUpdate(context, data) {
+        await axios.patch("/api/learn-card/" + data.id, data);
 
-    //     const response = await axios.get("/api/learn-list");
-    //     const learnList = response.data.learnList || null;
-    //     context.commit("setLearnLists", learnList);
-    // },
+        const response = await axios.get("/api/learn-list");
+        const learnList = response.data.learnList || null;
+        context.commit("setLearnLists", learnList);
+    },
 };
 
 export default {
