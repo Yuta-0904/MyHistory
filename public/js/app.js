@@ -2725,6 +2725,15 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "Card",
   props: {
@@ -2772,6 +2781,11 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           }
         }, _callee);
       }))();
+    },
+    twitterShare: function twitterShare() {
+      //シェアする画面を設定
+      var shareURL = "https://twitter.com/intent/tweet?text=" + "【" + this.learnCard.name + "】" + "%0a" + this.learnCard.content + "%0a" + "%20%23MyHistory";
+      window.open(shareURL, "_blank");
     }
   },
   computed: {
@@ -3191,7 +3205,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       learnList: {
         name: ""
       },
-      listNames: []
+      listNames: [],
+      tweet: "api"
     };
   },
   methods: {
@@ -4042,7 +4057,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, ".v-card__title span.on-hover[data-v-dcc3bd64] {\n  cursor: pointer;\n}", ""]);
+exports.push([module.i, ".v-card__title span.on-hover[data-v-dcc3bd64] {\n  cursor: pointer;\n}\n.routerLink[data-v-dcc3bd64] {\n  text-decoration: none;\n}", ""]);
 
 // exports
 
@@ -6772,6 +6787,7 @@ var render = function () {
   return _c(
     "router-link",
     {
+      staticClass: "routerLink",
       attrs: { to: { name: "learnDetail", params: { id: _vm.learnCard.id } } },
     },
     [
@@ -6825,9 +6841,24 @@ var render = function () {
             ),
           ]),
           _vm._v(" "),
-          _c("v-card-subtitle", [
-            _vm._v(" 学習状況：" + _vm._s(_vm.statusName) + " "),
-          ]),
+          _c(
+            "v-card-title",
+            { staticClass: "justify-space-between" },
+            [
+              _c("span", [_vm._v("学習状況：" + _vm._s(_vm.statusName))]),
+              _vm._v(" "),
+              _c(
+                "v-btn",
+                {
+                  attrs: { text: "", icon: "", large: "", color: "#1DA1F2" },
+                  on: { click: _vm.twitterShare },
+                },
+                [_c("v-icon", [_vm._v("mdi-twitter")])],
+                1
+              ),
+            ],
+            1
+          ),
         ],
         1
       ),

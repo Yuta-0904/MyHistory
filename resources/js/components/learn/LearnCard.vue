@@ -1,5 +1,8 @@
 <template>
-    <router-link :to="{ name: 'learnDetail', params: { id: learnCard.id } }">
+    <router-link
+        class="routerLink"
+        :to="{ name: 'learnDetail', params: { id: learnCard.id } }"
+    >
         <v-card class="mx-auto my-3" width="250px" style="min-width: 250px">
             <v-card-title class="justify-space-between">
                 {{ learnCard.name }}
@@ -14,7 +17,13 @@
             <v-card-text>
                 {{ learnCard.content }}
             </v-card-text>
-            <v-card-subtitle> 学習状況：{{ statusName }} </v-card-subtitle>
+
+            <v-card-title class="justify-space-between">
+                <span>学習状況：{{ statusName }}</span>
+                <v-btn text icon large color="#1DA1F2" @click="twitterShare">
+                    <v-icon>mdi-twitter</v-icon>
+                </v-btn>
+            </v-card-title>
         </v-card>
     </router-link>
 </template>
@@ -52,6 +61,20 @@ export default {
                     });
             }
         },
+        twitterShare() {
+            //シェアする画面を設定
+            const shareURL =
+                "https://twitter.com/intent/tweet?text=" +
+                "【" +
+                this.learnCard.name +
+                "】" +
+                "%0a" +
+                this.learnCard.content +
+                "%0a" +
+                "%20%23MyHistory";
+
+            window.open(shareURL, "_blank");
+        },
     },
     computed: {
         statusName: function () {
@@ -72,5 +95,9 @@ export default {
 <style scoped lang="scss">
 .v-card__title span.on-hover {
     cursor: pointer;
+}
+
+.routerLink {
+    text-decoration: none;
 }
 </style>
