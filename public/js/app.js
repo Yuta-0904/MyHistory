@@ -2725,6 +2725,25 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "Card",
   props: {
@@ -2739,7 +2758,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
   },
   data: function data() {
     return {
-      status: ""
+      status: "",
+      tweetError: false
     };
   },
   methods: {
@@ -2772,6 +2792,21 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           }
         }, _callee);
       }))();
+    },
+    twitterShare: function twitterShare() {
+      //シェアする画面を設定
+      var shareURL = "https://twitter.com/intent/tweet?text=" + "【" + this.learnCard.name + "】" + "%0a" + this.learnCard.content + "%0a" + "%20%23MyHistory";
+      var tweetContenstsLength = this.learnCard.name.length + this.learnCard.content.length;
+
+      if (tweetContenstsLength <= 130) {
+        window.open(shareURL, "_blank");
+      } else {
+        this.tweetError = true;
+      }
+    },
+    lengthCheck: function lengthCheck() {
+      var tweetContenstsLength = this.learnCard.name.length + this.learnCard.content.length;
+      console.log(tweetContenstsLength);
     }
   },
   computed: {
@@ -3191,7 +3226,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       learnList: {
         name: ""
       },
-      listNames: []
+      listNames: [],
+      tweet: "api"
     };
   },
   methods: {
@@ -3294,7 +3330,6 @@ function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
-//
 //
 //
 //
@@ -4042,7 +4077,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, ".v-card__title span.on-hover[data-v-dcc3bd64] {\n  cursor: pointer;\n}", ""]);
+exports.push([module.i, ".v-card__title span.on-hover[data-v-dcc3bd64] {\n  cursor: pointer;\n}\n.routerLink[data-v-dcc3bd64] {\n  text-decoration: none;\n}", ""]);
 
 // exports
 
@@ -6772,13 +6807,14 @@ var render = function () {
   return _c(
     "router-link",
     {
+      staticClass: "routerLink",
       attrs: { to: { name: "learnDetail", params: { id: _vm.learnCard.id } } },
     },
     [
       _c(
         "v-card",
         {
-          staticClass: "mx-auto my-3",
+          staticClass: "mx-auto my-3 p-2",
           staticStyle: { "min-width": "250px" },
           attrs: { width: "250px" },
         },
@@ -6825,9 +6861,37 @@ var render = function () {
             ),
           ]),
           _vm._v(" "),
-          _c("v-card-subtitle", [
-            _vm._v(" 学習状況：" + _vm._s(_vm.statusName) + " "),
-          ]),
+          _c(
+            "v-card-title",
+            { staticClass: "justify-space-between" },
+            [
+              _c("span", [_vm._v("学習状況：" + _vm._s(_vm.statusName))]),
+              _vm._v(" "),
+              _c(
+                "v-btn",
+                {
+                  attrs: { text: "", icon: "", large: "", color: "#1DA1F2" },
+                  on: {
+                    click: function ($event) {
+                      $event.preventDefault()
+                      return _vm.twitterShare.apply(null, arguments)
+                    },
+                  },
+                },
+                [_c("v-icon", [_vm._v("mdi-twitter")])],
+                1
+              ),
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _vm.tweetError
+            ? _c("v-alert", { attrs: { type: "error" } }, [
+                _vm._v(
+                  "\n            Tweet可能文字数はタイトルと合わせて130文字です。\n        "
+                ),
+              ])
+            : _vm._e(),
         ],
         1
       ),
@@ -7210,7 +7274,6 @@ var render = function () {
                     value: "editForm.content",
                     label: "Message",
                     counter: "",
-                    maxlength: "120",
                     "full-width": "",
                     height: "60px",
                   },

@@ -44,6 +44,7 @@ export default {
                 name: "",
             },
             listNames: [],
+            tweet: "api",
         };
     },
     methods: {
