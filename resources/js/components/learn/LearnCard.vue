@@ -3,7 +3,7 @@
         class="routerLink"
         :to="{ name: 'learnDetail', params: { id: learnCard.id } }"
     >
-        <v-card class="mx-auto my-3" width="250px" style="min-width: 250px">
+        <v-card class="mx-auto my-3 p-2" width="250px" style="min-width: 250px">
             <v-card-title class="justify-space-between">
                 {{ learnCard.name }}
                 <v-hover v-slot="{ hover }"
@@ -20,10 +20,20 @@
 
             <v-card-title class="justify-space-between">
                 <span>学習状況：{{ statusName }}</span>
-                <v-btn text icon large color="#1DA1F2" @click="twitterShare">
+                <v-btn
+                    text
+                    icon
+                    large
+                    color="#1DA1F2"
+                    @click.prevent="twitterShare"
+                >
                     <v-icon>mdi-twitter</v-icon>
                 </v-btn>
             </v-card-title>
+
+            <v-alert v-if="tweetError" type="error">
+                Tweet可能文字数はタイトルと合わせて130文字です。
+            </v-alert>
         </v-card>
     </router-link>
 </template>
@@ -44,6 +54,7 @@ export default {
     data() {
         return {
             status: "",
+            tweetError: false,
         };
     },
     methods: {
@@ -73,7 +84,19 @@ export default {
                 "%0a" +
                 "%20%23MyHistory";
 
-            window.open(shareURL, "_blank");
+            const tweetContenstsLength =
+                this.learnCard.name.length + this.learnCard.content.length;
+
+            if (tweetContenstsLength <= 130) {
+                window.open(shareURL, "_blank");
+            } else {
+                this.tweetError = true;
+            }
+        },
+        lengthCheck() {
+            const tweetContenstsLength =
+                this.learnCard.name.length + this.learnCard.content.length;
+            console.log(tweetContenstsLength);
         },
     },
     computed: {

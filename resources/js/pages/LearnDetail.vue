@@ -23,7 +23,6 @@
                         value="editForm.content"
                         label="Message"
                         counter
-                        maxlength="120"
                         full-width
                         height="60px"
                     >
