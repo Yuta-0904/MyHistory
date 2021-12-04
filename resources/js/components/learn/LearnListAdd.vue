@@ -7,9 +7,11 @@
             clearable
             @focusin="startEdit"
             @focusout="finishEdit"
+            counter
+            :rules="nameRules"
         ></v-text-field>
         <v-btn
-            class="mr-4"
+            class="d-flex mx-auto"
             @click="addList"
             :class="[
                 isEditing || contentExists
@@ -30,6 +32,9 @@ export default {
                 name: "",
             },
             isEditing: false,
+            nameRules: [
+                (text) => text.length <= 50 || "最大文字数は50文字です",
+            ],
         };
     },
     methods: {

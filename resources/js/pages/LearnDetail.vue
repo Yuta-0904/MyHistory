@@ -10,7 +10,7 @@
                         value="editForm.name"
                         label="Message"
                         counter
-                        maxlength="50"
+                        :rules="nameRules"
                         full-width
                         height="60px"
                     >
@@ -25,6 +25,7 @@
                         counter
                         full-width
                         height="60px"
+                        :rules="contentRules"
                     >
                     </v-textarea>
                 </v-card>
@@ -67,6 +68,12 @@ export default {
             },
             items: ["未着手", "学習中", "保留", "完了"],
             isEditing: false,
+            nameRules: [
+                (text) => text.length <= 50 || "最大文字数は50文字です",
+            ],
+            contentRules: [
+                (text) => text.length <= 1000 || "最大文字数は1000文字です",
+            ],
         };
     },
     async created() {

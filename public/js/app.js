@@ -2516,6 +2516,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "CardAdd",
   props: {
@@ -2537,7 +2541,13 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       menu: "",
       text: "",
       items: ["未着手", "対応中", "保留", "完了"],
-      taskListName: []
+      taskListName: [],
+      nameRules: [function (text) {
+        return text.length <= 50 || "最大文字数は50文字です";
+      }],
+      contentRules: [function (text) {
+        return text.length <= 300 || "最大文字数は1000文字です";
+      }]
     };
   },
   computed: {
@@ -2639,13 +2649,17 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
       taskList: {
         name: ""
       },
-      isEditing: false
+      isEditing: false,
+      nameRules: [function (text) {
+        return text.length <= 50 || "最大文字数は50文字です";
+      }]
     };
   },
   methods: {
@@ -2901,6 +2915,13 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "CardAdd",
   props: {
@@ -2919,7 +2940,13 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       },
       isEditing: false,
       items: ["未着手", "学習中", "保留", "完了"],
-      taskListName: []
+      taskListName: [],
+      nameRules: [function (text) {
+        return text.length <= 50 || "最大文字数は50文字です";
+      }],
+      contentRules: [function (text) {
+        return text.length <= 1000 || "最大文字数は1000文字です";
+      }]
     };
   },
   computed: {
@@ -3005,13 +3032,18 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
       learnList: {
         name: ""
       },
-      isEditing: false
+      isEditing: false,
+      nameRules: [function (text) {
+        return text.length <= 50 || "最大文字数は50文字です";
+      }]
     };
   },
   methods: {
@@ -3210,6 +3242,37 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -3227,7 +3290,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         name: ""
       },
       listNames: [],
-      tweet: "api"
+      tweet: "api",
+      dialogCard: false,
+      dialogList: false
     };
   },
   methods: {
@@ -3386,6 +3451,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -3397,7 +3463,13 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         status: ""
       },
       items: ["未着手", "学習中", "保留", "完了"],
-      isEditing: false
+      isEditing: false,
+      nameRules: [function (text) {
+        return text.length <= 50 || "最大文字数は50文字です";
+      }],
+      contentRules: [function (text) {
+        return text.length <= 1000 || "最大文字数は1000文字です";
+      }]
     };
   },
   created: function created() {
@@ -6583,6 +6655,8 @@ var render = function () {
           required: "",
           clearable: "",
           width: "100%",
+          counter: "",
+          rules: _vm.nameRules,
         },
         on: { focusin: _vm.startEdit, focusout: _vm.finishEdit },
         model: {
@@ -6612,9 +6686,15 @@ var render = function () {
         },
       }),
       _vm._v(" "),
-      _c("v-text-field", {
+      _c("v-textarea", {
         staticClass: "mx-auto",
-        attrs: { label: "TaskContent", required: "", clearable: "" },
+        attrs: {
+          label: "TaskContent",
+          required: "",
+          clearable: "",
+          counter: "",
+          rules: _vm.contentRules,
+        },
         on: { focusin: _vm.startEdit, focusout: _vm.finishEdit },
         model: {
           value: _vm.cardForm.content,
@@ -6754,7 +6834,12 @@ var render = function () {
     "form",
     [
       _c("v-text-field", {
-        attrs: { label: "TaskList", required: "", clearable: "" },
+        attrs: {
+          label: "TaskList",
+          required: "",
+          clearable: "",
+          rules: _vm.nameRules,
+        },
         on: { focusin: _vm.startEdit, focusout: _vm.finishEdit },
         model: {
           value: _vm.taskList.name,
@@ -6931,6 +7016,8 @@ var render = function () {
           required: "",
           clearable: "",
           width: "100%",
+          counter: "",
+          rules: _vm.nameRules,
         },
         on: { focusin: _vm.startEdit, focusout: _vm.finishEdit },
         model: {
@@ -6949,6 +7036,7 @@ var render = function () {
           label: "LearnListName",
           required: "",
           clearable: "",
+          width: "100%",
         },
         on: { focusin: _vm.startEdit, focusout: _vm.finishEdit },
         model: {
@@ -6960,9 +7048,16 @@ var render = function () {
         },
       }),
       _vm._v(" "),
-      _c("v-text-field", {
+      _c("v-textarea", {
         staticClass: "mx-auto",
-        attrs: { label: "LearnContent", required: "", clearable: "" },
+        attrs: {
+          label: "LearnContent",
+          required: "",
+          clearable: "",
+          width: "100%",
+          counter: "",
+          rules: _vm.contentRules,
+        },
         on: { focusin: _vm.startEdit, focusout: _vm.finishEdit },
         model: {
           value: _vm.cardForm.content,
@@ -6980,6 +7075,7 @@ var render = function () {
           label: "LearnStatus",
           required: "",
           clearable: "",
+          width: "100%",
         },
         on: { focusin: _vm.startEdit, focusout: _vm.finishEdit },
         model: {
@@ -7034,7 +7130,13 @@ var render = function () {
     "form",
     [
       _c("v-text-field", {
-        attrs: { label: "LearnList", required: "", clearable: "" },
+        attrs: {
+          label: "LearnList",
+          required: "",
+          clearable: "",
+          counter: "",
+          rules: _vm.nameRules,
+        },
         on: { focusin: _vm.startEdit, focusout: _vm.finishEdit },
         model: {
           value: _vm.learnList.name,
@@ -7048,7 +7150,7 @@ var render = function () {
       _c(
         "v-btn",
         {
-          staticClass: "mr-4",
+          staticClass: "d-flex mx-auto",
           class: [
             _vm.isEditing || _vm.contentExists
               ? "cyan red--text text--lighten-5"
@@ -7167,22 +7269,136 @@ var render = function () {
       _c("h1", [_vm._v("学習記録")]),
       _vm._v(" "),
       _c(
-        "v-card-text",
-        [_c("LearnCardAdd", { attrs: { listNames: _vm.listNames } })],
-        1
-      ),
-      _vm._v(" "),
-      _c(
         "v-row",
+        { staticClass: "justify-center my-3" },
         [
           _c(
-            "v-col",
-            { staticClass: "ml-6 mb-3 mt-2", attrs: { cols: "4" } },
-            [_c("learn-list-add")],
+            "v-dialog",
+            {
+              attrs: { width: "500" },
+              scopedSlots: _vm._u([
+                {
+                  key: "activator",
+                  fn: function (ref) {
+                    var on = ref.on
+                    var attrs = ref.attrs
+                    return [
+                      _c(
+                        "v-btn",
+                        _vm._g(
+                          _vm._b(
+                            {
+                              staticClass: "me-5",
+                              attrs: {
+                                color: "blue-grey",
+                                elevation: "6",
+                                dark: "",
+                              },
+                            },
+                            "v-btn",
+                            attrs,
+                            false
+                          ),
+                          on
+                        ),
+                        [
+                          _vm._v(
+                            "\n                    cardAdd\n                "
+                          ),
+                        ]
+                      ),
+                    ]
+                  },
+                },
+              ]),
+              model: {
+                value: _vm.dialogCard,
+                callback: function ($$v) {
+                  _vm.dialogCard = $$v
+                },
+                expression: "dialogCard",
+              },
+            },
+            [
+              _vm._v(" "),
+              _c(
+                "v-card",
+                { staticClass: "p-5" },
+                [_c("LearnCardAdd", { attrs: { listNames: _vm.listNames } })],
+                1
+              ),
+            ],
             1
           ),
+          _vm._v(" "),
+          [
+            _c(
+              "div",
+              { staticClass: "text-center" },
+              [
+                _c(
+                  "v-dialog",
+                  {
+                    attrs: { width: "500" },
+                    scopedSlots: _vm._u([
+                      {
+                        key: "activator",
+                        fn: function (ref) {
+                          var on = ref.on
+                          var attrs = ref.attrs
+                          return [
+                            _c(
+                              "v-btn",
+                              _vm._g(
+                                _vm._b(
+                                  {
+                                    attrs: {
+                                      color: "teal",
+                                      elevation: "6",
+                                      dark: "",
+                                    },
+                                  },
+                                  "v-btn",
+                                  attrs,
+                                  false
+                                ),
+                                on
+                              ),
+                              [
+                                _vm._v(
+                                  "\n                            listAdd\n                        "
+                                ),
+                              ]
+                            ),
+                          ]
+                        },
+                      },
+                    ]),
+                    model: {
+                      value: _vm.dialogList,
+                      callback: function ($$v) {
+                        _vm.dialogList = $$v
+                      },
+                      expression: "dialogList",
+                    },
+                  },
+                  [
+                    _vm._v(" "),
+                    _c(
+                      "v-card",
+                      { staticClass: "p-5" },
+                      [_c("LearnListAdd")],
+                      1
+                    ),
+                  ],
+                  1
+                ),
+              ],
+              1
+            ),
+          ],
         ],
-        1
+        2
       ),
       _vm._v(" "),
       _c(
@@ -7248,7 +7464,7 @@ var render = function () {
                     value: "editForm.name",
                     label: "Message",
                     counter: "",
-                    maxlength: "50",
+                    rules: _vm.nameRules,
                     "full-width": "",
                     height: "60px",
                   },
@@ -7276,6 +7492,7 @@ var render = function () {
                     counter: "",
                     "full-width": "",
                     height: "60px",
+                    rules: _vm.contentRules,
                   },
                   model: {
                     value: _vm.editForm.content,
