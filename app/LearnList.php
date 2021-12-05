@@ -16,7 +16,7 @@ class LearnList extends Model
 
     //fillやfirstOrCreateをコントローラで使う際は必須
     protected $fillable = [
-        'name',
+        'name'
     ];
 
     public function user():BelongsTo

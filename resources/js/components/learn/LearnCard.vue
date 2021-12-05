@@ -3,7 +3,13 @@
         class="routerLink"
         :to="{ name: 'learnDetail', params: { id: learnCard.id } }"
     >
-        <v-card class="mx-auto my-3 p-2" width="250px" style="min-width: 250px">
+        <v-card
+            class="mx-auto my-3 p-2"
+            width="250px"
+            style="min-width: 250px"
+            :color="cardColor"
+            hover
+        >
             <v-card-title class="justify-space-between">
                 {{ learnCard.name }}
                 <v-hover v-slot="{ hover }"
@@ -14,12 +20,12 @@
                     ></v-hover
                 >
             </v-card-title>
-            <v-card-text>
+            <!-- <v-card-text>
                 {{ learnCard.content }}
-            </v-card-text>
+            </v-card-text> -->
 
             <v-card-title class="justify-space-between">
-                <span>学習状況：{{ statusName }}</span>
+                <span>{{ statusName }}</span>
                 <v-btn
                     text
                     icon
@@ -29,6 +35,9 @@
                 >
                     <v-icon>mdi-twitter</v-icon>
                 </v-btn>
+            </v-card-title>
+            <v-card-title>
+                {{ learnCard.date }}
             </v-card-title>
 
             <v-alert v-if="tweetError" type="error">
@@ -100,7 +109,7 @@ export default {
         },
     },
     computed: {
-        statusName: function () {
+        statusName() {
             if (this.learnCard.status == 0) {
                 return "未着手";
             } else if (this.learnCard.status == 1) {
@@ -109,6 +118,17 @@ export default {
                 return "保留";
             } else if (this.learnCard.status == 3) {
                 return "完了";
+            }
+        },
+        cardColor() {
+            if (this.learnCard.status == 0) {
+                return "red lighten-3";
+            } else if (this.learnCard.status == 1) {
+                return "blue lighten-3";
+            } else if (this.learnCard.status == 2) {
+                return "lime lighten-3";
+            } else if (this.learnCard.status == 3) {
+                return "green darken-4 white--text";
             }
         },
     },

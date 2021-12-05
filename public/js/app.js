@@ -2378,6 +2378,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
                 _context.next = 3;
                 return axios["delete"]("/api/task-card/" + _this.taskCard.id).then(function (response) {
+                  console.log(response);
+
                   _this.$store.dispatch("task/taskListsGet");
                 })["catch"](function (error) {
                   console.log(error);
@@ -2758,6 +2760,15 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "Card",
   props: {
@@ -2833,6 +2844,17 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         return "保留";
       } else if (this.learnCard.status == 3) {
         return "完了";
+      }
+    },
+    cardColor: function cardColor() {
+      if (this.learnCard.status == 0) {
+        return "red lighten-3";
+      } else if (this.learnCard.status == 1) {
+        return "blue lighten-3";
+      } else if (this.learnCard.status == 2) {
+        return "lime lighten-3";
+      } else if (this.learnCard.status == 3) {
+        return "green darken-4 white--text";
       }
     }
   }
@@ -6901,7 +6923,7 @@ var render = function () {
         {
           staticClass: "mx-auto my-3 p-2",
           staticStyle: { "min-width": "250px" },
-          attrs: { width: "250px" },
+          attrs: { width: "250px", color: _vm.cardColor, hover: "" },
         },
         [
           _c(
@@ -6940,17 +6962,11 @@ var render = function () {
             1
           ),
           _vm._v(" "),
-          _c("v-card-text", [
-            _vm._v(
-              "\n            " + _vm._s(_vm.learnCard.content) + "\n        "
-            ),
-          ]),
-          _vm._v(" "),
           _c(
             "v-card-title",
             { staticClass: "justify-space-between" },
             [
-              _c("span", [_vm._v("学習状況：" + _vm._s(_vm.statusName))]),
+              _c("span", [_vm._v(_vm._s(_vm.statusName))]),
               _vm._v(" "),
               _c(
                 "v-btn",
@@ -6969,6 +6985,12 @@ var render = function () {
             ],
             1
           ),
+          _vm._v(" "),
+          _c("v-card-title", [
+            _vm._v(
+              "\n            " + _vm._s(_vm.learnCard.date) + "\n        "
+            ),
+          ]),
           _vm._v(" "),
           _vm.tweetError
             ? _c("v-alert", { attrs: { type: "error" } }, [
