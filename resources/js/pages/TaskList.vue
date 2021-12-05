@@ -2,13 +2,45 @@
     <div class="task-lists">
         <h1>タスクリスト一覧</h1>
 
-        <v-card-text>
-            <TaskCardAdd :listNames="listNames" />
-        </v-card-text>
-        <v-row>
-            <v-col cols="4" class="ml-6 mb-3 mt-2">
-                <task-list-add />
-            </v-col>
+        <v-row class="justify-center my-3">
+            <v-dialog v-model="dialogCard" width="500">
+                <template v-slot:activator="{ on, attrs }">
+                    <v-btn
+                        class="me-5"
+                        color="blue-grey"
+                        elevation="6"
+                        dark
+                        v-bind="attrs"
+                        v-on="on"
+                    >
+                        cardAdd
+                    </v-btn>
+                </template>
+                <v-card class="p-5">
+                    <TaskCardAdd :listNames="listNames" />
+                </v-card>
+            </v-dialog>
+
+            <template>
+                <div class="text-center">
+                    <v-dialog v-model="dialogList" width="500">
+                        <template v-slot:activator="{ on, attrs }">
+                            <v-btn
+                                color="orange"
+                                elevation="6"
+                                dark
+                                v-bind="attrs"
+                                v-on="on"
+                            >
+                                listAdd
+                            </v-btn>
+                        </template>
+                        <v-card class="p-5">
+                            <TaskListAdd />
+                        </v-card>
+                    </v-dialog>
+                </div>
+            </template>
         </v-row>
 
         <v-card
@@ -44,6 +76,8 @@ export default {
                 name: "",
             },
             listNames: [],
+            dialogCard: false,
+            dialogList: false,
         };
     },
     methods: {

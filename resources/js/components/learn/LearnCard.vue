@@ -25,7 +25,7 @@
             </v-card-title>
 
             <div>
-                <div class="d-flex justify-space-between mt-2 mx-3">
+                <div class="d-flex justify-space-between mt-2 mx-4">
                     {{ learnCard.date }}
                     <span>{{ statusName }}</span>
                 </div>

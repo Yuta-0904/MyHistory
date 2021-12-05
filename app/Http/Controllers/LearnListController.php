@@ -23,8 +23,8 @@ class LearnListController extends Controller
 
             foreach($learnList->cards as $learnCard) {
                 // $carbon = new Carbon($learnCard->created_at);
-                $carbon = new Carbon($learnCard->created_at, 'Asia/Tokyo');
-                $learnCard->date = $carbon->format('Y年m月d日');
+                $createDate = new Carbon($learnCard->created_at, 'Asia/Tokyo');
+                $learnCard->date = $createDate->format('Y/m/d');
                      
             }
         }
