@@ -1,17 +1,17 @@
 <template>
-    <router-link
-        class="routerLink"
-        :to="{ name: 'learnDetail', params: { id: learnCard.id } }"
+    <v-card
+        class="mx-3 p-2 pb-4 my-2"
+        width="250px"
+        style="min-width: 250px"
+        :color="cardColor"
+        hover
     >
-        <v-card
-            class="mx-auto my-3 p-2"
-            width="250px"
-            style="min-width: 250px"
-            :color="cardColor"
-            hover
+        <router-link
+            class="routerLink"
+            :to="{ name: 'learnDetail', params: { id: learnCard.id } }"
         >
-            <v-card-title class="justify-space-between">
-                {{ learnCard.name }}
+            <div class="d-flex justify-end mt-3 me-3">
+                <!-- <span class="card-name">{{ learnCard.name }}</span> -->
                 <v-hover v-slot="{ hover }"
                     ><span
                         @click.prevent="removeCard"
@@ -19,32 +19,40 @@
                         >X</span
                     ></v-hover
                 >
-            </v-card-title>
-            <!-- <v-card-text>
-                {{ learnCard.content }}
-            </v-card-text> -->
+            </div>
 
-            <v-card-title class="justify-space-between">
-                <span>{{ statusName }}</span>
-                <v-btn
-                    text
-                    icon
-                    large
-                    color="#1DA1F2"
-                    @click.prevent="twitterShare"
-                >
-                    <v-icon>mdi-twitter</v-icon>
-                </v-btn>
-            </v-card-title>
-            <v-card-title>
-                {{ learnCard.date }}
-            </v-card-title>
+            <div
+                class="d-flex flex-column justify-space-around"
+                style="height: 100%"
+            >
+                <v-card-title class="justify-center">
+                    <span class="card-name">{{ learnCard.name }}</span>
+                </v-card-title>
+
+                <div>
+                    <div class="d-flex justify-space-between mt-2 mx-3">
+                        {{ learnCard.date }}
+                        <span>{{ statusName }}</span>
+                    </div>
+                    <div class="d-flex justify-end">
+                        <v-btn
+                            text
+                            icon
+                            large
+                            color="#1DA1F2"
+                            @click.prevent="twitterShare"
+                        >
+                            <v-icon>mdi-twitter</v-icon>
+                        </v-btn>
+                    </div>
+                </div>
+            </div>
 
             <v-alert v-if="tweetError" type="error">
                 Tweet可能文字数はタイトルと合わせて130文字です。
             </v-alert>
-        </v-card>
-    </router-link>
+        </router-link>
+    </v-card>
 </template>
 
 <script>
@@ -128,7 +136,7 @@ export default {
             } else if (this.learnCard.status == 2) {
                 return "lime lighten-3";
             } else if (this.learnCard.status == 3) {
-                return "green darken-4 white--text";
+                return "blue-grey darken-3 white--text";
             }
         },
     },
@@ -142,5 +150,6 @@ export default {
 
 .routerLink {
     text-decoration: none;
+    color: white;
 }
 </style>
