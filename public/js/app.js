@@ -2771,12 +2771,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
-//
-//
-//
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "Card",
   props: {
@@ -4180,7 +4174,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, ".v-card__title span.on-hover[data-v-dcc3bd64] {\n  cursor: pointer;\n}\n.routerLink[data-v-dcc3bd64] {\n  text-decoration: none;\n  color: white;\n}", ""]);
+exports.push([module.i, ".v-card__title span.on-hover[data-v-dcc3bd64] {\n  cursor: pointer;\n}\n.routerLink[data-v-dcc3bd64] {\n  text-decoration: none;\n}\n.card-name[data-v-dcc3bd64] {\n  white-space: nowrap;\n  overflow: hidden;\n  text-overflow: ellipsis;\n}", ""]);
 
 // exports
 
@@ -6921,20 +6915,18 @@ var render = function () {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c(
-    "v-card",
+    "router-link",
     {
-      staticClass: "mx-3 p-2 pb-4 my-2",
-      staticStyle: { "min-width": "250px" },
-      attrs: { width: "250px", color: _vm.cardColor, hover: "" },
+      staticClass: "routerLink",
+      attrs: { to: { name: "learnDetail", params: { id: _vm.learnCard.id } } },
     },
     [
       _c(
-        "router-link",
+        "v-card",
         {
-          staticClass: "routerLink",
-          attrs: {
-            to: { name: "learnDetail", params: { id: _vm.learnCard.id } },
-          },
+          staticClass: "mx-3 p-2 pb-4 my-2",
+          staticStyle: { "min-width": "250px" },
+          attrs: { width: "250px", color: _vm.cardColor, hover: "" },
         },
         [
           _c(
@@ -6970,63 +6962,48 @@ var render = function () {
             1
           ),
           _vm._v(" "),
-          _c(
-            "div",
-            {
-              staticClass: "d-flex flex-column justify-space-around",
-              staticStyle: { height: "100%" },
-            },
-            [
-              _c("v-card-title", { staticClass: "justify-center" }, [
-                _c("span", { staticClass: "card-name" }, [
-                  _vm._v(_vm._s(_vm.learnCard.name)),
-                ]),
-              ]),
-              _vm._v(" "),
-              _c("div", [
-                _c(
-                  "div",
-                  { staticClass: "d-flex justify-space-between mt-2 mx-3" },
-                  [
-                    _vm._v(
-                      "\n                    " +
-                        _vm._s(_vm.learnCard.date) +
-                        "\n                    "
-                    ),
-                    _c("span", [_vm._v(_vm._s(_vm.statusName))]),
-                  ]
+          _c("v-card-title", { staticClass: "justify-center card-name" }, [
+            _c("span", { staticClass: "card-name" }, [
+              _vm._v(_vm._s(_vm.learnCard.name)),
+            ]),
+          ]),
+          _vm._v(" "),
+          _c("div", [
+            _c(
+              "div",
+              { staticClass: "d-flex justify-space-between mt-2 mx-3" },
+              [
+                _vm._v(
+                  "\n                " +
+                    _vm._s(_vm.learnCard.date) +
+                    "\n                "
                 ),
-                _vm._v(" "),
+                _c("span", [_vm._v(_vm._s(_vm.statusName))]),
+              ]
+            ),
+            _vm._v(" "),
+            _c(
+              "div",
+              { staticClass: "d-flex justify-end" },
+              [
                 _c(
-                  "div",
-                  { staticClass: "d-flex justify-end" },
-                  [
-                    _c(
-                      "v-btn",
-                      {
-                        attrs: {
-                          text: "",
-                          icon: "",
-                          large: "",
-                          color: "#1DA1F2",
-                        },
-                        on: {
-                          click: function ($event) {
-                            $event.preventDefault()
-                            return _vm.twitterShare.apply(null, arguments)
-                          },
-                        },
+                  "v-btn",
+                  {
+                    attrs: { text: "", icon: "", large: "", color: "#1DA1F2" },
+                    on: {
+                      click: function ($event) {
+                        $event.preventDefault()
+                        return _vm.twitterShare.apply(null, arguments)
                       },
-                      [_c("v-icon", [_vm._v("mdi-twitter")])],
-                      1
-                    ),
-                  ],
+                    },
+                  },
+                  [_c("v-icon", [_vm._v("mdi-twitter")])],
                   1
                 ),
-              ]),
-            ],
-            1
-          ),
+              ],
+              1
+            ),
+          ]),
           _vm._v(" "),
           _vm.tweetError
             ? _c("v-alert", { attrs: { type: "error" } }, [
@@ -7290,7 +7267,7 @@ var render = function () {
       _vm._v(" "),
       _c(
         "div",
-        { staticClass: "d-flex flex-nowrap align-stretch cardlist" },
+        { staticClass: "d-flex flex-nowrap cardlist" },
         _vm._l(_vm.learnCards, function (learnCard) {
           return _c("LearnCard", {
             key: learnCard.id,

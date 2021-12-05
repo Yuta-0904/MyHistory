@@ -14,7 +14,7 @@
                 >
             </v-card-title>
         </v-card-text>
-        <div class="d-flex flex-nowrap align-stretch cardlist">
+        <div class="d-flex flex-nowrap cardlist">
             <LearnCard
                 v-for="learnCard in learnCards"
                 :key="learnCard.id"
