@@ -28,7 +28,10 @@
                     {{ taskCard.date }}
                     <span>{{ statusName }}</span>
                 </div>
-                <div class="d-flex justify-end">期限:{{ taskCard.limit }}</div>
+                <div class="d-flex justify-end" v-if="!complete">
+                    期限: <span :class="limitStatus">{{ taskCard.limit }}</span>
+                </div>
+                <div v-else><br /></div>
             </div>
         </v-card>
     </router-link>
@@ -50,6 +53,7 @@ export default {
     data() {
         return {
             status: "",
+            complete: false,
         };
     },
     methods: {
@@ -77,19 +81,40 @@ export default {
             } else if (this.taskCard.status == 2) {
                 return "保留";
             } else if (this.taskCard.status == 3) {
+                this.complete = true;
                 return "完了";
             }
         },
         cardColor() {
             if (this.taskCard.status == 0) {
-                return "red accent-4 grey--text text--grey darken-3";
+                return "orange darken-1 grey--text text--lighten-5";
             } else if (this.taskCard.status == 1) {
-                return "blue accent-4 grey--text text--grey darken-3";
+                return "blue grey--text text--lighten-5";
             } else if (this.taskCard.status == 2) {
-                return "lime accent-4 grey--text text--grey darken-3";
+                return "yellow darken-1 grey--text text--lighten-5";
             } else if (this.taskCard.status == 3) {
-                return "blue-grey darken-4 white--text";
+                return "grey white--text";
             }
+        },
+        limitStatus() {
+            const today = new Date();
+            const limitDay = new Date(this.taskCard.limit);
+
+            // const year1 = today.getFullYear();
+            // const month1 = today.getMonth() + 1;
+            // const day1 = today.getDate();
+
+            // const year2 = limitDay.getFullYear();
+            // const month2 = limitDay.getMonth() + 1;
+            // const day2 = limitDay.getDate();
+
+            if (today.getTime() > limitDay.getTime()) {
+                return "red--text text--darken-2 font-weight-bold";
+            } else {
+                return;
+            }
+
+            return limitDay;
         },
     },
 };

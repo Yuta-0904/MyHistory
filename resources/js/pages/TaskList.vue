@@ -6,18 +6,19 @@
             <v-dialog v-model="dialogCard" width="500">
                 <template v-slot:activator="{ on, attrs }">
                     <v-btn
+                        outlined
                         class="me-5"
-                        color="blue-grey"
+                        color="cyan darken-4"
                         elevation="6"
                         dark
                         v-bind="attrs"
                         v-on="on"
                     >
-                        cardAdd
+                        listAdd
                     </v-btn>
                 </template>
                 <v-card class="p-5">
-                    <TaskCardAdd :listNames="listNames" />
+                    <TaskListAdd />
                 </v-card>
             </v-dialog>
 
@@ -26,17 +27,18 @@
                     <v-dialog v-model="dialogList" width="500">
                         <template v-slot:activator="{ on, attrs }">
                             <v-btn
-                                color="orange"
+                                outlined
+                                color="cyan darken-4"
                                 elevation="6"
                                 dark
                                 v-bind="attrs"
                                 v-on="on"
                             >
-                                listAdd
+                                cardAdd
                             </v-btn>
                         </template>
                         <v-card class="p-5">
-                            <TaskListAdd />
+                            <TaskCardAdd :listNames="listNames" />
                         </v-card>
                     </v-dialog>
                 </div>

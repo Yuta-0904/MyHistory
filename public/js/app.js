@@ -2358,6 +2358,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "Card",
   props: {
@@ -2372,7 +2375,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
   },
   data: function data() {
     return {
-      status: ""
+      status: "",
+      complete: false
     };
   },
   methods: {
@@ -2417,19 +2421,37 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       } else if (this.taskCard.status == 2) {
         return "保留";
       } else if (this.taskCard.status == 3) {
+        this.complete = true;
         return "完了";
       }
     },
     cardColor: function cardColor() {
       if (this.taskCard.status == 0) {
-        return "red accent-4 grey--text text--grey darken-3";
+        return "orange darken-1 grey--text text--lighten-5";
       } else if (this.taskCard.status == 1) {
-        return "blue accent-4 grey--text text--grey darken-3";
+        return "blue grey--text text--lighten-5";
       } else if (this.taskCard.status == 2) {
-        return "lime accent-4 grey--text text--grey darken-3";
+        return "yellow darken-1 grey--text text--lighten-5";
       } else if (this.taskCard.status == 3) {
-        return "blue-grey darken-4 white--text";
+        return "grey white--text";
       }
+    },
+    limitStatus: function limitStatus() {
+      var today = new Date();
+      var limitDay = new Date(this.taskCard.limit); // const year1 = today.getFullYear();
+      // const month1 = today.getMonth() + 1;
+      // const day1 = today.getDate();
+      // const year2 = limitDay.getFullYear();
+      // const month2 = limitDay.getMonth() + 1;
+      // const day2 = limitDay.getDate();
+
+      if (today.getTime() > limitDay.getTime()) {
+        return "red--text text--darken-2 font-weight-bold";
+      } else {
+        return;
+      }
+
+      return limitDay;
     }
   }
 });
@@ -3322,6 +3344,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
 
 
 
@@ -4018,6 +4042,8 @@ function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
+//
+//
 //
 //
 //
@@ -6707,9 +6733,14 @@ var render = function () {
               ]
             ),
             _vm._v(" "),
-            _c("div", { staticClass: "d-flex justify-end" }, [
-              _vm._v("期限:" + _vm._s(_vm.taskCard.limit)),
-            ]),
+            !_vm.complete
+              ? _c("div", { staticClass: "d-flex justify-end" }, [
+                  _vm._v("\n                期限: "),
+                  _c("span", { class: _vm.limitStatus }, [
+                    _vm._v(_vm._s(_vm.taskCard.limit)),
+                  ]),
+                ])
+              : _c("div", [_c("br")]),
           ]),
         ],
         1
@@ -7400,7 +7431,8 @@ var render = function () {
                             {
                               staticClass: "me-5",
                               attrs: {
-                                color: "blue-grey",
+                                outlined: "",
+                                color: "cyan darken-4",
                                 elevation: "6",
                                 dark: "",
                               },
@@ -7413,7 +7445,7 @@ var render = function () {
                         ),
                         [
                           _vm._v(
-                            "\n                    cardAdd\n                "
+                            "\n                    listAdd\n                "
                           ),
                         ]
                       ),
@@ -7431,12 +7463,7 @@ var render = function () {
             },
             [
               _vm._v(" "),
-              _c(
-                "v-card",
-                { staticClass: "p-5" },
-                [_c("LearnCardAdd", { attrs: { listNames: _vm.listNames } })],
-                1
-              ),
+              _c("v-card", { staticClass: "p-5" }, [_c("LearnListAdd")], 1),
             ],
             1
           ),
@@ -7463,7 +7490,8 @@ var render = function () {
                                 _vm._b(
                                   {
                                     attrs: {
-                                      color: "teal",
+                                      outlined: "",
+                                      color: "cyan darken-4",
                                       elevation: "6",
                                       dark: "",
                                     },
@@ -7476,7 +7504,7 @@ var render = function () {
                               ),
                               [
                                 _vm._v(
-                                  "\n                            listAdd\n                        "
+                                  "\n                            cardAdd\n                        "
                                 ),
                               ]
                             ),
@@ -7497,7 +7525,11 @@ var render = function () {
                     _c(
                       "v-card",
                       { staticClass: "p-5" },
-                      [_c("LearnListAdd")],
+                      [
+                        _c("LearnCardAdd", {
+                          attrs: { listNames: _vm.listNames },
+                        }),
+                      ],
                       1
                     ),
                   ],
@@ -8266,7 +8298,8 @@ var render = function () {
                             {
                               staticClass: "me-5",
                               attrs: {
-                                color: "blue-grey",
+                                outlined: "",
+                                color: "cyan darken-4",
                                 elevation: "6",
                                 dark: "",
                               },
@@ -8279,7 +8312,7 @@ var render = function () {
                         ),
                         [
                           _vm._v(
-                            "\n                    cardAdd\n                "
+                            "\n                    listAdd\n                "
                           ),
                         ]
                       ),
@@ -8297,12 +8330,7 @@ var render = function () {
             },
             [
               _vm._v(" "),
-              _c(
-                "v-card",
-                { staticClass: "p-5" },
-                [_c("TaskCardAdd", { attrs: { listNames: _vm.listNames } })],
-                1
-              ),
+              _c("v-card", { staticClass: "p-5" }, [_c("TaskListAdd")], 1),
             ],
             1
           ),
@@ -8329,7 +8357,8 @@ var render = function () {
                                 _vm._b(
                                   {
                                     attrs: {
-                                      color: "orange",
+                                      outlined: "",
+                                      color: "cyan darken-4",
                                       elevation: "6",
                                       dark: "",
                                     },
@@ -8342,7 +8371,7 @@ var render = function () {
                               ),
                               [
                                 _vm._v(
-                                  "\n                            listAdd\n                        "
+                                  "\n                            cardAdd\n                        "
                                 ),
                               ]
                             ),
@@ -8363,7 +8392,11 @@ var render = function () {
                     _c(
                       "v-card",
                       { staticClass: "p-5" },
-                      [_c("TaskListAdd")],
+                      [
+                        _c("TaskCardAdd", {
+                          attrs: { listNames: _vm.listNames },
+                        }),
+                      ],
                       1
                     ),
                   ],
