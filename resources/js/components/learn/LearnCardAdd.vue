@@ -9,6 +9,8 @@
             @focusout="finishEdit"
             class="mx-auto pt-0"
             width="100%"
+            counter
+            :rules="nameRules"
         ></v-text-field>
 
         <v-select
@@ -20,9 +22,10 @@
             @focusin="startEdit"
             @focusout="finishEdit"
             class="mx-auto"
+            width="100%"
         ></v-select>
 
-        <v-text-field
+        <v-textarea
             v-model="cardForm.content"
             label="LearnContent"
             required
@@ -30,7 +33,10 @@
             @focusin="startEdit"
             @focusout="finishEdit"
             class="mx-auto"
-        ></v-text-field>
+            width="100%"
+            counter
+            :rules="contentRules"
+        ></v-textarea>
         <v-select
             v-model="cardForm.status"
             :items="items"
@@ -40,6 +46,7 @@
             @focusin="startEdit"
             @focusout="finishEdit"
             class="mx-auto"
+            width="100%"
         ></v-select>
 
         <v-btn
@@ -76,6 +83,12 @@ export default {
             isEditing: false,
             items: ["未着手", "学習中", "保留", "完了"],
             taskListName: [],
+            nameRules: [
+                (text) => text.length <= 50 || "最大文字数は50文字です",
+            ],
+            contentRules: [
+                (text) => text.length <= 1000 || "最大文字数は1000文字です",
+            ],
         };
     },
     computed: {

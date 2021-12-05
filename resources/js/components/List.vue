@@ -1,8 +1,8 @@
 <template>
     <v-card
         class="mx-2 d-flex flex-column mt-3"
-        width="300px"
         style="min-width: 300px"
+        width="1000"
     >
         <v-card-text>
             <v-card-title class="justify-space-between">
@@ -14,13 +14,14 @@
                 >
             </v-card-title>
         </v-card-text>
-
-        <TaskCard
-            v-for="taskCard in taskCards"
-            :key="taskCard.id"
-            :taskCard="taskCard"
-            :listIndex="listIndex"
-        />
+        <div class="d-flex flex-nowrap cardlist">
+            <TaskCard
+                v-for="taskCard in taskCards"
+                :key="taskCard.id"
+                :taskCard="taskCard"
+                :listIndex="listIndex"
+            />
+        </div>
     </v-card>
 </template>
 
@@ -75,5 +76,14 @@ export default {
 <style lang="scss" scoped>
 .v-card__title span.on-hover {
     cursor: pointer;
+}
+
+.v-card__title span.on-hover {
+    cursor: pointer;
+}
+.cardlist {
+    overflow-x: scroll;
+    overflow-y: hidden;
+    height: 100%;
 }
 </style>

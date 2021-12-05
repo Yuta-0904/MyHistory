@@ -20,7 +20,16 @@ class LearnListController extends Controller
         foreach ($learnLists as $learnList) {
             ///リストに紐づいているタスクカードも取得
             $learnList->cards->sortByDesc('created_at');
+
+            foreach($learnList->cards as $learnCard) {
+                // $carbon = new Carbon($learnCard->created_at);
+                $createDate = new Carbon($learnCard->created_at, 'Asia/Tokyo');
+                $learnCard->date = $createDate->format('Y/m/d');
+                     
+            }
         }
+
+       
       
         return response()->json(['learnList' => $learnLists],201);
     }

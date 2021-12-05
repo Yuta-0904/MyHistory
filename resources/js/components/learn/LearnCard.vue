@@ -3,9 +3,14 @@
         class="routerLink"
         :to="{ name: 'learnDetail', params: { id: learnCard.id } }"
     >
-        <v-card class="mx-auto my-3 p-2" width="250px" style="min-width: 250px">
-            <v-card-title class="justify-space-between">
-                {{ learnCard.name }}
+        <v-card
+            class="mx-3 p-2 pb-4 my-2"
+            width="250px"
+            style="min-width: 250px"
+            :color="cardColor"
+            hover
+        >
+            <div class="d-flex justify-end mt-3 me-3">
                 <v-hover v-slot="{ hover }"
                     ><span
                         @click.prevent="removeCard"
@@ -13,23 +18,29 @@
                         >X</span
                     ></v-hover
                 >
-            </v-card-title>
-            <v-card-text>
-                {{ learnCard.content }}
-            </v-card-text>
+            </div>
 
-            <v-card-title class="justify-space-between">
-                <span>学習状況：{{ statusName }}</span>
-                <v-btn
-                    text
-                    icon
-                    large
-                    color="#1DA1F2"
-                    @click.prevent="twitterShare"
-                >
-                    <v-icon>mdi-twitter</v-icon>
-                </v-btn>
+            <v-card-title class="justify-center card-name">
+                <span class="card-name">{{ learnCard.name }}</span>
             </v-card-title>
+
+            <div>
+                <div class="d-flex justify-space-between mt-2 mx-4">
+                    {{ learnCard.date }}
+                    <span>{{ statusName }}</span>
+                </div>
+                <div class="d-flex justify-end">
+                    <v-btn
+                        text
+                        icon
+                        large
+                        color="#1DA1F2"
+                        @click.prevent="twitterShare"
+                    >
+                        <v-icon>mdi-twitter</v-icon>
+                    </v-btn>
+                </div>
+            </div>
 
             <v-alert v-if="tweetError" type="error">
                 Tweet可能文字数はタイトルと合わせて130文字です。
@@ -100,7 +111,7 @@ export default {
         },
     },
     computed: {
-        statusName: function () {
+        statusName() {
             if (this.learnCard.status == 0) {
                 return "未着手";
             } else if (this.learnCard.status == 1) {
@@ -109,6 +120,17 @@ export default {
                 return "保留";
             } else if (this.learnCard.status == 3) {
                 return "完了";
+            }
+        },
+        cardColor() {
+            if (this.learnCard.status == 0) {
+                return "red lighten-3";
+            } else if (this.learnCard.status == 1) {
+                return "blue lighten-3";
+            } else if (this.learnCard.status == 2) {
+                return "lime lighten-3";
+            } else if (this.learnCard.status == 3) {
+                return "blue-grey darken-3 white--text";
             }
         },
     },
@@ -122,5 +144,11 @@ export default {
 
 .routerLink {
     text-decoration: none;
+}
+
+.card-name {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 </style>

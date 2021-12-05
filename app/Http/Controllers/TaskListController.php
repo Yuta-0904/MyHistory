@@ -31,7 +31,10 @@ class TaskListController extends Controller
 
             foreach($taskList->cards as $taskCard) {
                 $carbon = new Carbon($taskCard->limit);
-                $taskCard->limit = $carbon->format('Y年m月d日');
+                $taskCard->limit = $carbon->format('Y/m/d');
+                
+                $createDate = new Carbon($taskCard->created_at, 'Asia/Tokyo');
+                $taskCard->date = $createDate->format('Y/m/d');
             }
            
         }

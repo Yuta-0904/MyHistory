@@ -2,15 +2,48 @@
     <div class="task-lists">
         <h1>学習記録</h1>
 
-        <v-card-text>
-            <LearnCardAdd :listNames="listNames" />
-        </v-card-text>
-        <v-row>
-            <v-col cols="4" class="ml-6 mb-3 mt-2">
-                <learn-list-add />
-            </v-col>
-        </v-row>
+        <v-row class="justify-center my-3">
+            <v-dialog v-model="dialogCard" width="500">
+                <template v-slot:activator="{ on, attrs }">
+                    <v-btn
+                        outlined
+                        class="me-5"
+                        color="cyan darken-4"
+                        elevation="6"
+                        dark
+                        v-bind="attrs"
+                        v-on="on"
+                    >
+                        listAdd
+                    </v-btn>
+                </template>
+                <v-card class="p-5">
+                    <LearnListAdd />
+                </v-card>
+            </v-dialog>
 
+            <template>
+                <div class="text-center">
+                    <v-dialog v-model="dialogList" width="500">
+                        <template v-slot:activator="{ on, attrs }">
+                            <v-btn
+                                outlined
+                                color="cyan darken-4"
+                                elevation="6"
+                                dark
+                                v-bind="attrs"
+                                v-on="on"
+                            >
+                                cardAdd
+                            </v-btn>
+                        </template>
+                        <v-card class="p-5">
+                            <LearnCardAdd :listNames="listNames" />
+                        </v-card>
+                    </v-dialog>
+                </div>
+            </template>
+        </v-row>
         <v-card
             class="d-flex justify-center flex-wrap"
             color="grey lighten-2 my-5 py-5"
@@ -45,6 +78,8 @@ export default {
             },
             listNames: [],
             tweet: "api",
+            dialogCard: false,
+            dialogList: false,
         };
     },
     methods: {
