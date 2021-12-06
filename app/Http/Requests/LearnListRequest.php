@@ -28,4 +28,12 @@ class LearnListRequest extends FormRequest
             'name' => 'required|max:50',
         ];
     }
+
+     //エラーメッセージの日本語化
+     public function attributes()
+     {
+         return [
+             'name' => 'リスト名',
+         ];
+     }
 }

@@ -10,6 +10,12 @@
             counter
             :rules="nameRules"
         ></v-text-field>
+        <!-- エラー結果表示 -->
+        <ul v-if="listAddErrors">
+            <li v-for="msg in listAddErrors.name" :key="msg" class="red--text">
+                {{ msg }}
+            </li>
+        </ul>
         <v-btn
             class="d-flex mx-auto"
             @click="addList"
@@ -25,6 +31,7 @@
 </template>
 
 <script>
+import { mapState } from "vuex";
 export default {
     data() {
         return {
@@ -56,6 +63,16 @@ export default {
         contentExists() {
             return this.learnList.name.length > 0;
         },
+        ...mapState({
+            apiStatus: (state) => state.learn.apiStatus,
+            listAddErrors: (state) => state.learn.errorMessages,
+        }),
     },
 };
 </script>
+
+<style scoped>
+li {
+    list-style: none;
+}
+</style>

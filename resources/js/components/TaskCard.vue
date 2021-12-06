@@ -20,7 +20,9 @@
                 >
             </div>
             <v-card-title class="justify-center card-name">
-                <span class="card-name">{{ taskCard.name }}</span>
+                <span class="card-name font-weight-bold">{{
+                    taskCard.name
+                }}</span>
             </v-card-title>
 
             <div>
@@ -29,7 +31,7 @@
                     <span>{{ statusName }}</span>
                 </div>
                 <div class="d-flex justify-end" v-if="!complete">
-                    期限: <span :class="limitStatus">{{ taskCard.limit }}</span>
+                    期限：<span :class="limitStatus">{{ taskCard.limit }}</span>
                 </div>
                 <div v-else><br /></div>
             </div>
@@ -87,11 +89,11 @@ export default {
         },
         cardColor() {
             if (this.taskCard.status == 0) {
-                return "orange darken-1 grey--text text--lighten-5";
+                return "orange darken-1 grey--text text--darken-3";
             } else if (this.taskCard.status == 1) {
-                return "blue grey--text text--lighten-5";
+                return "blue grey--text text--darken-3";
             } else if (this.taskCard.status == 2) {
-                return "yellow darken-1 grey--text text--lighten-5";
+                return "yellow darken-1 grey--text text--darken-3";
             } else if (this.taskCard.status == 3) {
                 return "grey white--text";
             }
@@ -99,14 +101,6 @@ export default {
         limitStatus() {
             const today = new Date();
             const limitDay = new Date(this.taskCard.limit);
-
-            // const year1 = today.getFullYear();
-            // const month1 = today.getMonth() + 1;
-            // const day1 = today.getDate();
-
-            // const year2 = limitDay.getFullYear();
-            // const month2 = limitDay.getMonth() + 1;
-            // const day2 = limitDay.getDate();
 
             if (today.getTime() > limitDay.getTime()) {
                 return "red--text text--darken-2 font-weight-bold";

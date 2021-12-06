@@ -3,7 +3,7 @@
         <h1>学習記録</h1>
 
         <v-row class="justify-center my-3">
-            <v-dialog v-model="dialogCard" width="500">
+            <v-dialog v-model="dialogList" width="500">
                 <template v-slot:activator="{ on, attrs }">
                     <v-btn
                         outlined
@@ -24,7 +24,7 @@
 
             <template>
                 <div class="text-center">
-                    <v-dialog v-model="dialogList" width="500">
+                    <v-dialog v-model="dialogCard" width="500">
                         <template v-slot:activator="{ on, attrs }">
                             <v-btn
                                 outlined
@@ -94,11 +94,15 @@ export default {
             });
             this.listNames = listNames;
         },
+        async statusReset() {
+            await this.$store.dispatch("learn/errorMessageReset");
+        },
     },
     computed: {
         ...mapState({
             stateLearnLists: (state) => state.learn.learnLists,
             stateLearnCards: (state) => state.learn.learnCards,
+            errorMessages: (state) => state.learn.errorMessages,
         }),
     },
     watch: {
@@ -120,6 +124,22 @@ export default {
                 this.learnListsGet();
             },
             deep: true,
+        },
+        dialogList() {
+            if (!this.dialogList) {
+                //ダイアログが閉じた時の処理
+                if (this.errorMessages) {
+                    this.statusReset();
+                }
+            }
+        },
+        dialogCard() {
+            if (!this.dialogCard) {
+                //ダイアログが閉じた時の処理
+                if (this.errorMessages) {
+                    this.statusReset();
+                }
+            }
         },
     },
 };

@@ -48,6 +48,46 @@
             class="mx-auto"
             width="100%"
         ></v-select>
+        <!-- エラー結果表示 -->
+
+        <div v-if="cardAddErrors">
+            <ul v-if="cardAddErrors.name">
+                <li
+                    v-for="msg in cardAddErrors.name"
+                    :key="msg"
+                    class="red--text"
+                >
+                    {{ msg }}
+                </li>
+            </ul>
+            <ul v-if="cardAddErrors.list_id">
+                <li
+                    v-for="msg in cardAddErrors.list_id"
+                    :key="msg"
+                    class="red--text"
+                >
+                    {{ msg }}
+                </li>
+            </ul>
+            <ul v-if="cardAddErrors.content">
+                <li
+                    v-for="msg in cardAddErrors.content"
+                    :key="msg"
+                    class="red--text"
+                >
+                    {{ msg }}
+                </li>
+            </ul>
+            <ul v-if="cardAddErrors.status">
+                <li
+                    v-for="msg in cardAddErrors.status"
+                    :key="msg"
+                    class="red--text"
+                >
+                    {{ msg }}
+                </li>
+            </ul>
+        </div>
 
         <v-btn
             class="d-flex mx-auto mb-3 px-10"
@@ -64,6 +104,7 @@
 </template>
 
 <script>
+import { mapState } from "vuex";
 export default {
     name: "CardAdd",
     props: {
@@ -100,6 +141,10 @@ export default {
                 this.cardForm.status.length > 0
             );
         },
+        ...mapState({
+            apiStatus: (state) => state.learn.apiStatus,
+            cardAddErrors: (state) => state.learn.errorMessages,
+        }),
     },
     methods: {
         async addCardToList() {
@@ -118,3 +163,9 @@ export default {
     },
 };
 </script>
+
+<style scoped>
+li {
+    list-style: none;
+}
+</style>

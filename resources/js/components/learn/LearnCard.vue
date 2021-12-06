@@ -21,7 +21,9 @@
             </div>
 
             <v-card-title class="justify-center card-name">
-                <span class="card-name">{{ learnCard.name }}</span>
+                <span class="card-name font-weight-bold">{{
+                    learnCard.name
+                }}</span>
             </v-card-title>
 
             <div>
@@ -124,11 +126,11 @@ export default {
         },
         cardColor() {
             if (this.learnCard.status == 0) {
-                return "red lighten-3";
+                return "red lighten-3 grey--text text--darken-3";
             } else if (this.learnCard.status == 1) {
-                return "blue lighten-3";
+                return "blue lighten-3 grey--text text--darken-3";
             } else if (this.learnCard.status == 2) {
-                return "lime lighten-3";
+                return "lime lighten-3 grey--text text--darken-3";
             } else if (this.learnCard.status == 3) {
                 return "blue-grey darken-3 white--text";
             }
