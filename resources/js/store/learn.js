@@ -81,7 +81,8 @@ const actions = {
 
     //学習カード更新
     async learnCardUpdate(context, data) {
-        await axios.patch("/api/learn-card/" + data.id, data);
+        const res = await axios.patch("/api/learn-card/" + data.id, data);
+        console.log(res);
 
         const response = await axios.get("/api/learn-list");
         const learnList = response.data.learnList || null;

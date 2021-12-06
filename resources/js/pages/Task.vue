@@ -3,61 +3,63 @@
         <div>
             <h1>タスク詳細</h1>
             <v-card>
-                <v-card>
-                    <v-card-title>タスク名</v-card-title>
-                    <v-text-field
-                        v-model="editForm.name"
-                        value="editForm.name"
-                        label="Message"
-                        counter
-                        maxlength="50"
-                        full-width
-                        height="60px"
-                    >
-                    </v-text-field>
-                </v-card>
-                <v-card>
-                    <v-card-title>タスク内容</v-card-title>
-                    <v-textarea
-                        v-model="editForm.content"
-                        value="editForm.content"
-                        label="Message"
-                        counter
-                        maxlength="120"
-                        full-width
-                        height="60px"
-                    >
-                    </v-textarea>
-                </v-card>
-                <v-card>
-                    <v-card-title>タスクステータス</v-card-title>
-                    <v-select
-                        v-model="editForm.status"
-                        :items="items"
-                        :label="editForm.status"
-                        required
-                        full-width
-                    ></v-select>
-                </v-card>
-                <v-card>
-                    <v-menu v-model="menu">
-                        <template v-slot:activator="{ on, attrs }">
-                            <v-text-field
-                                v-model="text"
-                                :label="date"
-                                prepend-icon="mdi-calendar"
-                                v-bind="attrs"
-                                v-on="on"
-                                clearable
-                                class="mx-auto"
-                            ></v-text-field>
-                        </template>
-                        <v-date-picker
-                            v-model="editForm.limit"
-                            @input="formatDate(editForm.limit)"
-                        ></v-date-picker>
-                    </v-menu>
-                </v-card>
+                <v-form ref="card_form">
+                    <v-card>
+                        <v-card-title>タスク名</v-card-title>
+                        <v-text-field
+                            v-model="editForm.name"
+                            value="editForm.name"
+                            label="Message"
+                            counter
+                            maxlength="50"
+                            full-width
+                            height="60px"
+                            :rules="nameRules"
+                        >
+                        </v-text-field>
+                    </v-card>
+                    <v-card>
+                        <v-card-title>タスク内容</v-card-title>
+                        <v-textarea
+                            v-model="editForm.content"
+                            value="editForm.content"
+                            label="Message"
+                            counter
+                            maxlength="120"
+                            full-width
+                            height="60px"
+                        >
+                        </v-textarea>
+                    </v-card>
+                    <v-card>
+                        <v-card-title>タスクステータス</v-card-title>
+                        <v-select
+                            v-model="editForm.status"
+                            :items="items"
+                            :label="editForm.status"
+                            full-width
+                        ></v-select>
+                    </v-card>
+                    <v-card>
+                        <v-menu v-model="menu">
+                            <template v-slot:activator="{ on, attrs }">
+                                <v-text-field
+                                    v-model="text"
+                                    :label="date"
+                                    prepend-icon="mdi-calendar"
+                                    v-bind="attrs"
+                                    v-on="on"
+                                    clearable
+                                    class="mx-auto"
+                                ></v-text-field>
+                            </template>
+                            <v-date-picker
+                                v-model="editForm.limit"
+                                @input="formatDate(editForm.limit)"
+                            ></v-date-picker>
+                        </v-menu>
+                    </v-card>
+                </v-form>
             </v-card>
             <v-btn
                 class="d-flex mx-auto mb-3 px-10"
@@ -92,6 +94,9 @@ export default {
             text: "",
             date: "",
             isEditing: false,
+            nameRules: [
+                (text) => text.length <= 50 || "最大文字数は50文字です",
+            ],
         };
     },
     async created() {
@@ -117,8 +122,13 @@ export default {
     },
     methods: {
         async UpdateCard() {
-            await this.$store.dispatch("task/taskCardUpdate", this.editForm);
-            this.$router.push("/");
+            if (this.$refs.card_form.validate()) {
+                await this.$store.dispatch(
+                    "task/taskCardUpdate",
+                    this.editForm
+                );
+                this.$router.push("/");
+            }
         },
         formatDate(date) {
             if (!date) return null;

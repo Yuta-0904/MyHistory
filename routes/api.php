@@ -61,6 +61,9 @@ Route::patch('/task-card/{taskCard}', [TaskCardController::class,'update'])->nam
 // 学習リスト取得
 Route::get('/learn-list', [LearnListController::class,'get'])->name('learnList');
 
+// 学習リスト名一覧取得
+Route::get('/learn-list/list_name', [LearnListController::class,'getList'])->name('learnListName');
+
 //学習リスト登録
 Route::post('/learn-list', [LearnListController::class,'create'])->name('learnListCreate');
 

@@ -65,6 +65,7 @@ export default {
                 name: "",
                 content: "",
                 status: "",
+                list_name: "",
             },
             items: ["未着手", "学習中", "保留", "完了"],
             isEditing: false,
@@ -82,6 +83,7 @@ export default {
             .then((response) => {
                 this.editForm.name = response.data.learnCard.name;
                 this.editForm.content = response.data.learnCard.content;
+                this.editForm.list_name = response.data.learnCard.list_id;
 
                 if (response.data.learnCard.status == 0) {
                     this.editForm.status = "未着手";
@@ -94,6 +96,9 @@ export default {
                 }
             })
             .catch((error) => console.log(error));
+        await axios.get("/api/learn-list/list_name").then((response)=> {
+            console.log(response.data);
+        }).catch((error) => console.log(error));
     },
     methods: {
         async UpdateCard() {

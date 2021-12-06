@@ -53,4 +53,15 @@ class LearnListController extends Controller
         $learnList->delete();
         return response()->json(['message' => '削除が完了しました'],201);
     }
+
+    public function getList(){
+
+        
+        $learnListsName=LearnList::get(['name']);
+        log::info($learnListsName);
+
+
+        return response()->json(['learnListsName' => $learnListsName],201);
+
+    }
 }

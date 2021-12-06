@@ -3726,7 +3726,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         id: this.$route.params.id,
         name: "",
         content: "",
-        status: ""
+        status: "",
+        list_name: ""
       },
       items: ["未着手", "学習中", "保留", "完了"],
       isEditing: false,
@@ -3750,6 +3751,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
               return axios.get("/api/learn-card/" + _this.editForm.id).then(function (response) {
                 _this.editForm.name = response.data.learnCard.name;
                 _this.editForm.content = response.data.learnCard.content;
+                _this.editForm.list_name = response.data.learnCard.list_id;
 
                 if (response.data.learnCard.status == 0) {
                   _this.editForm.status = "未着手";
@@ -3765,6 +3767,14 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
               });
 
             case 2:
+              _context.next = 4;
+              return axios.get("/api/learn-list/list_name").then(function (response) {
+                console.log(response.data);
+              })["catch"](function (error) {
+                return console.log(error);
+              });
+
+            case 4:
             case "end":
               return _context.stop();
           }
@@ -4145,6 +4155,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
 // import moment from "moment";
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -4161,7 +4173,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       menu: "",
       text: "",
       date: "",
-      isEditing: false
+      isEditing: false,
+      nameRules: [function (text) {
+        return text.length <= 50 || "最大文字数は50文字です";
+      }]
     };
   },
   created: function created() {
@@ -4209,13 +4224,18 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           while (1) {
             switch (_context2.prev = _context2.next) {
               case 0:
-                _context2.next = 2;
+                if (!_this2.$refs.card_form.validate()) {
+                  _context2.next = 4;
+                  break;
+                }
+
+                _context2.next = 3;
                 return _this2.$store.dispatch("task/taskCardUpdate", _this2.editForm);
 
-              case 2:
+              case 3:
                 _this2.$router.push("/");
 
-              case 3:
+              case 4:
               case "end":
                 return _context2.stop();
             }
@@ -8737,148 +8757,155 @@ var render = function () {
           "v-card",
           [
             _c(
-              "v-card",
-              [
-                _c("v-card-title", [_vm._v("タスク名")]),
-                _vm._v(" "),
-                _c("v-text-field", {
-                  attrs: {
-                    value: "editForm.name",
-                    label: "Message",
-                    counter: "",
-                    maxlength: "50",
-                    "full-width": "",
-                    height: "60px",
-                  },
-                  model: {
-                    value: _vm.editForm.name,
-                    callback: function ($$v) {
-                      _vm.$set(_vm.editForm, "name", $$v)
-                    },
-                    expression: "editForm.name",
-                  },
-                }),
-              ],
-              1
-            ),
-            _vm._v(" "),
-            _c(
-              "v-card",
-              [
-                _c("v-card-title", [_vm._v("タスク内容")]),
-                _vm._v(" "),
-                _c("v-textarea", {
-                  attrs: {
-                    value: "editForm.content",
-                    label: "Message",
-                    counter: "",
-                    maxlength: "120",
-                    "full-width": "",
-                    height: "60px",
-                  },
-                  model: {
-                    value: _vm.editForm.content,
-                    callback: function ($$v) {
-                      _vm.$set(_vm.editForm, "content", $$v)
-                    },
-                    expression: "editForm.content",
-                  },
-                }),
-              ],
-              1
-            ),
-            _vm._v(" "),
-            _c(
-              "v-card",
-              [
-                _c("v-card-title", [_vm._v("タスクステータス")]),
-                _vm._v(" "),
-                _c("v-select", {
-                  attrs: {
-                    items: _vm.items,
-                    label: _vm.editForm.status,
-                    required: "",
-                    "full-width": "",
-                  },
-                  model: {
-                    value: _vm.editForm.status,
-                    callback: function ($$v) {
-                      _vm.$set(_vm.editForm, "status", $$v)
-                    },
-                    expression: "editForm.status",
-                  },
-                }),
-              ],
-              1
-            ),
-            _vm._v(" "),
-            _c(
-              "v-card",
+              "v-form",
+              { ref: "card_form" },
               [
                 _c(
-                  "v-menu",
-                  {
-                    scopedSlots: _vm._u([
-                      {
-                        key: "activator",
-                        fn: function (ref) {
-                          var on = ref.on
-                          var attrs = ref.attrs
-                          return [
-                            _c(
-                              "v-text-field",
-                              _vm._g(
-                                _vm._b(
-                                  {
-                                    staticClass: "mx-auto",
-                                    attrs: {
-                                      label: _vm.date,
-                                      "prepend-icon": "mdi-calendar",
-                                      clearable: "",
-                                    },
-                                    model: {
-                                      value: _vm.text,
-                                      callback: function ($$v) {
-                                        _vm.text = $$v
-                                      },
-                                      expression: "text",
-                                    },
-                                  },
-                                  "v-text-field",
-                                  attrs,
-                                  false
-                                ),
-                                on
-                              )
-                            ),
-                          ]
-                        },
-                      },
-                    ]),
-                    model: {
-                      value: _vm.menu,
-                      callback: function ($$v) {
-                        _vm.menu = $$v
-                      },
-                      expression: "menu",
-                    },
-                  },
+                  "v-card",
                   [
+                    _c("v-card-title", [_vm._v("タスク名")]),
                     _vm._v(" "),
-                    _c("v-date-picker", {
-                      on: {
-                        input: function ($event) {
-                          return _vm.formatDate(_vm.editForm.limit)
-                        },
+                    _c("v-text-field", {
+                      attrs: {
+                        value: "editForm.name",
+                        label: "Message",
+                        counter: "",
+                        maxlength: "50",
+                        "full-width": "",
+                        height: "60px",
+                        rules: _vm.nameRules,
                       },
                       model: {
-                        value: _vm.editForm.limit,
+                        value: _vm.editForm.name,
                         callback: function ($$v) {
-                          _vm.$set(_vm.editForm, "limit", $$v)
+                          _vm.$set(_vm.editForm, "name", $$v)
                         },
-                        expression: "editForm.limit",
+                        expression: "editForm.name",
                       },
                     }),
+                  ],
+                  1
+                ),
+                _vm._v(" "),
+                _c(
+                  "v-card",
+                  [
+                    _c("v-card-title", [_vm._v("タスク内容")]),
+                    _vm._v(" "),
+                    _c("v-textarea", {
+                      attrs: {
+                        value: "editForm.content",
+                        label: "Message",
+                        counter: "",
+                        maxlength: "120",
+                        "full-width": "",
+                        height: "60px",
+                      },
+                      model: {
+                        value: _vm.editForm.content,
+                        callback: function ($$v) {
+                          _vm.$set(_vm.editForm, "content", $$v)
+                        },
+                        expression: "editForm.content",
+                      },
+                    }),
+                  ],
+                  1
+                ),
+                _vm._v(" "),
+                _c(
+                  "v-card",
+                  [
+                    _c("v-card-title", [_vm._v("タスクステータス")]),
+                    _vm._v(" "),
+                    _c("v-select", {
+                      attrs: {
+                        items: _vm.items,
+                        label: _vm.editForm.status,
+                        "full-width": "",
+                      },
+                      model: {
+                        value: _vm.editForm.status,
+                        callback: function ($$v) {
+                          _vm.$set(_vm.editForm, "status", $$v)
+                        },
+                        expression: "editForm.status",
+                      },
+                    }),
+                  ],
+                  1
+                ),
+                _vm._v(" "),
+                _c(
+                  "v-card",
+                  [
+                    _c(
+                      "v-menu",
+                      {
+                        scopedSlots: _vm._u([
+                          {
+                            key: "activator",
+                            fn: function (ref) {
+                              var on = ref.on
+                              var attrs = ref.attrs
+                              return [
+                                _c(
+                                  "v-text-field",
+                                  _vm._g(
+                                    _vm._b(
+                                      {
+                                        staticClass: "mx-auto",
+                                        attrs: {
+                                          label: _vm.date,
+                                          "prepend-icon": "mdi-calendar",
+                                          clearable: "",
+                                        },
+                                        model: {
+                                          value: _vm.text,
+                                          callback: function ($$v) {
+                                            _vm.text = $$v
+                                          },
+                                          expression: "text",
+                                        },
+                                      },
+                                      "v-text-field",
+                                      attrs,
+                                      false
+                                    ),
+                                    on
+                                  )
+                                ),
+                              ]
+                            },
+                          },
+                        ]),
+                        model: {
+                          value: _vm.menu,
+                          callback: function ($$v) {
+                            _vm.menu = $$v
+                          },
+                          expression: "menu",
+                        },
+                      },
+                      [
+                        _vm._v(" "),
+                        _c("v-date-picker", {
+                          on: {
+                            input: function ($event) {
+                              return _vm.formatDate(_vm.editForm.limit)
+                            },
+                          },
+                          model: {
+                            value: _vm.editForm.limit,
+                            callback: function ($$v) {
+                              _vm.$set(_vm.editForm, "limit", $$v)
+                            },
+                            expression: "editForm.limit",
+                          },
+                        }),
+                      ],
+                      1
+                    ),
                   ],
                   1
                 ),
@@ -74015,7 +74042,7 @@ var actions = {
   //学習カード更新
   learnCardUpdate: function learnCardUpdate(context, data) {
     return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee5() {
-      var response, learnList;
+      var res, response, learnList;
       return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee5$(_context5) {
         while (1) {
           switch (_context5.prev = _context5.next) {
@@ -74024,15 +74051,17 @@ var actions = {
               return axios.patch("/api/learn-card/" + data.id, data);
 
             case 2:
-              _context5.next = 4;
+              res = _context5.sent;
+              console.log(res);
+              _context5.next = 6;
               return axios.get("/api/learn-list");
 
-            case 4:
+            case 6:
               response = _context5.sent;
               learnList = response.data.learnList || null;
               context.commit("setLearnLists", learnList);
 
-            case 7:
+            case 9:
             case "end":
               return _context5.stop();
           }
