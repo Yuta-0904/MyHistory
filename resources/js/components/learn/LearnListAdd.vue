@@ -64,7 +64,6 @@ export default {
             return this.learnList.name.length > 0;
         },
         ...mapState({
-            apiStatus: (state) => state.learn.apiStatus,
             listAddErrors: (state) => state.learn.errorMessages,
         }),
     },

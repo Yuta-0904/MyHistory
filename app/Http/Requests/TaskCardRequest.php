@@ -29,7 +29,8 @@ class TaskCardRequest extends FormRequest
             'content' => 'required|max:300',
             'status' => 'required',
             'limit' => 'required',
-            'list_id' => 'required'
+            'list_name' => 'required'
+            
         ];
     }
 
@@ -41,7 +42,8 @@ class TaskCardRequest extends FormRequest
             'content' => 'タスク内容',
             'status' => 'ステータス',
             'limit' => 'タスク期限',
-            'list_id' => 'リスト名'
+            'list_name' => 'リスト名'
+        
         ];
     }
 }

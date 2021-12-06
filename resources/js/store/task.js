@@ -1,4 +1,8 @@
+import { OK, UNPROCESSABLE_ENTITY, CREATED } from "../util";
+
 const state = {
+    apiStatus: null,
+    errorMessages: null,
     taskLists: [],
     taskCards: [],
 };
@@ -9,32 +13,12 @@ const mutations = {
     setTaskLists(state, taskLists) {
         state.taskLists = taskLists;
     },
-
-    //   addTaskList(state,taskList){
-    //     state.taskLists.push({
-    //         id: taskList.id,
-    //         user_id: taskList.user_id,
-    //         name: taskList.name,
-    //         created_at: taskList.created_at,
-    //         updated_at: taskList.updated_at,
-    //         deleted_at:null
-    //     })
-    //   },
-
-    //   addTaskCard(state,taskCard){
-    //     state.taskCards.push({
-    //         id: taskCard.id,
-    //         user_id: taskCard.user_id,
-    //         list_id: taskCard.list_id,
-    //         name: taskCard.name,
-    //         content: taskCard.content,
-    //         status: taskCard.status,
-    //         limit: taskCard.limit,
-    //         created_at: taskCard.created_at,
-    //         updated_at: taskCard.updated_at,
-    //         deleted_at:null
-    //     })
-    //   }
+    setApiStatus(state, status) {
+        state.apiStatus = status;
+    },
+    seterrorMessages(state, messages) {
+        state.errorMessages = messages;
+    },
 };
 
 const actions = {
@@ -45,24 +29,54 @@ const actions = {
         context.commit("setTaskLists", taskList);
     },
 
+    ///エラーメッセージリセット
+    async errorMessageReset(context) {
+        context.commit("seterrorMessages", null);
+        context.commit("setApiStatus", null);
+    },
+
     //タスクリスト新規作成
     async taskListsCreate(context, data) {
-        await axios.post("/api/task-list", data);
-        // context.commit('addTaskList', response.data.taskList)
-
+        const responseStatus = await axios.post("/api/task-list", data);
         const response = await axios.get("/api/task-list");
         const taskList = response.data.taskList || null;
         context.commit("setTaskLists", taskList);
+
+        if (responseStatus.status === OK) {
+            context.commit("setApiStatus", true);
+            return false;
+        }
+
+        context.commit("setApiStatus", false);
+        if (responseStatus.status === UNPROCESSABLE_ENTITY) {
+            context.commit("seterrorMessages", responseStatus.data.errors);
+        } else {
+            context.commit("error/setCode", responseStatus.status, {
+                root: true,
+            });
+        }
     },
 
     //タスクカード新規作成
     async taskCardCreate(context, data) {
-        await axios.post("/api/task-card", data);
-        //context.commit('addTaskCard', response.data.taskCard)
-
+        const responseStatus = await axios.post("/api/task-card", data);
         const response = await axios.get("/api/task-list");
         const taskList = response.data.taskList || null;
         context.commit("setTaskLists", taskList);
+
+        if (responseStatus.status === OK) {
+            context.commit("setApiStatus", true);
+            return false;
+        }
+
+        context.commit("setApiStatus", false);
+        if (responseStatus.status === UNPROCESSABLE_ENTITY) {
+            context.commit("seterrorMessages", responseStatus.data.errors);
+        } else {
+            context.commit("error/setCode", responseStatus.status, {
+                root: true,
+            });
+        }
     },
 
     //タスクカード更新

@@ -60,9 +60,9 @@
                     {{ msg }}
                 </li>
             </ul>
-            <ul v-if="cardAddErrors.list_id">
+            <ul v-if="cardAddErrors.list_name">
                 <li
-                    v-for="msg in cardAddErrors.list_id"
+                    v-for="msg in cardAddErrors.list_name"
                     :key="msg"
                     class="red--text"
                 >

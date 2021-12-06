@@ -9,6 +9,12 @@
             @focusout="finishEdit"
             :rules="nameRules"
         ></v-text-field>
+        <!-- エラー結果表示 -->
+        <ul v-if="listAddErrors">
+            <li v-for="msg in listAddErrors.name" :key="msg" class="red--text">
+                {{ msg }}
+            </li>
+        </ul>
         <v-btn
             class="mr-4"
             @click="addList"
@@ -24,6 +30,7 @@
 </template>
 
 <script>
+import { mapState } from "vuex";
 export default {
     data() {
         return {
@@ -52,6 +59,15 @@ export default {
         contentExists() {
             return this.taskList.name.length > 0;
         },
+        ...mapState({
+            listAddErrors: (state) => state.task.errorMessages,
+        }),
     },
 };
 </script>
+
+<style scoped>
+li {
+    list-style: none;
+}
+</style>

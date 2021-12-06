@@ -28,7 +28,7 @@ class LearnCardRequest extends FormRequest
             'name' => 'required|max:50',
             'content' => 'required|max:1000',
             'status' => 'required',
-            'list_id' => 'required'
+            'list_name' => 'required'
         ];
     }
 
@@ -39,7 +39,7 @@ class LearnCardRequest extends FormRequest
             'name' => 'カード名',
             'content' => '学習内容',
             'status' => 'ステータス',
-            'list_id' => 'リスト名'
+            'list_name' => 'リスト名'
         ];
     }
 }
