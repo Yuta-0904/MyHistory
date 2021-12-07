@@ -18,7 +18,7 @@
                     </v-btn>
                 </template>
                 <v-card class="p-5">
-                    <LearnListAdd />
+                    <LearnListAdd @dialogClose="dialogCloseList" />
                 </v-card>
             </v-dialog>
 
@@ -38,7 +38,10 @@
                             </v-btn>
                         </template>
                         <v-card class="p-5">
-                            <LearnCardAdd :listNames="listNames" />
+                            <LearnCardAdd
+                                :listNames="listNames"
+                                @dialogClose="dialogCloseCard"
+                            />
                         </v-card>
                     </v-dialog>
                 </div>
@@ -96,6 +99,12 @@ export default {
         },
         async statusReset() {
             await this.$store.dispatch("learn/errorMessageReset");
+        },
+        dialogCloseList() {
+            this.dialogList = false;
+        },
+        dialogCloseCard() {
+            this.dialogCard = false;
         },
     },
     computed: {

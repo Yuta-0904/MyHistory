@@ -1,9 +1,8 @@
 <template>
-    <form>
+    <v-form ref="card_form">
         <v-text-field
             v-model="cardForm.name"
             label="LearnTitle"
-            required
             clearable
             @focusin="startEdit"
             @focusout="finishEdit"
@@ -17,8 +16,7 @@
             v-model="cardForm.list_name"
             :items="listNames"
             label="LearnListName"
-            required
-            clearable
+            :rules="listRules"
             @focusin="startEdit"
             @focusout="finishEdit"
             class="mx-auto"
@@ -28,21 +26,19 @@
         <v-textarea
             v-model="cardForm.content"
             label="LearnContent"
-            required
+            :rules="contentRules"
             clearable
             @focusin="startEdit"
             @focusout="finishEdit"
             class="mx-auto"
             width="100%"
             counter
-            :rules="contentRules"
         ></v-textarea>
         <v-select
             v-model="cardForm.status"
             :items="items"
             label="LearnStatus"
-            required
-            clearable
+            :rules="statusRules"
             @focusin="startEdit"
             @focusout="finishEdit"
             class="mx-auto"
@@ -99,7 +95,7 @@
         >
             LearnAdd
         </v-btn>
-    </form>
+    </v-form>
 </template>
 
 <script>
@@ -124,11 +120,15 @@ export default {
             items: ["未着手", "学習中", "保留", "完了"],
             taskListName: [],
             nameRules: [
+                (text) => !!text || "学習タイトルを記入してください",
                 (text) => text.length <= 50 || "最大文字数は50文字です",
             ],
             contentRules: [
+                (text) => !!text || "学習内容を記入してください",
                 (text) => text.length <= 1000 || "最大文字数は1000文字です",
             ],
+            listRules: [(text) => !!text || "リストを選択してください"],
+            statusRules: [(text) => !!text || "ステータスを選択してください"],
         };
     },
     computed: {
@@ -147,11 +147,18 @@ export default {
     },
     methods: {
         async addCardToList() {
-            await this.$store.dispatch("learn/learnCardCreate", this.cardForm);
-            this.cardForm.name = "";
-            this.cardForm.content = "";
-            this.cardForm.status = "";
-            this.cardForm.list_name = "";
+            if (this.$refs.card_form.validate()) {
+                await this.$store.dispatch(
+                    "learn/learnCardCreate",
+                    this.cardForm
+                );
+                this.cardForm.name = "";
+                this.cardForm.content = "";
+                this.cardForm.status = "";
+                this.cardForm.list_name = "";
+                this.$refs.card_form.resetValidation();
+                this.$emit("dialogClose");
+            }
         },
         startEdit() {
             this.isEditing = true;

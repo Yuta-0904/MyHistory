@@ -3144,10 +3144,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
-//
-//
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "CardAdd",
@@ -3169,10 +3165,20 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       items: ["未着手", "学習中", "保留", "完了"],
       taskListName: [],
       nameRules: [function (text) {
+        return !!text || "学習タイトルを記入してください";
+      }, function (text) {
         return text.length <= 50 || "最大文字数は50文字です";
       }],
       contentRules: [function (text) {
+        return !!text || "学習内容を記入してください";
+      }, function (text) {
         return text.length <= 1000 || "最大文字数は1000文字です";
+      }],
+      listRules: [function (text) {
+        return !!text || "リストを選択してください";
+      }],
+      statusRules: [function (text) {
+        return !!text || "ステータスを選択してください";
       }]
     };
   },
@@ -3197,16 +3203,25 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
-                _context.next = 2;
+                if (!_this.$refs.card_form.validate()) {
+                  _context.next = 9;
+                  break;
+                }
+
+                _context.next = 3;
                 return _this.$store.dispatch("learn/learnCardCreate", _this.cardForm);
 
-              case 2:
+              case 3:
                 _this.cardForm.name = "";
                 _this.cardForm.content = "";
                 _this.cardForm.status = "";
                 _this.cardForm.list_name = "";
 
-              case 6:
+                _this.$refs.card_form.resetValidation();
+
+                _this.$emit("dialogClose");
+
+              case 9:
               case "end":
                 return _context.stop();
             }
@@ -3280,7 +3295,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -3290,6 +3304,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       },
       isEditing: false,
       nameRules: [function (text) {
+        return !!text || "リスト名を記入してください";
+      }, function (text) {
         return text.length <= 50 || "最大文字数は50文字です";
       }]
     };
@@ -3303,13 +3319,22 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
-                _context.next = 2;
+                if (!_this.$refs.card_form.validate()) {
+                  _context.next = 6;
+                  break;
+                }
+
+                _context.next = 3;
                 return _this.$store.dispatch("learn/learnListsCreate", _this.learnList);
 
-              case 2:
+              case 3:
                 _this.learnList.name = "";
 
-              case 3:
+                _this.$refs.card_form.resetValidation();
+
+                _this.$emit("dialogClose");
+
+              case 6:
               case "end":
                 return _context.stop();
             }
@@ -3528,6 +3553,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
 
 
 
@@ -3600,6 +3628,12 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           }
         }, _callee2);
       }))();
+    },
+    dialogCloseList: function dialogCloseList() {
+      this.dialogList = false;
+    },
+    dialogCloseCard: function dialogCloseCard() {
+      this.dialogCard = false;
     }
   },
   computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapState"])({
@@ -8068,13 +8102,13 @@ var render = function () {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c(
-    "form",
+    "v-form",
+    { ref: "card_form" },
     [
       _c("v-text-field", {
         staticClass: "mx-auto pt-0",
         attrs: {
           label: "LearnTitle",
-          required: "",
           clearable: "",
           width: "100%",
           counter: "",
@@ -8095,8 +8129,7 @@ var render = function () {
         attrs: {
           items: _vm.listNames,
           label: "LearnListName",
-          required: "",
-          clearable: "",
+          rules: _vm.listRules,
           width: "100%",
         },
         on: { focusin: _vm.startEdit, focusout: _vm.finishEdit },
@@ -8113,11 +8146,10 @@ var render = function () {
         staticClass: "mx-auto",
         attrs: {
           label: "LearnContent",
-          required: "",
+          rules: _vm.contentRules,
           clearable: "",
           width: "100%",
           counter: "",
-          rules: _vm.contentRules,
         },
         on: { focusin: _vm.startEdit, focusout: _vm.finishEdit },
         model: {
@@ -8134,8 +8166,7 @@ var render = function () {
         attrs: {
           items: _vm.items,
           label: "LearnStatus",
-          required: "",
-          clearable: "",
+          rules: _vm.statusRules,
           width: "100%",
         },
         on: { focusin: _vm.startEdit, focusout: _vm.finishEdit },
@@ -8248,12 +8279,12 @@ var render = function () {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c(
-    "form",
+    "v-form",
+    { ref: "card_form" },
     [
       _c("v-text-field", {
         attrs: {
           label: "LearnList",
-          required: "",
           clearable: "",
           counter: "",
           rules: _vm.nameRules,
@@ -8460,7 +8491,16 @@ var render = function () {
             },
             [
               _vm._v(" "),
-              _c("v-card", { staticClass: "p-5" }, [_c("LearnListAdd")], 1),
+              _c(
+                "v-card",
+                { staticClass: "p-5" },
+                [
+                  _c("LearnListAdd", {
+                    on: { dialogClose: _vm.dialogCloseList },
+                  }),
+                ],
+                1
+              ),
             ],
             1
           ),
@@ -8525,6 +8565,7 @@ var render = function () {
                       [
                         _c("LearnCardAdd", {
                           attrs: { listNames: _vm.listNames },
+                          on: { dialogClose: _vm.dialogCloseCard },
                         }),
                       ],
                       1

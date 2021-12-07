@@ -1,9 +1,8 @@
 <template>
-    <form>
+    <v-form ref="card_form">
         <v-text-field
             v-model="learnList.name"
             label="LearnList"
-            required
             clearable
             @focusin="startEdit"
             @focusout="finishEdit"
@@ -27,7 +26,7 @@
         >
             submit
         </v-btn>
-    </form>
+    </v-form>
 </template>
 
 <script>
@@ -40,17 +39,22 @@ export default {
             },
             isEditing: false,
             nameRules: [
+                (text) => !!text || "リスト名を記入してください",
                 (text) => text.length <= 50 || "最大文字数は50文字です",
             ],
         };
     },
     methods: {
         async addList() {
-            await this.$store.dispatch(
-                "learn/learnListsCreate",
-                this.learnList
-            );
-            this.learnList.name = "";
+            if (this.$refs.card_form.validate()) {
+                await this.$store.dispatch(
+                    "learn/learnListsCreate",
+                    this.learnList
+                );
+                this.learnList.name = "";
+                this.$refs.card_form.resetValidation();
+                this.$emit("dialogClose");
+            }
         },
         startEdit() {
             this.isEditing = true;
