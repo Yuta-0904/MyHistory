@@ -54,7 +54,10 @@ class LearnCardController extends Controller
 
     public function show(LearnCard $learnCard)
     {    
-        return response()->json(['learnCard' => $learnCard],200);
+        $learnListsName=LearnList::get(['name']);
+        $cardListName = $learnCard->list->name;
+
+        return response()->json(['learnCard' => $learnCard,'learnListsName' => $learnListsName,'cardListName' => $cardListName],200);
     }
 
     public function delete(LearnCard $learnCard)
@@ -80,10 +83,15 @@ class LearnCardController extends Controller
             default:
                 $status = 3;
         }
+
+        $list_name = $request->list_name;
+        $list = LearnList::where('name',$list_name)->first();
+        $list_id = $list->id;
         
 
         $learnCard->update([
             'name' => $request->name,
+            'list_id' => $list_id,
             'content' => $request->content,
             'status' => $status,
         ]);

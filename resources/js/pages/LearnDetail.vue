@@ -17,6 +17,14 @@
                     </v-text-field>
                 </v-card>
                 <v-card>
+                    <v-card-title>リスト名</v-card-title>
+                    <v-select
+                        v-model="editForm.list_name"
+                        :items="listNames"
+                        value="editForm.list_name"
+                    ></v-select>
+                </v-card>
+                <v-card>
                     <v-card-title>学習内容</v-card-title>
                     <v-textarea
                         v-model="editForm.content"
@@ -75,15 +83,17 @@ export default {
             contentRules: [
                 (text) => text.length <= 1000 || "最大文字数は1000文字です",
             ],
+            listNames: [],
         };
     },
     async created() {
         await axios
             .get("/api/learn-card/" + this.editForm.id)
             .then((response) => {
+                console.log(response);
                 this.editForm.name = response.data.learnCard.name;
                 this.editForm.content = response.data.learnCard.content;
-                this.editForm.list_name = response.data.learnCard.list_id;
+                this.editForm.list_name = response.data.cardListName;
 
                 if (response.data.learnCard.status == 0) {
                     this.editForm.status = "未着手";
@@ -94,11 +104,15 @@ export default {
                 } else if (response.data.learnCard.status == 3) {
                     this.editForm.status = "完了";
                 }
+
+                //リスト名取得
+                const listNames = [];
+                response.data.learnListsName.forEach(function (ListsName) {
+                    listNames.push(ListsName.name);
+                });
+                this.listNames = listNames;
             })
             .catch((error) => console.log(error));
-        await axios.get("/api/learn-list/list_name").then((response)=> {
-            console.log(response.data);
-        }).catch((error) => console.log(error));
     },
     methods: {
         async UpdateCard() {

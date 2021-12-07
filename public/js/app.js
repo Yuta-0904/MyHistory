@@ -3718,6 +3718,14 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -3736,7 +3744,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       }],
       contentRules: [function (text) {
         return text.length <= 1000 || "最大文字数は1000文字です";
-      }]
+      }],
+      listNames: []
     };
   },
   created: function created() {
@@ -3749,9 +3758,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
             case 0:
               _context.next = 2;
               return axios.get("/api/learn-card/" + _this.editForm.id).then(function (response) {
+                console.log(response);
                 _this.editForm.name = response.data.learnCard.name;
                 _this.editForm.content = response.data.learnCard.content;
-                _this.editForm.list_name = response.data.learnCard.list_id;
+                _this.editForm.list_name = response.data.cardListName;
 
                 if (response.data.learnCard.status == 0) {
                   _this.editForm.status = "未着手";
@@ -3761,20 +3771,20 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                   _this.editForm.status = "保留";
                 } else if (response.data.learnCard.status == 3) {
                   _this.editForm.status = "完了";
-                }
+                } //リスト名取得
+
+
+                //リスト名取得
+                var listNames = [];
+                response.data.learnListsName.forEach(function (ListsName) {
+                  listNames.push(ListsName.name);
+                });
+                _this.listNames = listNames;
               })["catch"](function (error) {
                 return console.log(error);
               });
 
             case 2:
-              _context.next = 4;
-              return axios.get("/api/learn-list/list_name").then(function (response) {
-                console.log(response.data);
-              })["catch"](function (error) {
-                return console.log(error);
-              });
-
-            case 4:
             case "end":
               return _context.stop();
           }
@@ -8265,6 +8275,25 @@ var render = function () {
                       _vm.$set(_vm.editForm, "name", $$v)
                     },
                     expression: "editForm.name",
+                  },
+                }),
+              ],
+              1
+            ),
+            _vm._v(" "),
+            _c(
+              "v-card",
+              [
+                _c("v-card-title", [_vm._v("リスト名")]),
+                _vm._v(" "),
+                _c("v-select", {
+                  attrs: { items: _vm.listNames, value: "editForm.list_name" },
+                  model: {
+                    value: _vm.editForm.list_name,
+                    callback: function ($$v) {
+                      _vm.$set(_vm.editForm, "list_name", $$v)
+                    },
+                    expression: "editForm.list_name",
                   },
                 }),
               ],
