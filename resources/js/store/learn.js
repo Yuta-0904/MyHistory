@@ -38,11 +38,11 @@ const actions = {
     //学習リスト新規作成
     async learnListsCreate(context, data) {
         const responseStatus = await axios.post("/api/learn-list", data);
-        const response = await axios.get("/api/learn-list");
-        const learnList = response.data.learnList || null;
-        context.commit("setLearnLists", learnList);
 
-        if (responseStatus.status === OK) {
+        if (responseStatus.status === CREATED) {
+            const response = await axios.get("/api/learn-list");
+            const learnList = response.data.learnList || null;
+            context.commit("setLearnLists", learnList);
             context.commit("setApiStatus", true);
             return false;
         }
@@ -60,11 +60,11 @@ const actions = {
     //学習カード新規作成
     async learnCardCreate(context, data) {
         const responseStatus = await axios.post("/api/learn-card", data);
-        const response = await axios.get("/api/learn-list");
-        const learnList = response.data.learnList || null;
-        context.commit("setLearnLists", learnList);
 
-        if (responseStatus.status === OK) {
+        if (responseStatus.status === CREATED) {
+            const response = await axios.get("/api/learn-list");
+            const learnList = response.data.learnList || null;
+            context.commit("setLearnLists", learnList);
             context.commit("setApiStatus", true);
             return false;
         }
@@ -81,12 +81,26 @@ const actions = {
 
     //学習カード更新
     async learnCardUpdate(context, data) {
-        const res = await axios.patch("/api/learn-card/" + data.id, data);
-        console.log(res);
+        const responseStatus = await axios.patch(
+            "/api/learn-card/" + data.id,
+            data
+        );
 
-        const response = await axios.get("/api/learn-list");
-        const learnList = response.data.learnList || null;
-        context.commit("setLearnLists", learnList);
+        if (responseStatus.status === CREATED) {
+            const response = await axios.get("/api/learn-list");
+            const learnList = response.data.learnList || null;
+            context.commit("setLearnLists", learnList);
+            context.commit("setApiStatus", true);
+            return false;
+        }
+        context.commit("setApiStatus", false);
+        if (responseStatus.status === UNPROCESSABLE_ENTITY) {
+            context.commit("seterrorMessages", responseStatus.data.errors);
+        } else {
+            context.commit("error/setCode", responseStatus.status, {
+                root: true,
+            });
+        }
     },
 };
 

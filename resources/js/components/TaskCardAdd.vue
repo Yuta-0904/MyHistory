@@ -66,7 +66,6 @@
         </v-menu>
 
         <!-- エラー結果表示 -->
-
         <div v-if="cardAddErrors">
             <ul v-if="cardAddErrors.name">
                 <li

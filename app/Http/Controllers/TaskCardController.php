@@ -64,10 +64,12 @@ class TaskCardController extends Controller
     public function show(TaskCard $taskCard)
     {   
         $carbon = new Carbon($taskCard->limit);
-        $date = $carbon->format('Y年m月d日');
-        // $date1->format('Y/m/d');
+        $date = $carbon->format('Y/m/d');
         
-        return response()->json(['taskCard' => $taskCard,'date' => $date],200);
+        $taskListsName=TaskList::get(['name']);
+        $cardListName = $taskCard->list->name;
+        
+        return response()->json(['taskCard' => $taskCard,'date' => $date,'taskListsName' => $taskListsName,'cardListName' => $cardListName],200);
     }
 
     public function delete(TaskCard $taskCard)
@@ -93,9 +95,13 @@ class TaskCardController extends Controller
                 $status = 3;
         }
         
+        $list_name = $request->list_name;
+        $list = TaskList::where('name',$list_name)->first();
+        $list_id = $list->id;
 
         $taskCard->update([
             'name' => $request->name,
+            'list_id' => $list_id,
             'content' => $request->content,
             'status' => $status,
             'limit' => $request->limit,

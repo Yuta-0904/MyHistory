@@ -19,6 +19,14 @@
                         </v-text-field>
                     </v-card>
                     <v-card>
+                        <v-card-title>リスト名</v-card-title>
+                        <v-select
+                            v-model="editForm.list_name"
+                            :items="listNames"
+                            value="editForm.list_name"
+                        ></v-select>
+                    </v-card>
+                    <v-card>
                         <v-card-title>タスク内容</v-card-title>
                         <v-textarea
                             v-model="editForm.content"
@@ -28,6 +36,7 @@
                             maxlength="120"
                             full-width
                             height="60px"
+                            :rules="contentRules"
                         >
                         </v-textarea>
                     </v-card>
@@ -61,6 +70,55 @@
                     </v-card>
                 </v-form>
             </v-card>
+            <!-- エラー結果表示 -->
+
+            <div v-if="cardAddErrors">
+                <ul v-if="cardAddErrors.name">
+                    <li
+                        v-for="msg in cardAddErrors.name"
+                        :key="msg"
+                        class="red--text"
+                    >
+                        {{ msg }}
+                    </li>
+                </ul>
+                <ul v-if="cardAddErrors.list_name">
+                    <li
+                        v-for="msg in cardAddErrors.list_name"
+                        :key="msg"
+                        class="red--text"
+                    >
+                        {{ msg }}
+                    </li>
+                </ul>
+                <ul v-if="cardAddErrors.content">
+                    <li
+                        v-for="msg in cardAddErrors.content"
+                        :key="msg"
+                        class="red--text"
+                    >
+                        {{ msg }}
+                    </li>
+                </ul>
+                <ul v-if="cardAddErrors.status">
+                    <li
+                        v-for="msg in cardAddErrors.status"
+                        :key="msg"
+                        class="red--text"
+                    >
+                        {{ msg }}
+                    </li>
+                </ul>
+                <ul v-if="cardAddErrors.limit">
+                    <li
+                        v-for="msg in cardAddErrors.limit"
+                        :key="msg"
+                        class="red--text"
+                    >
+                        {{ msg }}
+                    </li>
+                </ul>
+            </div>
             <v-btn
                 class="d-flex mx-auto mb-3 px-10"
                 @click="UpdateCard"
@@ -77,7 +135,7 @@
 </template>
 
 <script>
-// import moment from "moment";
+import { mapState } from "vuex";
 export default {
     data() {
         return {
@@ -95,8 +153,14 @@ export default {
             date: "",
             isEditing: false,
             nameRules: [
+                (text) => !!text || "タスク名を記入してください",
                 (text) => text.length <= 50 || "最大文字数は50文字です",
             ],
+            contentRules: [
+                (text) => !!text || "タスク内容を記入してください",
+                (text) => text.length <= 300 || "最大文字数は300文字です",
+            ],
+            listNames: [],
         };
     },
     async created() {
@@ -105,6 +169,7 @@ export default {
             .then((response) => {
                 this.editForm.name = response.data.taskCard.name;
                 this.editForm.content = response.data.taskCard.content;
+                this.editForm.list_name = response.data.cardListName;
 
                 this.date = response.data.date;
                 this.editForm.limit = response.data.taskCard.limit;
@@ -117,6 +182,12 @@ export default {
                 } else if (response.data.taskCard.status == 3) {
                     this.editForm.status = "完了";
                 }
+                //リスト名取得
+                const listNames = [];
+                response.data.taskListsName.forEach(function (ListsName) {
+                    listNames.push(ListsName.name);
+                });
+                this.listNames = listNames;
             })
             .catch((error) => console.log(error));
     },
@@ -127,7 +198,10 @@ export default {
                     "task/taskCardUpdate",
                     this.editForm
                 );
-                this.$router.push("/");
+                if (this.apiStatus) {
+                    this.statusReset();
+                    this.$router.push("/");
+                }
             }
         },
         formatDate(date) {
@@ -143,6 +217,9 @@ export default {
         finishEdit() {
             this.isEditing = false;
         },
+        async statusReset() {
+            await this.$store.dispatch("task/errorMessageReset");
+        },
     },
     computed: {
         contentExists() {
@@ -153,6 +230,16 @@ export default {
                 this.editForm.status.length > 0
             );
         },
+        ...mapState({
+            apiStatus: (state) => state.task.apiStatus,
+            cardAddErrors: (state) => state.task.errorMessages,
+        }),
     },
 };
 </script>
+
+<style scoped>
+li {
+    list-style: none;
+}
+</style>

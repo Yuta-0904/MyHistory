@@ -38,7 +38,7 @@ class TaskCardRequest extends FormRequest
     public function attributes()
     {
         return [
-            'name' => 'リスト名',
+            'name' => 'カード名',
             'content' => 'タスク内容',
             'status' => 'ステータス',
             'limit' => 'タスク期限',

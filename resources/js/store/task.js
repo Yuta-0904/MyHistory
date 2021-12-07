@@ -38,11 +38,11 @@ const actions = {
     //タスクリスト新規作成
     async taskListsCreate(context, data) {
         const responseStatus = await axios.post("/api/task-list", data);
-        const response = await axios.get("/api/task-list");
-        const taskList = response.data.taskList || null;
-        context.commit("setTaskLists", taskList);
 
-        if (responseStatus.status === OK) {
+        if (responseStatus.status === CREATED) {
+            const response = await axios.get("/api/task-list");
+            const taskList = response.data.taskList || null;
+            context.commit("setTaskLists", taskList);
             context.commit("setApiStatus", true);
             return false;
         }
@@ -60,11 +60,11 @@ const actions = {
     //タスクカード新規作成
     async taskCardCreate(context, data) {
         const responseStatus = await axios.post("/api/task-card", data);
-        const response = await axios.get("/api/task-list");
-        const taskList = response.data.taskList || null;
-        context.commit("setTaskLists", taskList);
 
-        if (responseStatus.status === OK) {
+        if (responseStatus.status === CREATED) {
+            const response = await axios.get("/api/task-list");
+            const taskList = response.data.taskList || null;
+            context.commit("setTaskLists", taskList);
             context.commit("setApiStatus", true);
             return false;
         }
@@ -81,11 +81,27 @@ const actions = {
 
     //タスクカード更新
     async taskCardUpdate(context, data) {
-        await axios.patch("/api/task-card/" + data.id, data);
+        const responseStatus = await axios.patch(
+            "/api/task-card/" + data.id,
+            data
+        );
 
-        const response = await axios.get("/api/task-list");
-        const taskList = response.data.taskList || null;
-        context.commit("setTaskLists", taskList);
+        if (responseStatus.status === CREATED) {
+            const response = await axios.get("/api/task-list");
+            const taskList = response.data.taskList || null;
+            context.commit("setTaskLists", taskList);
+            context.commit("setApiStatus", true);
+            return false;
+        }
+
+        context.commit("setApiStatus", false);
+        if (responseStatus.status === UNPROCESSABLE_ENTITY) {
+            context.commit("seterrorMessages", responseStatus.data.errors);
+        } else {
+            context.commit("error/setCode", responseStatus.status, {
+                root: true,
+            });
+        }
     },
 };
 
