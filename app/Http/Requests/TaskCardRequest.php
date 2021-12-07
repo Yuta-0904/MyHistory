@@ -27,6 +27,23 @@ class TaskCardRequest extends FormRequest
         return [
             'name' => 'required|max:50',
             'content' => 'required|max:300',
+            'status' => 'required',
+            'limit' => 'required',
+            'list_name' => 'required'
+            
+        ];
+    }
+
+    //エラーメッセージの日本語化
+    public function attributes()
+    {
+        return [
+            'name' => 'カード名',
+            'content' => 'タスク内容',
+            'status' => 'ステータス',
+            'limit' => 'タスク期限',
+            'list_name' => 'リスト名'
+        
         ];
     }
 }

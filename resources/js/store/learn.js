@@ -1,4 +1,8 @@
+import { OK, UNPROCESSABLE_ENTITY, CREATED } from "../util";
+
 const state = {
+    apiStatus: null,
+    errorMessages: null,
     learnLists: [],
     learnCards: [],
 };
@@ -9,41 +13,114 @@ const mutations = {
     setLearnLists(state, learnLists) {
         state.learnLists = learnLists;
     },
+    setApiStatus(state, status) {
+        state.apiStatus = status;
+    },
+    seterrorMessages(state, messages) {
+        state.errorMessages = messages;
+    },
 };
 
 const actions = {
-    //タスクリスト取得
+    ///学習リスト取得
     async learnListsGet(context) {
         const response = await axios.get("/api/learn-list");
-        const learnList = response.data.learnList || null;
-        context.commit("setLearnLists", learnList);
+
+        if (response.status === OK) {
+            const learnList = response.data.learnList || null;
+            context.commit("setLearnLists", learnList);
+            context.commit("setApiStatus", true);
+            return false;
+        }
+        context.commit("setApiStatus", false);
+        context.commit("error/setCode", response.status, {
+            root: true,
+        });
+    },
+    //404チェック
+    async learnapiStatus(context, data) {
+        if (data === OK) {
+            context.commit("setApiStatus", true);
+            return false;
+        }
+        context.commit("setApiStatus", false);
+        context.commit("error/setCode", data, {
+            root: true,
+        });
+    },
+
+    ///エラーメッセージリセット
+    async errorMessageReset(context) {
+        context.commit("seterrorMessages", null);
+        context.commit("setApiStatus", null);
     },
 
     //学習リスト新規作成
     async learnListsCreate(context, data) {
-        await axios.post("/api/learn-list", data);
+        const responseStatus = await axios.post("/api/learn-list", data);
 
-        const response = await axios.get("/api/learn-list");
-        const learnList = response.data.learnList || null;
-        context.commit("setLearnLists", learnList);
+        if (responseStatus.status === CREATED) {
+            const response = await axios.get("/api/learn-list");
+            const learnList = response.data.learnList || null;
+            context.commit("setLearnLists", learnList);
+            context.commit("setApiStatus", true);
+            return false;
+        }
+
+        context.commit("setApiStatus", false);
+        if (responseStatus.status === UNPROCESSABLE_ENTITY) {
+            context.commit("seterrorMessages", responseStatus.data.errors);
+        } else {
+            context.commit("error/setCode", responseStatus.status, {
+                root: true,
+            });
+        }
     },
 
     //学習カード新規作成
     async learnCardCreate(context, data) {
-        await axios.post("/api/learn-card", data);
+        const responseStatus = await axios.post("/api/learn-card", data);
 
-        const response = await axios.get("/api/learn-list");
-        const learnList = response.data.learnList || null;
-        context.commit("setLearnLists", learnList);
+        if (responseStatus.status === CREATED) {
+            const response = await axios.get("/api/learn-list");
+            const learnList = response.data.learnList || null;
+            context.commit("setLearnLists", learnList);
+            context.commit("setApiStatus", true);
+            return false;
+        }
+
+        context.commit("setApiStatus", false);
+        if (responseStatus.status === UNPROCESSABLE_ENTITY) {
+            context.commit("seterrorMessages", responseStatus.data.errors);
+        } else {
+            context.commit("error/setCode", responseStatus.status, {
+                root: true,
+            });
+        }
     },
 
     //学習カード更新
     async learnCardUpdate(context, data) {
-        await axios.patch("/api/learn-card/" + data.id, data);
+        const responseStatus = await axios.patch(
+            "/api/learn-card/" + data.id,
+            data
+        );
 
-        const response = await axios.get("/api/learn-list");
-        const learnList = response.data.learnList || null;
-        context.commit("setLearnLists", learnList);
+        if (responseStatus.status === CREATED) {
+            const response = await axios.get("/api/learn-list");
+            const learnList = response.data.learnList || null;
+            context.commit("setLearnLists", learnList);
+            context.commit("setApiStatus", true);
+            return false;
+        }
+        context.commit("setApiStatus", false);
+        if (responseStatus.status === UNPROCESSABLE_ENTITY) {
+            context.commit("seterrorMessages", responseStatus.data.errors);
+        } else {
+            context.commit("error/setCode", responseStatus.status, {
+                root: true,
+            });
+        }
     },
 };
 

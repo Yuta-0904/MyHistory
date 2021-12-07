@@ -27,6 +27,19 @@ class LearnCardRequest extends FormRequest
         return [
             'name' => 'required|max:50',
             'content' => 'required|max:1000',
+            'status' => 'required',
+            'list_name' => 'required'
+        ];
+    }
+
+    //エラーメッセージの日本語化
+    public function attributes()
+    {
+        return [
+            'name' => 'カード名',
+            'content' => '学習内容',
+            'status' => 'ステータス',
+            'list_name' => 'リスト名'
         ];
     }
 }
