@@ -9748,7 +9748,19 @@ var render = function () {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("p", [_vm._v("お探しのページは見つかりませんでした。")])
+  return _c(
+    "div",
+    [
+      _c("p", [_vm._v("お探しのページは見つかりませんでした。")]),
+      _vm._v(" "),
+      _c(
+        "RouterLink",
+        { staticClass: "button button--link", attrs: { to: "/" } },
+        [_vm._v("\n        Topページへ戻る\n    ")]
+      ),
+    ],
+    1
+  )
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -9772,7 +9784,19 @@ var render = function () {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("p", [_vm._v("システムエラーが発生しました。")])
+  return _c(
+    "div",
+    [
+      _c("p", [_vm._v("システムエラーが発生しました。")]),
+      _vm._v(" "),
+      _c(
+        "RouterLink",
+        { staticClass: "button button--link", attrs: { to: "/" } },
+        [_vm._v("\n        Topページへ戻る\n    ")]
+      ),
+    ],
+    1
+  )
 }
 var staticRenderFns = []
 render._withStripped = true
