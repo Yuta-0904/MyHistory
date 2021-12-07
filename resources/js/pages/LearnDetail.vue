@@ -135,7 +135,7 @@ export default {
         await axios
             .get("/api/learn-card/" + this.editForm.id)
             .then((response) => {
-                // console.log(response);
+                this.$store.dispatch("learn/learnapiStatus", response.status);
                 this.editForm.name = response.data.learnCard.name;
                 this.editForm.content = response.data.learnCard.content;
                 this.editForm.list_name = response.data.cardListName;

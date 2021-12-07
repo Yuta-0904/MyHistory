@@ -25,8 +25,28 @@ const actions = {
     //タスクリスト取得
     async taskListsGet(context) {
         const response = await axios.get("/api/task-list");
-        const taskList = response.data.taskList || null;
-        context.commit("setTaskLists", taskList);
+
+        if (response.status === OK) {
+            const taskList = response.data.taskList || null;
+            context.commit("setTaskLists", taskList);
+            context.commit("setApiStatus", true);
+            return false;
+        }
+        context.commit("setApiStatus", false);
+        context.commit("error/setCode", response.status, {
+            root: true,
+        });
+    },
+    //404チェック
+    async taskapiStatus(context, data) {
+        if (data === OK) {
+            context.commit("setApiStatus", true);
+            return false;
+        }
+        context.commit("setApiStatus", false);
+        context.commit("error/setCode", data, {
+            root: true,
+        });
     },
 
     ///エラーメッセージリセット

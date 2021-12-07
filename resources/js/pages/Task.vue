@@ -167,6 +167,7 @@ export default {
         await axios
             .get("/api/task-card/" + this.editForm.id)
             .then((response) => {
+                this.$store.dispatch("task/taskapiStatus", response.status);
                 this.editForm.name = response.data.taskCard.name;
                 this.editForm.content = response.data.taskCard.content;
                 this.editForm.list_name = response.data.cardListName;

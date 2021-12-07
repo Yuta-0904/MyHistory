@@ -22,11 +22,31 @@ const mutations = {
 };
 
 const actions = {
-    //タスクリスト取得
+    ///学習リスト取得
     async learnListsGet(context) {
         const response = await axios.get("/api/learn-list");
-        const learnList = response.data.learnList || null;
-        context.commit("setLearnLists", learnList);
+
+        if (response.status === OK) {
+            const learnList = response.data.learnList || null;
+            context.commit("setLearnLists", learnList);
+            context.commit("setApiStatus", true);
+            return false;
+        }
+        context.commit("setApiStatus", false);
+        context.commit("error/setCode", response.status, {
+            root: true,
+        });
+    },
+    //404チェック
+    async learnapiStatus(context, data) {
+        if (data === OK) {
+            context.commit("setApiStatus", true);
+            return false;
+        }
+        context.commit("setApiStatus", false);
+        context.commit("error/setCode", data, {
+            root: true,
+        });
     },
 
     ///エラーメッセージリセット

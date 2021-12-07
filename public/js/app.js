@@ -2023,7 +2023,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: 'App',
+  name: "App",
   components: {
     Header: _components_Header_vue__WEBPACK_IMPORTED_MODULE_0__["default"],
     Footer: _components_Footer_vue__WEBPACK_IMPORTED_MODULE_1__["default"]
@@ -2037,13 +2037,15 @@ __webpack_require__.r(__webpack_exports__);
     errorCode: {
       handler: function handler(val) {
         if (val === _util__WEBPACK_IMPORTED_MODULE_2__["INTERNAL_SERVER_ERROR"]) {
-          this.$router.push('/500');
+          this.$router.push("/500");
+        } else if (val === _util__WEBPACK_IMPORTED_MODULE_2__["NOT_FOUND"]) {
+          this.$router.push("/not-found");
         }
       },
       immediate: true
     },
     $route: function $route() {
-      this.$store.commit('error/setCode', null);
+      this.$store.commit("error/setCode", null);
     }
   }
 });
@@ -3873,7 +3875,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
             case 0:
               _context.next = 2;
               return axios.get("/api/learn-card/" + _this.editForm.id).then(function (response) {
-                // console.log(response);
+                _this.$store.dispatch("learn/learnapiStatus", response.status);
+
                 _this.editForm.name = response.data.learnCard.name;
                 _this.editForm.content = response.data.learnCard.content;
                 _this.editForm.list_name = response.data.cardListName;
@@ -4428,6 +4431,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
             case 0:
               _context.next = 2;
               return axios.get("/api/task-card/" + _this.editForm.id).then(function (response) {
+                _this.$store.dispatch("task/taskapiStatus", response.status);
+
                 _this.editForm.name = response.data.taskCard.name;
                 _this.editForm.content = response.data.taskCard.content;
                 _this.editForm.list_name = response.data.cardListName;
@@ -9720,6 +9725,30 @@ var render = function () {
     ],
     1
   )
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/pages/errors/NotFound.vue?vue&type=template&id=2eaaa6da&":
+/*!*************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/pages/errors/NotFound.vue?vue&type=template&id=2eaaa6da& ***!
+  \*************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function () {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("p", [_vm._v("お探しのページは見つかりませんでした。")])
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -74059,6 +74088,59 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/js/pages/errors/NotFound.vue":
+/*!************************************************!*\
+  !*** ./resources/js/pages/errors/NotFound.vue ***!
+  \************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _NotFound_vue_vue_type_template_id_2eaaa6da___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./NotFound.vue?vue&type=template&id=2eaaa6da& */ "./resources/js/pages/errors/NotFound.vue?vue&type=template&id=2eaaa6da&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+var script = {}
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_1__["default"])(
+  script,
+  _NotFound_vue_vue_type_template_id_2eaaa6da___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _NotFound_vue_vue_type_template_id_2eaaa6da___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/pages/errors/NotFound.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/pages/errors/NotFound.vue?vue&type=template&id=2eaaa6da&":
+/*!*******************************************************************************!*\
+  !*** ./resources/js/pages/errors/NotFound.vue?vue&type=template&id=2eaaa6da& ***!
+  \*******************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_NotFound_vue_vue_type_template_id_2eaaa6da___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib??vue-loader-options!./NotFound.vue?vue&type=template&id=2eaaa6da& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/pages/errors/NotFound.vue?vue&type=template&id=2eaaa6da&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_NotFound_vue_vue_type_template_id_2eaaa6da___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_NotFound_vue_vue_type_template_id_2eaaa6da___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
 /***/ "./resources/js/pages/errors/System.vue":
 /*!**********************************************!*\
   !*** ./resources/js/pages/errors/System.vue ***!
@@ -74124,13 +74206,15 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js");
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(vue__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var vue_router__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vue-router */ "./node_modules/vue-router/dist/vue-router.esm.js");
-/* harmony import */ var _pages_TaskList_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./pages/TaskList.vue */ "./resources/js/pages/TaskList.vue");
-/* harmony import */ var _pages_Login_vue__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./pages/Login.vue */ "./resources/js/pages/Login.vue");
-/* harmony import */ var _pages_Task_vue__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./pages/Task.vue */ "./resources/js/pages/Task.vue");
-/* harmony import */ var _pages_Learn_vue__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./pages/Learn.vue */ "./resources/js/pages/Learn.vue");
-/* harmony import */ var _pages_LearnDetail_vue__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./pages/LearnDetail.vue */ "./resources/js/pages/LearnDetail.vue");
-/* harmony import */ var _store__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./store */ "./resources/js/store/index.js");
-/* harmony import */ var _pages_errors_System_vue__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./pages/errors/System.vue */ "./resources/js/pages/errors/System.vue");
+/* harmony import */ var _pages_errors_NotFound_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./pages/errors/NotFound.vue */ "./resources/js/pages/errors/NotFound.vue");
+/* harmony import */ var _pages_TaskList_vue__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./pages/TaskList.vue */ "./resources/js/pages/TaskList.vue");
+/* harmony import */ var _pages_Login_vue__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./pages/Login.vue */ "./resources/js/pages/Login.vue");
+/* harmony import */ var _pages_Task_vue__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./pages/Task.vue */ "./resources/js/pages/Task.vue");
+/* harmony import */ var _pages_Learn_vue__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./pages/Learn.vue */ "./resources/js/pages/Learn.vue");
+/* harmony import */ var _pages_LearnDetail_vue__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./pages/LearnDetail.vue */ "./resources/js/pages/LearnDetail.vue");
+/* harmony import */ var _store__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./store */ "./resources/js/store/index.js");
+/* harmony import */ var _pages_errors_System_vue__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./pages/errors/System.vue */ "./resources/js/pages/errors/System.vue");
+
 
  // ページコンポーネントをインポートする
 
@@ -74151,10 +74235,10 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vue_router__WEBPACK_IMPORTED_MODU
   routes: [{
     path: "/",
     name: "taskList",
-    component: _pages_TaskList_vue__WEBPACK_IMPORTED_MODULE_2__["default"],
+    component: _pages_TaskList_vue__WEBPACK_IMPORTED_MODULE_3__["default"],
     beforeEnter: function beforeEnter(to, from, next) {
       ///未ログインであればログインページに返却するよう条件判定
-      if (!_store__WEBPACK_IMPORTED_MODULE_7__["default"].getters["auth/check"]) {
+      if (!_store__WEBPACK_IMPORTED_MODULE_8__["default"].getters["auth/check"]) {
         next("/login");
       } else {
         next();
@@ -74163,10 +74247,10 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vue_router__WEBPACK_IMPORTED_MODU
   }, {
     path: "/login",
     name: "login",
-    component: _pages_Login_vue__WEBPACK_IMPORTED_MODULE_3__["default"],
+    component: _pages_Login_vue__WEBPACK_IMPORTED_MODULE_4__["default"],
     beforeEnter: function beforeEnter(to, from, next) {
       ///ログイン中であればtopページに返却するよう条件判定
-      if (_store__WEBPACK_IMPORTED_MODULE_7__["default"].getters["auth/check"]) {
+      if (_store__WEBPACK_IMPORTED_MODULE_8__["default"].getters["auth/check"]) {
         next("/");
       } else {
         next();
@@ -74175,10 +74259,10 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vue_router__WEBPACK_IMPORTED_MODU
   }, {
     path: "/task/:id",
     name: "taskDetail",
-    component: _pages_Task_vue__WEBPACK_IMPORTED_MODULE_4__["default"],
+    component: _pages_Task_vue__WEBPACK_IMPORTED_MODULE_5__["default"],
     beforeEnter: function beforeEnter(to, from, next) {
       ///未ログインであればログインページに返却するよう条件判定
-      if (!_store__WEBPACK_IMPORTED_MODULE_7__["default"].getters["auth/check"]) {
+      if (!_store__WEBPACK_IMPORTED_MODULE_8__["default"].getters["auth/check"]) {
         next("/login");
       } else {
         next();
@@ -74187,10 +74271,10 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vue_router__WEBPACK_IMPORTED_MODU
   }, {
     path: "/learn",
     name: "learnList",
-    component: _pages_Learn_vue__WEBPACK_IMPORTED_MODULE_5__["default"],
+    component: _pages_Learn_vue__WEBPACK_IMPORTED_MODULE_6__["default"],
     beforeEnter: function beforeEnter(to, from, next) {
       ///未ログインであればログインページに返却するよう条件判定
-      if (!_store__WEBPACK_IMPORTED_MODULE_7__["default"].getters["auth/check"]) {
+      if (!_store__WEBPACK_IMPORTED_MODULE_8__["default"].getters["auth/check"]) {
         next("/login");
       } else {
         next();
@@ -74199,10 +74283,10 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vue_router__WEBPACK_IMPORTED_MODU
   }, {
     path: "/learn/:id",
     name: "learnDetail",
-    component: _pages_LearnDetail_vue__WEBPACK_IMPORTED_MODULE_6__["default"],
+    component: _pages_LearnDetail_vue__WEBPACK_IMPORTED_MODULE_7__["default"],
     beforeEnter: function beforeEnter(to, from, next) {
       ///未ログインであればログインページに返却するよう条件判定
-      if (!_store__WEBPACK_IMPORTED_MODULE_7__["default"].getters["auth/check"]) {
+      if (!_store__WEBPACK_IMPORTED_MODULE_8__["default"].getters["auth/check"]) {
         next("/login");
       } else {
         next();
@@ -74210,7 +74294,10 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vue_router__WEBPACK_IMPORTED_MODU
     }
   }, {
     path: "/500",
-    component: _pages_errors_System_vue__WEBPACK_IMPORTED_MODULE_8__["default"]
+    component: _pages_errors_System_vue__WEBPACK_IMPORTED_MODULE_9__["default"]
+  }, {
+    path: "*",
+    component: _pages_errors_NotFound_vue__WEBPACK_IMPORTED_MODULE_2__["default"]
   }]
 }));
 
@@ -74540,7 +74627,7 @@ var mutations = {
   }
 };
 var actions = {
-  //タスクリスト取得
+  ///学習リスト取得
   learnListsGet: function learnListsGet(context) {
     return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
       var response, learnList;
@@ -74553,10 +74640,24 @@ var actions = {
 
             case 2:
               response = _context.sent;
+
+              if (!(response.status === _util__WEBPACK_IMPORTED_MODULE_1__["OK"])) {
+                _context.next = 8;
+                break;
+              }
+
               learnList = response.data.learnList || null;
               context.commit("setLearnLists", learnList);
+              context.commit("setApiStatus", true);
+              return _context.abrupt("return", false);
 
-            case 5:
+            case 8:
+              context.commit("setApiStatus", false);
+              context.commit("error/setCode", response.status, {
+                root: true
+              });
+
+            case 10:
             case "end":
               return _context.stop();
           }
@@ -74564,17 +74665,28 @@ var actions = {
       }, _callee);
     }))();
   },
-  ///エラーメッセージリセット
-  errorMessageReset: function errorMessageReset(context) {
+  //404チェック
+  learnapiStatus: function learnapiStatus(context, data) {
     return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2() {
       return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
         while (1) {
           switch (_context2.prev = _context2.next) {
             case 0:
-              context.commit("seterrorMessages", null);
-              context.commit("setApiStatus", null);
+              if (!(data === _util__WEBPACK_IMPORTED_MODULE_1__["OK"])) {
+                _context2.next = 3;
+                break;
+              }
 
-            case 2:
+              context.commit("setApiStatus", true);
+              return _context2.abrupt("return", false);
+
+            case 3:
+              context.commit("setApiStatus", false);
+              context.commit("error/setCode", data, {
+                root: true
+              });
+
+            case 5:
             case "end":
               return _context2.stop();
           }
@@ -74582,47 +74694,17 @@ var actions = {
       }, _callee2);
     }))();
   },
-  //学習リスト新規作成
-  learnListsCreate: function learnListsCreate(context, data) {
+  ///エラーメッセージリセット
+  errorMessageReset: function errorMessageReset(context) {
     return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee3() {
-      var responseStatus, response, learnList;
       return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee3$(_context3) {
         while (1) {
           switch (_context3.prev = _context3.next) {
             case 0:
-              _context3.next = 2;
-              return axios.post("/api/learn-list", data);
+              context.commit("seterrorMessages", null);
+              context.commit("setApiStatus", null);
 
             case 2:
-              responseStatus = _context3.sent;
-
-              if (!(responseStatus.status === _util__WEBPACK_IMPORTED_MODULE_1__["CREATED"])) {
-                _context3.next = 11;
-                break;
-              }
-
-              _context3.next = 6;
-              return axios.get("/api/learn-list");
-
-            case 6:
-              response = _context3.sent;
-              learnList = response.data.learnList || null;
-              context.commit("setLearnLists", learnList);
-              context.commit("setApiStatus", true);
-              return _context3.abrupt("return", false);
-
-            case 11:
-              context.commit("setApiStatus", false);
-
-              if (responseStatus.status === _util__WEBPACK_IMPORTED_MODULE_1__["UNPROCESSABLE_ENTITY"]) {
-                context.commit("seterrorMessages", responseStatus.data.errors);
-              } else {
-                context.commit("error/setCode", responseStatus.status, {
-                  root: true
-                });
-              }
-
-            case 13:
             case "end":
               return _context3.stop();
           }
@@ -74630,8 +74712,8 @@ var actions = {
       }, _callee3);
     }))();
   },
-  //学習カード新規作成
-  learnCardCreate: function learnCardCreate(context, data) {
+  //学習リスト新規作成
+  learnListsCreate: function learnListsCreate(context, data) {
     return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee4() {
       var responseStatus, response, learnList;
       return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee4$(_context4) {
@@ -74639,7 +74721,7 @@ var actions = {
           switch (_context4.prev = _context4.next) {
             case 0:
               _context4.next = 2;
-              return axios.post("/api/learn-card", data);
+              return axios.post("/api/learn-list", data);
 
             case 2:
               responseStatus = _context4.sent;
@@ -74678,8 +74760,8 @@ var actions = {
       }, _callee4);
     }))();
   },
-  //学習カード更新
-  learnCardUpdate: function learnCardUpdate(context, data) {
+  //学習カード新規作成
+  learnCardCreate: function learnCardCreate(context, data) {
     return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee5() {
       var responseStatus, response, learnList;
       return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee5$(_context5) {
@@ -74687,7 +74769,7 @@ var actions = {
           switch (_context5.prev = _context5.next) {
             case 0:
               _context5.next = 2;
-              return axios.patch("/api/learn-card/" + data.id, data);
+              return axios.post("/api/learn-card", data);
 
             case 2:
               responseStatus = _context5.sent;
@@ -74724,6 +74806,54 @@ var actions = {
           }
         }
       }, _callee5);
+    }))();
+  },
+  //学習カード更新
+  learnCardUpdate: function learnCardUpdate(context, data) {
+    return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee6() {
+      var responseStatus, response, learnList;
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee6$(_context6) {
+        while (1) {
+          switch (_context6.prev = _context6.next) {
+            case 0:
+              _context6.next = 2;
+              return axios.patch("/api/learn-card/" + data.id, data);
+
+            case 2:
+              responseStatus = _context6.sent;
+
+              if (!(responseStatus.status === _util__WEBPACK_IMPORTED_MODULE_1__["CREATED"])) {
+                _context6.next = 11;
+                break;
+              }
+
+              _context6.next = 6;
+              return axios.get("/api/learn-list");
+
+            case 6:
+              response = _context6.sent;
+              learnList = response.data.learnList || null;
+              context.commit("setLearnLists", learnList);
+              context.commit("setApiStatus", true);
+              return _context6.abrupt("return", false);
+
+            case 11:
+              context.commit("setApiStatus", false);
+
+              if (responseStatus.status === _util__WEBPACK_IMPORTED_MODULE_1__["UNPROCESSABLE_ENTITY"]) {
+                context.commit("seterrorMessages", responseStatus.data.errors);
+              } else {
+                context.commit("error/setCode", responseStatus.status, {
+                  root: true
+                });
+              }
+
+            case 13:
+            case "end":
+              return _context6.stop();
+          }
+        }
+      }, _callee6);
     }))();
   }
 };
@@ -74789,10 +74919,24 @@ var actions = {
 
             case 2:
               response = _context.sent;
+
+              if (!(response.status === _util__WEBPACK_IMPORTED_MODULE_1__["OK"])) {
+                _context.next = 8;
+                break;
+              }
+
               taskList = response.data.taskList || null;
               context.commit("setTaskLists", taskList);
+              context.commit("setApiStatus", true);
+              return _context.abrupt("return", false);
 
-            case 5:
+            case 8:
+              context.commit("setApiStatus", false);
+              context.commit("error/setCode", response.status, {
+                root: true
+              });
+
+            case 10:
             case "end":
               return _context.stop();
           }
@@ -74800,17 +74944,28 @@ var actions = {
       }, _callee);
     }))();
   },
-  ///エラーメッセージリセット
-  errorMessageReset: function errorMessageReset(context) {
+  //404チェック
+  taskapiStatus: function taskapiStatus(context, data) {
     return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2() {
       return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
         while (1) {
           switch (_context2.prev = _context2.next) {
             case 0:
-              context.commit("seterrorMessages", null);
-              context.commit("setApiStatus", null);
+              if (!(data === _util__WEBPACK_IMPORTED_MODULE_1__["OK"])) {
+                _context2.next = 3;
+                break;
+              }
 
-            case 2:
+              context.commit("setApiStatus", true);
+              return _context2.abrupt("return", false);
+
+            case 3:
+              context.commit("setApiStatus", false);
+              context.commit("error/setCode", data, {
+                root: true
+              });
+
+            case 5:
             case "end":
               return _context2.stop();
           }
@@ -74818,47 +74973,17 @@ var actions = {
       }, _callee2);
     }))();
   },
-  //タスクリスト新規作成
-  taskListsCreate: function taskListsCreate(context, data) {
+  ///エラーメッセージリセット
+  errorMessageReset: function errorMessageReset(context) {
     return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee3() {
-      var responseStatus, response, taskList;
       return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee3$(_context3) {
         while (1) {
           switch (_context3.prev = _context3.next) {
             case 0:
-              _context3.next = 2;
-              return axios.post("/api/task-list", data);
+              context.commit("seterrorMessages", null);
+              context.commit("setApiStatus", null);
 
             case 2:
-              responseStatus = _context3.sent;
-
-              if (!(responseStatus.status === _util__WEBPACK_IMPORTED_MODULE_1__["CREATED"])) {
-                _context3.next = 11;
-                break;
-              }
-
-              _context3.next = 6;
-              return axios.get("/api/task-list");
-
-            case 6:
-              response = _context3.sent;
-              taskList = response.data.taskList || null;
-              context.commit("setTaskLists", taskList);
-              context.commit("setApiStatus", true);
-              return _context3.abrupt("return", false);
-
-            case 11:
-              context.commit("setApiStatus", false);
-
-              if (responseStatus.status === _util__WEBPACK_IMPORTED_MODULE_1__["UNPROCESSABLE_ENTITY"]) {
-                context.commit("seterrorMessages", responseStatus.data.errors);
-              } else {
-                context.commit("error/setCode", responseStatus.status, {
-                  root: true
-                });
-              }
-
-            case 13:
             case "end":
               return _context3.stop();
           }
@@ -74866,8 +74991,8 @@ var actions = {
       }, _callee3);
     }))();
   },
-  //タスクカード新規作成
-  taskCardCreate: function taskCardCreate(context, data) {
+  //タスクリスト新規作成
+  taskListsCreate: function taskListsCreate(context, data) {
     return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee4() {
       var responseStatus, response, taskList;
       return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee4$(_context4) {
@@ -74875,7 +75000,7 @@ var actions = {
           switch (_context4.prev = _context4.next) {
             case 0:
               _context4.next = 2;
-              return axios.post("/api/task-card", data);
+              return axios.post("/api/task-list", data);
 
             case 2:
               responseStatus = _context4.sent;
@@ -74914,8 +75039,8 @@ var actions = {
       }, _callee4);
     }))();
   },
-  //タスクカード更新
-  taskCardUpdate: function taskCardUpdate(context, data) {
+  //タスクカード新規作成
+  taskCardCreate: function taskCardCreate(context, data) {
     return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee5() {
       var responseStatus, response, taskList;
       return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee5$(_context5) {
@@ -74923,7 +75048,7 @@ var actions = {
           switch (_context5.prev = _context5.next) {
             case 0:
               _context5.next = 2;
-              return axios.patch("/api/task-card/" + data.id, data);
+              return axios.post("/api/task-card", data);
 
             case 2:
               responseStatus = _context5.sent;
@@ -74961,6 +75086,54 @@ var actions = {
         }
       }, _callee5);
     }))();
+  },
+  //タスクカード更新
+  taskCardUpdate: function taskCardUpdate(context, data) {
+    return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee6() {
+      var responseStatus, response, taskList;
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee6$(_context6) {
+        while (1) {
+          switch (_context6.prev = _context6.next) {
+            case 0:
+              _context6.next = 2;
+              return axios.patch("/api/task-card/" + data.id, data);
+
+            case 2:
+              responseStatus = _context6.sent;
+
+              if (!(responseStatus.status === _util__WEBPACK_IMPORTED_MODULE_1__["CREATED"])) {
+                _context6.next = 11;
+                break;
+              }
+
+              _context6.next = 6;
+              return axios.get("/api/task-list");
+
+            case 6:
+              response = _context6.sent;
+              taskList = response.data.taskList || null;
+              context.commit("setTaskLists", taskList);
+              context.commit("setApiStatus", true);
+              return _context6.abrupt("return", false);
+
+            case 11:
+              context.commit("setApiStatus", false);
+
+              if (responseStatus.status === _util__WEBPACK_IMPORTED_MODULE_1__["UNPROCESSABLE_ENTITY"]) {
+                context.commit("seterrorMessages", responseStatus.data.errors);
+              } else {
+                context.commit("error/setCode", responseStatus.status, {
+                  root: true
+                });
+              }
+
+            case 13:
+            case "end":
+              return _context6.stop();
+          }
+        }
+      }, _callee6);
+    }))();
   }
 };
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -74978,7 +75151,7 @@ var actions = {
 /*!******************************!*\
   !*** ./resources/js/util.js ***!
   \******************************/
-/*! exports provided: getCookieValue, OK, CREATED, INTERNAL_SERVER_ERROR, UNPROCESSABLE_ENTITY */
+/*! exports provided: getCookieValue, OK, CREATED, INTERNAL_SERVER_ERROR, UNPROCESSABLE_ENTITY, NOT_FOUND */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -74988,6 +75161,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "CREATED", function() { return CREATED; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "INTERNAL_SERVER_ERROR", function() { return INTERNAL_SERVER_ERROR; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "UNPROCESSABLE_ENTITY", function() { return UNPROCESSABLE_ENTITY; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "NOT_FOUND", function() { return NOT_FOUND; });
 function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
 
 function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
@@ -75006,13 +75180,13 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
  * @returns {String} キーに対応する値
  */
 function getCookieValue(searchKey) {
-  if (typeof searchKey === 'undefined') {
-    return '';
+  if (typeof searchKey === "undefined") {
+    return "";
   }
 
-  var val = '';
-  document.cookie.split(';').forEach(function (cookie) {
-    var _cookie$split = cookie.split('='),
+  var val = "";
+  document.cookie.split(";").forEach(function (cookie) {
+    var _cookie$split = cookie.split("="),
         _cookie$split2 = _slicedToArray(_cookie$split, 2),
         key = _cookie$split2[0],
         value = _cookie$split2[1];
@@ -75027,6 +75201,7 @@ var OK = 200;
 var CREATED = 201;
 var INTERNAL_SERVER_ERROR = 500;
 var UNPROCESSABLE_ENTITY = 422;
+var NOT_FOUND = 404;
 
 /***/ }),
 

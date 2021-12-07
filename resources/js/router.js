@@ -1,5 +1,6 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
+import NotFound from "./pages/errors/NotFound.vue";
 
 // ページコンポーネントをインポートする
 import TaskList from "./pages/TaskList.vue";
@@ -87,6 +88,10 @@ export default new VueRouter({
         {
             path: "/500",
             component: SystemError,
+        },
+        {
+            path: "*",
+            component: NotFound,
         },
     ],
 });

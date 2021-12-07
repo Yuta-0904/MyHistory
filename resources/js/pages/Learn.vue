@@ -87,7 +87,6 @@ export default {
     },
     methods: {
         async learnListsGet() {
-            // authストアのloginアクションを呼び出す
             const response = await axios.get("/api/learn-list");
             this.learnLists = response.data.learnList;
 
