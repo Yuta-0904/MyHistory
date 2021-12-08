@@ -26,7 +26,7 @@ const actions = {
     async learnListsGet(context) {
         const response = await axios.get("/api/learn-list");
 
-        if (response.status === OK) {
+        if (response.status === CREATED) {
             const learnList = response.data.learnList || null;
             context.commit("setLearnLists", learnList);
             context.commit("setApiStatus", true);

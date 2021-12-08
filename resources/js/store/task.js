@@ -26,7 +26,7 @@ const actions = {
     async taskListsGet(context) {
         const response = await axios.get("/api/task-list");
 
-        if (response.status === OK) {
+        if (response.status === CREATED) {
             const taskList = response.data.taskList || null;
             context.commit("setTaskLists", taskList);
             context.commit("setApiStatus", true);
