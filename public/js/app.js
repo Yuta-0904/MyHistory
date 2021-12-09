@@ -2292,7 +2292,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
   },
   data: function data() {
     return {
-      taskCards: []
+      taskCards: [],
+      sortSwitch: false
     };
   },
   methods: {
@@ -2325,7 +2326,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         }, _callee);
       }))();
     },
-    taskCardGet: function taskCardGet(sort) {
+    taskCardGet: function taskCardGet(sort, order) {
       var _this2 = this;
 
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2() {
@@ -2335,14 +2336,15 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
             switch (_context2.prev = _context2.next) {
               case 0:
                 sort = sort ? sort : "created_at";
-                _context2.next = 3;
-                return axios.get("/api/task-card?list_id=" + _this2.listIndex + "&sort=" + sort);
+                order = order ? order : 'desc';
+                _context2.next = 4;
+                return axios.get("/api/task-card?list_id=" + _this2.listIndex + "&sort=" + sort + "&order=" + order);
 
-              case 3:
+              case 4:
                 response = _context2.sent;
                 _this2.taskCards = response.data.taskCards;
 
-              case 5:
+              case 6:
               case "end":
                 return _context2.stop();
             }
@@ -2358,10 +2360,27 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           while (1) {
             switch (_context3.prev = _context3.next) {
               case 0:
-                _context3.next = 2;
-                return _this3.taskCardGet(sort);
+                if (!_this3.sortSwitch) {
+                  _context3.next = 6;
+                  break;
+                }
 
-              case 2:
+                _context3.next = 3;
+                return _this3.taskCardGet(sort, 'desc');
+
+              case 3:
+                _this3.sortSwitch = false;
+                _context3.next = 9;
+                break;
+
+              case 6:
+                _context3.next = 8;
+                return _this3.taskCardGet(sort, 'asc');
+
+              case 8:
+                _this3.sortSwitch = true;
+
+              case 9:
               case "end":
                 return _context3.stop();
             }
@@ -4785,7 +4804,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
               case 2:
                 response = _context.sent;
                 _this.taskLists = response.data.taskList;
-                console.log(response.data.taskList);
                 listNames = [];
 
                 _this.taskLists.forEach(function (taskList) {
@@ -4794,7 +4812,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
                 _this.listNames = listNames;
 
-              case 8:
+              case 7:
               case "end":
                 return _context.stop();
             }
@@ -7615,7 +7633,7 @@ var render = function () {
               staticClass: "me-5",
               attrs: {
                 outlined: "",
-                color: "cyan darken-4",
+                color: "light-blue darken-4",
                 elevation: "6",
                 dark: "",
               },
@@ -7633,9 +7651,14 @@ var render = function () {
             {
               attrs: {
                 outlined: "",
-                color: "cyan darken-4",
+                color: "light-blue darken-4",
                 elevation: "6",
                 dark: "",
+              },
+              on: {
+                click: function ($event) {
+                  return _vm.cardSort("limit")
+                },
               },
             },
             [_vm._v("\n            limit\n        ")]

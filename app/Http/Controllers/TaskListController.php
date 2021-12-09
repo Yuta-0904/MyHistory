@@ -19,7 +19,7 @@ class TaskListController extends Controller
         $this->middleware('auth');
     }
 
-    public function get()
+    public function get(Request $request)
     {
         $taskLists = TaskList::where('user_id',Auth::id())->orderBy('name','asc')->get();  
         return response()->json(['taskList' => $taskLists],201);

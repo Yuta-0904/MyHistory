@@ -90,7 +90,7 @@ export default {
             
             const response = await axios.get(`/api/task-list?sort=${sort}`);
             this.taskLists = response.data.taskList;
-            console.log(response.data.taskList);
+            
 
             const listNames = [];
             this.taskLists.forEach(function (taskList) {

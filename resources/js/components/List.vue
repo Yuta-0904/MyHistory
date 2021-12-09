@@ -18,14 +18,14 @@
             <v-btn
                 outlined
                 class="me-5"
-                color="cyan darken-4"
+                color="light-blue darken-4"
                 elevation="6"
                 dark
                 @click="cardSort('status')"
             >
                 status
             </v-btn>
-            <v-btn outlined color="cyan darken-4" elevation="6" dark>
+            <v-btn outlined color="light-blue darken-4" elevation="6" dark @click="cardSort('limit')">
                 limit
             </v-btn>
         </v-card-title>
@@ -65,6 +65,7 @@ export default {
     data() {
         return {
             taskCards: [],
+            sortSwitch: false
         };
     },
     methods: {
@@ -85,16 +86,24 @@ export default {
                     });
             }
         },
-        async taskCardGet(sort) {
+        async taskCardGet(sort,order) {
             sort = sort ? sort : "created_at";
+            order = order ? order : 'desc'
             const response = await axios.get(
-                "/api/task-card?list_id=" + this.listIndex + "&sort=" + sort
+                "/api/task-card?list_id=" + this.listIndex + "&sort=" + sort + "&order=" + order
             );
             this.taskCards = response.data.taskCards;
             
         },
         async cardSort(sort) {
-            await this.taskCardGet(sort);
+            if(this.sortSwitch){
+await this.taskCardGet(sort,'desc');
+this.sortSwitch = false;
+            }else {
+               await this.taskCardGet(sort,'asc'); 
+               this.sortSwitch = true;
+            }
+            
         },
     },
     watch: {

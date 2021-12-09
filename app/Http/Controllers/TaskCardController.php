@@ -19,8 +19,18 @@ class TaskCardController extends Controller
     }
 
     public function get(Request $request){
-        log::info($request->list_id);
-        $taskCards = TaskCard::where('user_id',Auth::id())->where('list_id',$request->list_id)->get()->sortByDesc($request->sort)->values();
+        
+
+
+        $list_id = $request->list_id;
+        $sort = $request->sort;
+
+        if($request->order == 'asc'){
+            $taskCards = TaskCard::where('user_id',Auth::id())->where('list_id',$list_id)->get()->sortBy($sort)->values();
+        }else {
+            $taskCards = TaskCard::where('user_id',Auth::id())->where('list_id',$list_id)->get()->sortByDesc($sort)->values();
+        }
+        
 
         foreach ($taskCards as $taskCard) {  
                 $carbon = new Carbon($taskCard->limit);
