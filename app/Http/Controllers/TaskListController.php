@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Requests\TaskListRequest;
 use App\TaskList;
+use App\TaskCard;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 use Carbon\Carbon;
@@ -20,25 +21,7 @@ class TaskListController extends Controller
 
     public function get()
     {
-        //認証ユーザの値のみ取得
-        $taskLists = TaskList::all()->where('user_id',Auth::id());
-
-     
-        foreach ($taskLists as $taskList) {
-            ///リストに紐づいているタスクカードも取得
-            $taskList->cards->sortByDesc('created_at');
-
-
-            foreach($taskList->cards as $taskCard) {
-                $carbon = new Carbon($taskCard->limit);
-                $taskCard->limit = $carbon->format('Y/m/d');
-                
-                $createDate = new Carbon($taskCard->created_at, 'Asia/Tokyo');
-                $taskCard->date = $createDate->format('Y/m/d');
-            }
-           
-        }
-      
+        $taskLists = TaskList::where('user_id',Auth::id())->orderBy('name','asc')->get();  
         return response()->json(['taskList' => $taskLists],201);
     }
 

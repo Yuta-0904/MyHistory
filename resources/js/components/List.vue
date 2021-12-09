@@ -14,6 +14,21 @@
                 >
             </v-card-title>
         </v-card-text>
+        <v-card-title style="padding-top: 0">
+            <v-btn
+                outlined
+                class="me-5"
+                color="cyan darken-4"
+                elevation="6"
+                dark
+                @click="cardSort('status')"
+            >
+                status
+            </v-btn>
+            <v-btn outlined color="cyan darken-4" elevation="6" dark>
+                limit
+            </v-btn>
+        </v-card-title>
         <div class="d-flex flex-nowrap cardlist">
             <TaskCard
                 v-for="taskCard in taskCards"
@@ -22,10 +37,12 @@
                 :listIndex="listIndex"
             />
         </div>
+        
     </v-card>
 </template>
 
 <script>
+import { mapState } from "vuex";
 import TaskCardAdd from "./TaskCardAdd.vue";
 import TaskCard from "./TaskCard.vue";
 
@@ -44,12 +61,11 @@ export default {
             type: Number,
             required: true,
         },
-        taskCards: {
-            type: Array,
-        },
     },
     data() {
-        return {};
+        return {
+            taskCards: [],
+        };
     },
     methods: {
         async removeList() {
@@ -69,6 +85,37 @@ export default {
                     });
             }
         },
+        async taskCardGet(sort) {
+            sort = sort ? sort : "created_at";
+            const response = await axios.get(
+                "/api/task-card?list_id=" + this.listIndex + "&sort=" + sort
+            );
+            this.taskCards = response.data.taskCards;
+            
+        },
+        async cardSort(sort) {
+            await this.taskCardGet(sort);
+        },
+    },
+    watch: {
+        $route: {
+            async handler() {
+                this.taskCardGet();
+            },
+            immediate: true,
+        },
+           stateTaskCards: {
+            handler() {
+                this.taskCardGet();
+                
+            },
+            deep: true,
+        },
+    },
+    computed: {
+        ...mapState({
+            stateTaskCards: (state) => state.task.taskCards,
+        }),
     },
 };
 </script>

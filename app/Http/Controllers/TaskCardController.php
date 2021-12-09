@@ -18,13 +18,24 @@ class TaskCardController extends Controller
         $this->middleware('auth');
     }
 
-    // public function get(){
-    //     $taskCards = TaskCard::where('user_id',Auth::id())->get()->sortByDesc('created_at');
-    //     //log::info($taskCards);
-        
-        
-    //     return response()->json(['taskCards' => $taskCards],201);
-    // }
+    public function get(Request $request){
+        log::info($request->list_id);
+        $taskCards = TaskCard::where('user_id',Auth::id())->where('list_id',$request->list_id)->get()->sortByDesc($request->sort)->values();
+
+        foreach ($taskCards as $taskCard) {  
+                $carbon = new Carbon($taskCard->limit);
+                $taskCard->limit = $carbon->format('Y/m/d');    
+                $createDate = new Carbon($taskCard->created_at, 'Asia/Tokyo');
+                $taskCard->date = $createDate->format('Y/m/d');
+        } 
+
+        return response()->json(['taskCards' => $taskCards],201);
+    }
+
+    public function getAll(Request $request){
+        $taskCards = TaskCard::where('user_id',Auth::id())->get();
+        return response()->json(['taskCards' => $taskCards],201);
+    }
 
     public function create(TaskCardRequest $request, TaskCard $taskCard)
     {
