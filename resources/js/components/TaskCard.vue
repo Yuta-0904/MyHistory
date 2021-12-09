@@ -64,7 +64,6 @@ export default {
                 await axios
                     .delete("/api/task-card/" + this.taskCard.id)
                     .then((response) => {
-                        console.log(response);
                         this.$store.dispatch("task/taskCardsGet");
                     })
                     .catch((error) => {

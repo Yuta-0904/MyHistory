@@ -2271,6 +2271,11 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
 
 
 
@@ -2336,7 +2341,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
             switch (_context2.prev = _context2.next) {
               case 0:
                 sort = sort ? sort : "created_at";
-                order = order ? order : 'desc';
+                order = order ? order : "desc";
                 _context2.next = 4;
                 return axios.get("/api/task-card?list_id=" + _this2.listIndex + "&sort=" + sort + "&order=" + order);
 
@@ -2366,7 +2371,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 }
 
                 _context3.next = 3;
-                return _this3.taskCardGet(sort, 'desc');
+                return _this3.taskCardGet(sort, "desc");
 
               case 3:
                 _this3.sortSwitch = false;
@@ -2375,7 +2380,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
               case 6:
                 _context3.next = 8;
-                return _this3.taskCardGet(sort, 'asc');
+                return _this3.taskCardGet(sort, "asc");
 
               case 8:
                 _this3.sortSwitch = true;
@@ -2519,8 +2524,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
                 _context.next = 3;
                 return axios["delete"]("/api/task-card/" + _this.taskCard.id).then(function (response) {
-                  console.log(response);
-
                   _this.$store.dispatch("task/taskCardsGet");
                 })["catch"](function (error) {
                   console.log(error);
@@ -3083,8 +3086,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
                 _context.next = 3;
                 return axios["delete"]("/api/learn-card/" + _this.learnCard.id).then(function (response) {
-                  // alert(response.data.message);
-                  _this.$store.dispatch("learn/learnListsGet");
+                  _this.$store.dispatch("learn/learnCardsGet");
                 })["catch"](function (error) {
                   console.log(error);
                   alert("削除に失敗しました");
@@ -3496,6 +3498,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _LearnCard_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./LearnCard.vue */ "./resources/js/components/learn/LearnCard.vue");
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) { symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); } keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 
 
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
@@ -3529,6 +3538,28 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "List",
@@ -3544,13 +3575,13 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     listIndex: {
       type: Number,
       required: true
-    },
-    learnCards: {
-      type: Array
     }
   },
   data: function data() {
-    return {};
+    return {
+      learnCards: [],
+      sortSwitch: false
+    };
   },
   methods: {
     removeList: function removeList() {
@@ -3581,8 +3612,104 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           }
         }, _callee);
       }))();
+    },
+    learnCardGet: function learnCardGet(sort, order) {
+      var _this2 = this;
+
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2() {
+        var response;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
+          while (1) {
+            switch (_context2.prev = _context2.next) {
+              case 0:
+                sort = sort ? sort : "created_at";
+                order = order ? order : "desc";
+                _context2.next = 4;
+                return axios.get("/api/learn-card?list_id=" + _this2.listIndex + "&sort=" + sort + "&order=" + order);
+
+              case 4:
+                response = _context2.sent;
+                _this2.learnCards = response.data.learnCards;
+
+              case 6:
+              case "end":
+                return _context2.stop();
+            }
+          }
+        }, _callee2);
+      }))();
+    },
+    cardSort: function cardSort(sort) {
+      var _this3 = this;
+
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee3() {
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee3$(_context3) {
+          while (1) {
+            switch (_context3.prev = _context3.next) {
+              case 0:
+                if (!_this3.sortSwitch) {
+                  _context3.next = 6;
+                  break;
+                }
+
+                _context3.next = 3;
+                return _this3.learnCardGet(sort, "desc");
+
+              case 3:
+                _this3.sortSwitch = false;
+                _context3.next = 9;
+                break;
+
+              case 6:
+                _context3.next = 8;
+                return _this3.learnCardGet(sort, "asc");
+
+              case 8:
+                _this3.sortSwitch = true;
+
+              case 9:
+              case "end":
+                return _context3.stop();
+            }
+          }
+        }, _callee3);
+      }))();
     }
-  }
+  },
+  watch: {
+    $route: {
+      handler: function handler() {
+        var _this4 = this;
+
+        return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee4() {
+          return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee4$(_context4) {
+            while (1) {
+              switch (_context4.prev = _context4.next) {
+                case 0:
+                  _this4.learnCardGet();
+
+                case 1:
+                case "end":
+                  return _context4.stop();
+              }
+            }
+          }, _callee4);
+        }))();
+      },
+      immediate: true
+    },
+    stateLearnCards: {
+      handler: function handler() {
+        this.learnCardGet();
+      },
+      deep: true
+    }
+  },
+  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_2__["mapState"])({
+    stateLearnCards: function stateLearnCards(state) {
+      return state.learn.learnCards;
+    }
+  }))
 });
 
 /***/ }),
@@ -3701,7 +3828,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     };
   },
   methods: {
-    learnListsGet: function learnListsGet() {
+    learnListsGet: function learnListsGet(sort) {
       var _this = this;
 
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
@@ -3711,7 +3838,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
             switch (_context.prev = _context.next) {
               case 0:
                 _context.next = 2;
-                return axios.get("/api/learn-list");
+                return axios.get("/api/learn-list?sort=".concat(sort));
 
               case 2:
                 response = _context.sent;
@@ -3796,13 +3923,13 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     },
     stateLearnLists: {
       handler: function handler() {
-        this.learnListsGet();
+        this.learnListsGet("created_at");
       },
       deep: true
     },
     stateLearnCards: {
       handler: function handler() {
-        this.learnListsGet();
+        this.learnListsGet("created_at");
       },
       deep: true
     },
@@ -8552,6 +8679,50 @@ var render = function () {
               }),
             ],
             1
+          ),
+        ],
+        1
+      ),
+      _vm._v(" "),
+      _c(
+        "v-card-title",
+        { staticStyle: { "padding-top": "0" } },
+        [
+          _c(
+            "v-btn",
+            {
+              staticClass: "me-5",
+              attrs: {
+                outlined: "",
+                color: "light-blue darken-4",
+                elevation: "6",
+                dark: "",
+              },
+              on: {
+                click: function ($event) {
+                  return _vm.cardSort("status")
+                },
+              },
+            },
+            [_vm._v("\n            status\n        ")]
+          ),
+          _vm._v(" "),
+          _c(
+            "v-btn",
+            {
+              attrs: {
+                outlined: "",
+                color: "light-blue darken-4",
+                elevation: "6",
+                dark: "",
+              },
+              on: {
+                click: function ($event) {
+                  return _vm.cardSort("created_at")
+                },
+              },
+            },
+            [_vm._v("\n            create\n        ")]
           ),
         ],
         1
@@ -74803,6 +74974,9 @@ var mutations = {
   },
   seterrorMessages: function seterrorMessages(state, messages) {
     state.errorMessages = messages;
+  },
+  setLearnCards: function setLearnCards(state, learnCards) {
+    state.learnCards = learnCards;
   }
 };
 var actions = {
@@ -74844,20 +75018,45 @@ var actions = {
       }, _callee);
     }))();
   },
-  //404チェック
-  learnapiStatus: function learnapiStatus(context, data) {
+  ///学習カード取得
+  learnCardsGet: function learnCardsGet(context) {
     return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2() {
+      var response, learnCards;
       return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
         while (1) {
           switch (_context2.prev = _context2.next) {
             case 0:
+              _context2.next = 2;
+              return axios.get("/api/learn-card/all");
+
+            case 2:
+              response = _context2.sent;
+              learnCards = response.data || null;
+              console.log(learnCards);
+              context.commit("setLearnCards", learnCards);
+
+            case 6:
+            case "end":
+              return _context2.stop();
+          }
+        }
+      }, _callee2);
+    }))();
+  },
+  //404チェック
+  learnapiStatus: function learnapiStatus(context, data) {
+    return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee3() {
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee3$(_context3) {
+        while (1) {
+          switch (_context3.prev = _context3.next) {
+            case 0:
               if (!(data === _util__WEBPACK_IMPORTED_MODULE_1__["OK"])) {
-                _context2.next = 3;
+                _context3.next = 3;
                 break;
               }
 
               context.commit("setApiStatus", true);
-              return _context2.abrupt("return", false);
+              return _context3.abrupt("return", false);
 
             case 3:
               context.commit("setApiStatus", false);
@@ -74867,71 +75066,23 @@ var actions = {
 
             case 5:
             case "end":
-              return _context2.stop();
-          }
-        }
-      }, _callee2);
-    }))();
-  },
-  ///エラーメッセージリセット
-  errorMessageReset: function errorMessageReset(context) {
-    return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee3() {
-      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee3$(_context3) {
-        while (1) {
-          switch (_context3.prev = _context3.next) {
-            case 0:
-              context.commit("seterrorMessages", null);
-              context.commit("setApiStatus", null);
-
-            case 2:
-            case "end":
               return _context3.stop();
           }
         }
       }, _callee3);
     }))();
   },
-  //学習リスト新規作成
-  learnListsCreate: function learnListsCreate(context, data) {
+  ///エラーメッセージリセット
+  errorMessageReset: function errorMessageReset(context) {
     return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee4() {
-      var responseStatus, response, learnList;
       return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee4$(_context4) {
         while (1) {
           switch (_context4.prev = _context4.next) {
             case 0:
-              _context4.next = 2;
-              return axios.post("/api/learn-list", data);
+              context.commit("seterrorMessages", null);
+              context.commit("setApiStatus", null);
 
             case 2:
-              responseStatus = _context4.sent;
-
-              if (!(responseStatus.status === _util__WEBPACK_IMPORTED_MODULE_1__["CREATED"])) {
-                _context4.next = 11;
-                break;
-              }
-
-              _context4.next = 6;
-              return axios.get("/api/learn-list");
-
-            case 6:
-              response = _context4.sent;
-              learnList = response.data.learnList || null;
-              context.commit("setLearnLists", learnList);
-              context.commit("setApiStatus", true);
-              return _context4.abrupt("return", false);
-
-            case 11:
-              context.commit("setApiStatus", false);
-
-              if (responseStatus.status === _util__WEBPACK_IMPORTED_MODULE_1__["UNPROCESSABLE_ENTITY"]) {
-                context.commit("seterrorMessages", responseStatus.data.errors);
-              } else {
-                context.commit("error/setCode", responseStatus.status, {
-                  root: true
-                });
-              }
-
-            case 13:
             case "end":
               return _context4.stop();
           }
@@ -74939,8 +75090,8 @@ var actions = {
       }, _callee4);
     }))();
   },
-  //学習カード新規作成
-  learnCardCreate: function learnCardCreate(context, data) {
+  //学習リスト新規作成
+  learnListsCreate: function learnListsCreate(context, data) {
     return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee5() {
       var responseStatus, response, learnList;
       return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee5$(_context5) {
@@ -74948,7 +75099,7 @@ var actions = {
           switch (_context5.prev = _context5.next) {
             case 0:
               _context5.next = 2;
-              return axios.post("/api/learn-card", data);
+              return axios.post("/api/learn-list", data);
 
             case 2:
               responseStatus = _context5.sent;
@@ -74987,16 +75138,16 @@ var actions = {
       }, _callee5);
     }))();
   },
-  //学習カード更新
-  learnCardUpdate: function learnCardUpdate(context, data) {
+  //学習カード新規作成
+  learnCardCreate: function learnCardCreate(context, data) {
     return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee6() {
-      var responseStatus, response, learnList;
+      var responseStatus, response, learnCards;
       return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee6$(_context6) {
         while (1) {
           switch (_context6.prev = _context6.next) {
             case 0:
               _context6.next = 2;
-              return axios.patch("/api/learn-card/" + data.id, data);
+              return axios.post("/api/learn-card", data);
 
             case 2:
               responseStatus = _context6.sent;
@@ -75007,12 +75158,12 @@ var actions = {
               }
 
               _context6.next = 6;
-              return axios.get("/api/learn-list");
+              return axios.get("/api/learn-card/all");
 
             case 6:
               response = _context6.sent;
-              learnList = response.data.learnList || null;
-              context.commit("setLearnLists", learnList);
+              learnCards = response.data || null;
+              context.commit("setLearnCards", learnCards);
               context.commit("setApiStatus", true);
               return _context6.abrupt("return", false);
 
@@ -75033,6 +75184,54 @@ var actions = {
           }
         }
       }, _callee6);
+    }))();
+  },
+  //学習カード更新
+  learnCardUpdate: function learnCardUpdate(context, data) {
+    return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee7() {
+      var responseStatus, response, learnList;
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee7$(_context7) {
+        while (1) {
+          switch (_context7.prev = _context7.next) {
+            case 0:
+              _context7.next = 2;
+              return axios.patch("/api/learn-card/" + data.id, data);
+
+            case 2:
+              responseStatus = _context7.sent;
+
+              if (!(responseStatus.status === _util__WEBPACK_IMPORTED_MODULE_1__["CREATED"])) {
+                _context7.next = 11;
+                break;
+              }
+
+              _context7.next = 6;
+              return axios.get("/api/learn-list");
+
+            case 6:
+              response = _context7.sent;
+              learnList = response.data.learnList || null;
+              context.commit("setLearnLists", learnList);
+              context.commit("setApiStatus", true);
+              return _context7.abrupt("return", false);
+
+            case 11:
+              context.commit("setApiStatus", false);
+
+              if (responseStatus.status === _util__WEBPACK_IMPORTED_MODULE_1__["UNPROCESSABLE_ENTITY"]) {
+                context.commit("seterrorMessages", responseStatus.data.errors);
+              } else {
+                context.commit("error/setCode", responseStatus.status, {
+                  root: true
+                });
+              }
+
+            case 13:
+            case "end":
+              return _context7.stop();
+          }
+        }
+      }, _callee7);
     }))();
   }
 };

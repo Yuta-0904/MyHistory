@@ -11,26 +11,16 @@ use Carbon\Carbon;
 
 class LearnListController extends Controller
 {
+    public function __construct()
+    {
+        //このコントローラー内のアクションは全て認証が必要になる
+        $this->middleware('auth');
+    }
+
     public function get()
     {
         //認証ユーザの値のみ取得
-        $learnLists = LearnList::all()->where('user_id',Auth::id());
-
-     
-        foreach ($learnLists as $learnList) {
-            ///リストに紐づいているタスクカードも取得
-            $learnList->cards->sortByDesc('created_at');
-
-            foreach($learnList->cards as $learnCard) {
-                // $carbon = new Carbon($learnCard->created_at);
-                $createDate = new Carbon($learnCard->created_at, 'Asia/Tokyo');
-                $learnCard->date = $createDate->format('Y/m/d');
-                     
-            }
-        }
-
-       
-      
+        $learnLists = LearnList::all()->where('user_id',Auth::id()); 
         return response()->json(['learnList' => $learnLists],201);
     }
 

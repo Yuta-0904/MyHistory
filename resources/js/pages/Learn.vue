@@ -86,8 +86,8 @@ export default {
         };
     },
     methods: {
-        async learnListsGet() {
-            const response = await axios.get("/api/learn-list");
+        async learnListsGet(sort) {
+            const response = await axios.get(`/api/learn-list?sort=${sort}`);
             this.learnLists = response.data.learnList;
 
             const listNames = [];
@@ -123,13 +123,13 @@ export default {
         },
         stateLearnLists: {
             handler() {
-                this.learnListsGet();
+                this.learnListsGet("created_at");
             },
             deep: true,
         },
         stateLearnCards: {
             handler() {
-                this.learnListsGet();
+                this.learnListsGet("created_at");
             },
             deep: true,
         },

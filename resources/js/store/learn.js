@@ -19,6 +19,9 @@ const mutations = {
     seterrorMessages(state, messages) {
         state.errorMessages = messages;
     },
+    setLearnCards(state, learnCards) {
+        state.learnCards = learnCards;
+    },
 };
 
 const actions = {
@@ -36,6 +39,14 @@ const actions = {
         context.commit("error/setCode", response.status, {
             root: true,
         });
+    },
+    ///学習カード取得
+    async learnCardsGet(context) {
+        const response = await axios.get("/api/learn-card/all");
+        const learnCards = response.data || null;
+        console.log(learnCards);
+
+        context.commit("setLearnCards", learnCards);
     },
     //404チェック
     async learnapiStatus(context, data) {
@@ -82,9 +93,9 @@ const actions = {
         const responseStatus = await axios.post("/api/learn-card", data);
 
         if (responseStatus.status === CREATED) {
-            const response = await axios.get("/api/learn-list");
-            const learnList = response.data.learnList || null;
-            context.commit("setLearnLists", learnList);
+            const response = await axios.get("/api/learn-card/all");
+            const learnCards = response.data || null;
+            context.commit("setLearnCards", learnCards);
             context.commit("setApiStatus", true);
             return false;
         }

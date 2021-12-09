@@ -17,6 +17,32 @@ class LearnCardController extends Controller
         //このコントローラー内のアクションは全て認証が必要になる
         $this->middleware('auth');
     }
+
+    public function get(Request $request){
+        
+        $list_id = $request->list_id;
+        $sort = $request->sort;
+
+        if($request->order == 'asc'){
+            $learnCards = LearnCard::where('user_id',Auth::id())->where('list_id',$list_id)->get()->sortBy($sort)->values();
+        }else {
+            $learnCards = LearnCard::where('user_id',Auth::id())->where('list_id',$list_id)->get()->sortByDesc($sort)->values();
+        }
+        
+        foreach ($learnCards as $learnCard) {  
+                $carbon = new Carbon($learnCard->limit);
+                $learnCard->limit = $carbon->format('Y/m/d');    
+                $createDate = new Carbon($learnCard->created_at, 'Asia/Tokyo');
+                $learnCard->date = $createDate->format('Y/m/d');
+        } 
+
+        return response()->json(['learnCards' => $learnCards],201);
+    }
+
+    public function getAll(Request $request){
+        $learnCards = LearnCard::where('user_id',Auth::id())->get();
+        return response()->json(['taskCards' => $learnCards],201);
+    }
     
     public function create(LearnCardRequest $request, LearnCard $learnCard)
     {

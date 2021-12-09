@@ -76,8 +76,7 @@ export default {
                 await axios
                     .delete("/api/learn-card/" + this.learnCard.id)
                     .then((response) => {
-                        // alert(response.data.message);
-                        this.$store.dispatch("learn/learnListsGet");
+                        this.$store.dispatch("learn/learnCardsGet");
                     })
                     .catch((error) => {
                         console.log(error);

@@ -25,7 +25,13 @@
             >
                 status
             </v-btn>
-            <v-btn outlined color="light-blue darken-4" elevation="6" dark @click="cardSort('limit')">
+            <v-btn
+                outlined
+                color="light-blue darken-4"
+                elevation="6"
+                dark
+                @click="cardSort('limit')"
+            >
                 limit
             </v-btn>
         </v-card-title>
@@ -37,7 +43,6 @@
                 :listIndex="listIndex"
             />
         </div>
-        
     </v-card>
 </template>
 
@@ -65,7 +70,7 @@ export default {
     data() {
         return {
             taskCards: [],
-            sortSwitch: false
+            sortSwitch: false,
         };
     },
     methods: {
@@ -86,24 +91,27 @@ export default {
                     });
             }
         },
-        async taskCardGet(sort,order) {
+        async taskCardGet(sort, order) {
             sort = sort ? sort : "created_at";
-            order = order ? order : 'desc'
+            order = order ? order : "desc";
             const response = await axios.get(
-                "/api/task-card?list_id=" + this.listIndex + "&sort=" + sort + "&order=" + order
+                "/api/task-card?list_id=" +
+                    this.listIndex +
+                    "&sort=" +
+                    sort +
+                    "&order=" +
+                    order
             );
             this.taskCards = response.data.taskCards;
-            
         },
         async cardSort(sort) {
-            if(this.sortSwitch){
-await this.taskCardGet(sort,'desc');
-this.sortSwitch = false;
-            }else {
-               await this.taskCardGet(sort,'asc'); 
-               this.sortSwitch = true;
+            if (this.sortSwitch) {
+                await this.taskCardGet(sort, "desc");
+                this.sortSwitch = false;
+            } else {
+                await this.taskCardGet(sort, "asc");
+                this.sortSwitch = true;
             }
-            
         },
     },
     watch: {
@@ -113,10 +121,9 @@ this.sortSwitch = false;
             },
             immediate: true,
         },
-           stateTaskCards: {
+        stateTaskCards: {
             handler() {
                 this.taskCardGet();
-                
             },
             deep: true,
         },

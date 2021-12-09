@@ -20,8 +20,6 @@ class TaskCardController extends Controller
 
     public function get(Request $request){
         
-
-
         $list_id = $request->list_id;
         $sort = $request->sort;
 

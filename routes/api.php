@@ -46,7 +46,7 @@ Route::delete('/task-list/{taskList}', [TaskListController::class,'delete'])->na
 // タスクカード(リスト所属)取得
 Route::get('/task-card', [TaskCardController::class,'get'])->name('taskCard');
 
-// タスクカード全券取得
+// タスクカード全件取得
 Route::get('/task-card/all', [TaskCardController::class,'getAll'])->name('taskCardAll');
 
 // タスクカード登録
@@ -63,6 +63,13 @@ Route::patch('/task-card/{taskCard}', [TaskCardController::class,'update'])->nam
 
 // 学習リスト取得
 Route::get('/learn-list', [LearnListController::class,'get'])->name('learnList');
+
+// タスクカード(リスト所属)取得
+Route::get('/learn-card', [LearnCardController::class,'get'])->name('learnCard');
+
+// タスクカード全件取得
+Route::get('/learn-card/all', [LearnCardController::class,'getAll'])->name('learnCardAll');
+
 
 //学習リスト登録
 Route::post('/learn-list', [LearnListController::class,'create'])->name('learnListCreate');
