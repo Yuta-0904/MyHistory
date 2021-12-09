@@ -3817,9 +3817,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
   data: function data() {
     return {
       learnLists: [],
-      learnList: {
-        name: ""
-      },
       listNames: [],
       tweet: "api",
       dialogCard: false,
@@ -3827,7 +3824,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     };
   },
   methods: {
-    learnListsGet: function learnListsGet(sort) {
+    learnListsGet: function learnListsGet() {
       var _this = this;
 
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
@@ -3837,7 +3834,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
             switch (_context.prev = _context.next) {
               case 0:
                 _context.next = 2;
-                return axios.get("/api/learn-list?sort=".concat(sort));
+                return axios.get('/api/learn-list');
 
               case 2:
                 response = _context.sent;
@@ -3922,13 +3919,13 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     },
     stateLearnLists: {
       handler: function handler() {
-        this.learnListsGet("created_at");
+        this.learnListsGet();
       },
       deep: true
     },
     stateLearnCards: {
       handler: function handler() {
-        this.learnListsGet("created_at");
+        this.learnListsGet();
       },
       deep: true
     },
@@ -4570,16 +4567,13 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
   data: function data() {
     return {
       taskLists: [],
-      taskList: {
-        name: ""
-      },
       listNames: [],
       dialogCard: false,
       dialogList: false
     };
   },
   methods: {
-    taskListsGet: function taskListsGet(sort) {
+    taskListsGet: function taskListsGet() {
       var _this = this;
 
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
@@ -4589,7 +4583,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
             switch (_context.prev = _context.next) {
               case 0:
                 _context.next = 2;
-                return axios.get("/api/task-list?sort=".concat(sort));
+                return axios.get('/api/task-list');
 
               case 2:
                 response = _context.sent;
@@ -4657,7 +4651,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
             while (1) {
               switch (_context3.prev = _context3.next) {
                 case 0:
-                  _this3.taskListsGet("created_at");
+                  _this3.taskListsGet();
 
                   _context3.next = 3;
                   return _this3.$store.dispatch("task/taskListsGet");
@@ -4674,7 +4668,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     },
     stateTaskLists: {
       handler: function handler() {
-        this.taskListsGet("created_at");
+        this.taskListsGet();
       },
       deep: true
     },

@@ -21,7 +21,7 @@ class TaskListController extends Controller
 
     public function get(Request $request)
     {
-        $taskLists = TaskList::where('user_id',Auth::id())->orderBy('name','asc')->get();  
+        $taskLists = TaskList::where('user_id',Auth::id())->orderBy('created_at','desc')->get();  
         return response()->json(['taskList' => $taskLists],201);
     }
 

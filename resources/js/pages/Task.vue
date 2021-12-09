@@ -77,17 +77,14 @@ export default {
     data() {
         return {
             taskLists: [],
-            taskList: {
-                name: "",
-            },
             listNames: [],
             dialogCard: false,
             dialogList: false,
         };
     },
     methods: {
-        async taskListsGet(sort) {
-            const response = await axios.get(`/api/task-list?sort=${sort}`);
+        async taskListsGet() {
+            const response = await axios.get('/api/task-list');
             this.taskLists = response.data.taskList;
 
             const listNames = [];
@@ -116,14 +113,14 @@ export default {
     watch: {
         $route: {
             async handler() {
-                this.taskListsGet("created_at");
+                this.taskListsGet();
                 await this.$store.dispatch("task/taskListsGet");
             },
             immediate: true,
         },
         stateTaskLists: {
             handler() {
-                this.taskListsGet("created_at");
+                this.taskListsGet();
             },
             deep: true,
         },

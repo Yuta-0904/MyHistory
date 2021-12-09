@@ -22,12 +22,11 @@ class TaskCardController extends Controller
         
         $list_id = $request->list_id;
         $sort = $request->sort;
+        $order = $request->order;
 
-        if($request->order == 'asc'){
-            $taskCards = TaskCard::where('user_id',Auth::id())->where('list_id',$list_id)->get()->sortBy($sort)->values();
-        }else {
-            $taskCards = TaskCard::where('user_id',Auth::id())->where('list_id',$list_id)->get()->sortByDesc($sort)->values();
-        }
+        $taskCards = TaskCard::where('user_id',Auth::id())->where('list_id',$list_id)->orderBy($sort,$order)->get();
+
+      
         
 
         foreach ($taskCards as $taskCard) {  
