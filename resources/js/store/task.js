@@ -13,6 +13,9 @@ const mutations = {
     setTaskLists(state, taskLists) {
         state.taskLists = taskLists;
     },
+    setTaskCards(state, taskCards) {
+        state.taskCards = taskCards;
+    },
     setApiStatus(state, status) {
         state.apiStatus = status;
     },
@@ -36,6 +39,13 @@ const actions = {
         context.commit("error/setCode", response.status, {
             root: true,
         });
+    },
+    //タスクカード取得
+    async taskCardsGet(context) {
+        const response = await axios.get("/api/task-card/all");
+        const taskCards = response.data || null;
+        
+        context.commit("setTaskCards", taskCards);
     },
     //404チェック
     async taskapiStatus(context, data) {
@@ -82,9 +92,10 @@ const actions = {
         const responseStatus = await axios.post("/api/task-card", data);
 
         if (responseStatus.status === CREATED) {
-            const response = await axios.get("/api/task-list");
-            const taskList = response.data.taskList || null;
-            context.commit("setTaskLists", taskList);
+            const response = await axios.get("/api/task-card/all");
+            const taskCards = response.data || null;
+
+            context.commit("setTaskCards", taskCards);
             context.commit("setApiStatus", true);
             return false;
         }

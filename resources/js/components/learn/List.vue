@@ -14,6 +14,27 @@
                 >
             </v-card-title>
         </v-card-text>
+        <v-card-title style="padding-top: 0">
+            <v-btn
+                outlined
+                class="me-5"
+                color="light-blue darken-4"
+                elevation="6"
+                dark
+                @click="cardSort('status')"
+            >
+                status
+            </v-btn>
+            <v-btn
+                outlined
+                color="light-blue darken-4"
+                elevation="6"
+                dark
+                @click="cardSort('created_at')"
+            >
+                create
+            </v-btn>
+        </v-card-title>
         <div class="d-flex flex-nowrap cardlist">
             <LearnCard
                 v-for="learnCard in learnCards"
@@ -27,6 +48,7 @@
 
 <script>
 import LearnCard from "./LearnCard.vue";
+import { mapState } from "vuex";
 
 export default {
     name: "List",
@@ -43,12 +65,12 @@ export default {
             type: Number,
             required: true,
         },
-        learnCards: {
-            type: Array,
-        },
     },
     data() {
-        return {};
+        return {
+            learnCards: [],
+            sortSwitch: false,
+        };
     },
     methods: {
         async removeList() {
@@ -68,6 +90,47 @@ export default {
                     });
             }
         },
+        async learnCardGet(sort, order) {
+            sort = sort ? sort : "created_at";
+            order = order ? order : "desc";
+            const response = await axios.get(
+                "/api/learn-card?list_id=" +
+                    this.listIndex +
+                    "&sort=" +
+                    sort +
+                    "&order=" +
+                    order
+            );
+            this.learnCards = response.data.learnCards;
+        },
+        async cardSort(sort) {
+            if (this.sortSwitch) {
+                await this.learnCardGet(sort, "desc");
+                this.sortSwitch = false;
+            } else {
+                await this.learnCardGet(sort, "asc");
+                this.sortSwitch = true;
+            }
+        },
+    },
+      watch: {
+        $route: {
+            async handler() {
+                this.learnCardGet();
+            },
+            immediate: true,
+        },
+        stateLearnCards: {
+            handler() {
+                this.learnCardGet();
+            },
+            deep: true,
+        },
+    },
+    computed: {
+        ...mapState({
+            stateLearnCards: (state) => state.learn.learnCards,
+        }),
     },
 };
 </script>

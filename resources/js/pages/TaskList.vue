@@ -57,7 +57,7 @@
                 :key="taskList.id"
                 :name="taskList.name"
                 :listIndex="taskList.id"
-                :taskCards="taskList.cards"
+                @cardSort="taskListsGet"
             />
         </v-card>
     </div>
@@ -86,10 +86,11 @@ export default {
         };
     },
     methods: {
-        async taskListsGet() {
-            // authストアのloginアクションを呼び出す
-            const response = await axios.get("/api/task-list");
+        async taskListsGet(sort) {
+            
+            const response = await axios.get(`/api/task-list?sort=${sort}`);
             this.taskLists = response.data.taskList;
+            
 
             const listNames = [];
             this.taskLists.forEach(function (taskList) {
@@ -117,23 +118,18 @@ export default {
     watch: {
         $route: {
             async handler() {
-                this.taskListsGet();
+                this.taskListsGet("created_at");
                 await this.$store.dispatch("task/taskListsGet");
             },
             immediate: true,
         },
         stateTaskLists: {
             handler() {
-                this.taskListsGet();
+                this.taskListsGet("created_at");
             },
             deep: true,
         },
-        stateTaskCards: {
-            handler() {
-                this.taskListsGet();
-            },
-            deep: true,
-        },
+     
         dialogList() {
             if (!this.dialogList) {
                 //ダイアログが閉じた時の処理

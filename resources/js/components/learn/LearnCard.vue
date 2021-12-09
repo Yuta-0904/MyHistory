@@ -76,8 +76,7 @@ export default {
                 await axios
                     .delete("/api/learn-card/" + this.learnCard.id)
                     .then((response) => {
-                        // alert(response.data.message);
-                        this.$store.dispatch("learn/learnListsGet");
+                        this.$store.dispatch("learn/learnCardsGet");
                     })
                     .catch((error) => {
                         console.log(error);
@@ -109,7 +108,7 @@ export default {
         lengthCheck() {
             const tweetContenstsLength =
                 this.learnCard.name.length + this.learnCard.content.length;
-            console.log(tweetContenstsLength);
+            
         },
     },
     computed: {
