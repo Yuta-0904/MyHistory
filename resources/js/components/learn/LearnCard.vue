@@ -108,7 +108,7 @@ export default {
         lengthCheck() {
             const tweetContenstsLength =
                 this.learnCard.name.length + this.learnCard.content.length;
-            console.log(tweetContenstsLength);
+            
         },
     },
     computed: {

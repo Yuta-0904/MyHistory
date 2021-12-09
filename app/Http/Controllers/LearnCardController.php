@@ -94,7 +94,6 @@ class LearnCardController extends Controller
 
     public function update(LearnCardRequest $request,LearnCard $learnCard)
     {         
-        log::info($request);
         $status = $request->status;
         switch ($status){
             case '未着手':

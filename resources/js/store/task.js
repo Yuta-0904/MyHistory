@@ -44,8 +44,7 @@ const actions = {
     async taskCardsGet(context) {
         const response = await axios.get("/api/task-card/all");
         const taskCards = response.data || null;
-        console.log(taskCards);
-
+        
         context.commit("setTaskCards", taskCards);
     },
     //404チェック

@@ -44,8 +44,6 @@ const actions = {
     async learnCardsGet(context) {
         const response = await axios.get("/api/learn-card/all");
         const learnCards = response.data || null;
-        console.log(learnCards);
-
         context.commit("setLearnCards", learnCards);
     },
     //404チェック

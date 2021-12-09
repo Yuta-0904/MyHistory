@@ -3113,7 +3113,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     },
     lengthCheck: function lengthCheck() {
       var tweetContenstsLength = this.learnCard.name.length + this.learnCard.content.length;
-      console.log(tweetContenstsLength);
     }
   },
   computed: {
@@ -75032,10 +75031,9 @@ var actions = {
             case 2:
               response = _context2.sent;
               learnCards = response.data || null;
-              console.log(learnCards);
               context.commit("setLearnCards", learnCards);
 
-            case 6:
+            case 5:
             case "end":
               return _context2.stop();
           }
@@ -75339,10 +75337,9 @@ var actions = {
             case 2:
               response = _context2.sent;
               taskCards = response.data || null;
-              console.log(taskCards);
               context.commit("setTaskCards", taskCards);
 
-            case 6:
+            case 5:
             case "end":
               return _context2.stop();
           }
