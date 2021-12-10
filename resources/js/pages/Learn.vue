@@ -50,6 +50,7 @@
         <v-card
             class="d-flex justify-center flex-wrap"
             color="grey lighten-2 my-5 py-5"
+            v-if="learnLists.length"
         >
             <List
                 v-for="learnList in learnLists"
@@ -59,6 +60,11 @@
                 :learnCards="learnList.cards"
             />
         </v-card>
+        <div class="d-flex justify-center" v-else>
+            <v-card-title class="justify-center"
+                >学習リストを登録してください</v-card-title
+            >
+        </div>
     </div>
 </template>
 
@@ -84,7 +90,7 @@ export default {
     },
     methods: {
         async learnListsGet() {
-            const response = await axios.get('/api/learn-list');
+            const response = await axios.get("/api/learn-list");
             this.learnLists = response.data.learnList;
 
             const listNames = [];

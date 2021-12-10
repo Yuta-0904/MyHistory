@@ -6,18 +6,18 @@
                 <router-view />
             </v-container>
         </v-main>
-        <Footer />
+        <!-- <Footer /> -->
     </v-app>
 </template>
 <script>
 import Header from "./components/Header.vue";
-import Footer from "./components/Footer.vue";
+// import Footer from "./components/Footer.vue";
 import { INTERNAL_SERVER_ERROR, NOT_FOUND } from "./util";
 export default {
     name: "App",
     components: {
         Header,
-        Footer,
+        // Footer,
     },
     computed: {
         errorCode() {

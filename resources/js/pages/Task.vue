@@ -51,6 +51,7 @@
         <v-card
             class="d-flex justify-center flex-wrap"
             color="grey lighten-2 my-5 py-5"
+            v-if="taskLists.length"
         >
             <List
                 v-for="taskList in taskLists"
@@ -60,6 +61,11 @@
                 @cardSort="taskListsGet"
             />
         </v-card>
+        <div class="d-flex justify-center" v-else>
+            <v-card-title class="justify-center"
+                >タスクリストを登録してください</v-card-title
+            >
+        </div>
     </div>
 </template>
 
@@ -84,7 +90,7 @@ export default {
     },
     methods: {
         async taskListsGet() {
-            const response = await axios.get('/api/task-list');
+            const response = await axios.get("/api/task-list");
             this.taskLists = response.data.taskList;
 
             const listNames = [];
