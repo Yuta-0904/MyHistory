@@ -1,6 +1,6 @@
 <template>
     <div class="task-lists">
-        <h1>タスクリスト一覧</h1>
+        <h1>TaskList</h1>
 
         <v-row class="justify-center my-3">
             <v-dialog v-model="dialogList" width="500">
@@ -48,10 +48,7 @@
             </template>
         </v-row>
 
-        <v-card
-            class="d-flex justify-center flex-wrap"
-            color="grey lighten-2 my-5 py-5"
-        >
+        <div class="d-flex justify-center flex-wrap my-5 py-5">
             <List
                 v-for="taskList in taskLists"
                 :key="taskList.id"
@@ -59,7 +56,7 @@
                 :listIndex="taskList.id"
                 @cardSort="taskListsGet"
             />
-        </v-card>
+        </div>
     </div>
 </template>
 
@@ -84,7 +81,7 @@ export default {
     },
     methods: {
         async taskListsGet() {
-            const response = await axios.get('/api/task-list');
+            const response = await axios.get("/api/task-list");
             this.taskLists = response.data.taskList;
 
             const listNames = [];

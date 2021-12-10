@@ -91,7 +91,7 @@
                 </ul>
             </div>
             <v-btn
-                class="d-flex mx-auto mb-3 px-10"
+                class="d-flex mx-auto mt-5 px-10"
                 @click="UpdateCard"
                 :class="[
                     isEditing || contentExists
@@ -99,7 +99,7 @@
                         : 'indigo darken-4 blue--text text--lighten-5',
                 ]"
             >
-                LearnUpdate
+                Update
             </v-btn>
         </div>
     </div>

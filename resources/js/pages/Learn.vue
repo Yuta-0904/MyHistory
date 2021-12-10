@@ -1,6 +1,6 @@
 <template>
     <div class="task-lists">
-        <h1>学習記録</h1>
+        <h1>LearnList</h1>
 
         <v-row class="justify-center my-3">
             <v-dialog v-model="dialogList" width="500">
@@ -47,10 +47,7 @@
                 </div>
             </template>
         </v-row>
-        <v-card
-            class="d-flex justify-center flex-wrap"
-            color="grey lighten-2 my-5 py-5"
-        >
+        <div class="d-flex justify-center flex-wrap my-5 py-5">
             <List
                 v-for="learnList in learnLists"
                 :key="learnList.id"
@@ -58,7 +55,7 @@
                 :listIndex="learnList.id"
                 :learnCards="learnList.cards"
             />
-        </v-card>
+        </div>
     </div>
 </template>
 
@@ -84,7 +81,7 @@ export default {
     },
     methods: {
         async learnListsGet() {
-            const response = await axios.get('/api/learn-list');
+            const response = await axios.get("/api/learn-list");
             this.learnLists = response.data.learnList;
 
             const listNames = [];

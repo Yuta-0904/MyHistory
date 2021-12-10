@@ -1,59 +1,42 @@
 <template>
     <header>
-        <v-navigation-drawer
-            v-model="drawer"
-            app
-            clipped
-            bottom
-            absolute
-            temporary
-            class="d-md-none d-block"
-        >
-            <v-list nav dense>
-                <v-list-item-group>
-                    <v-list-item to="/" v-if="isLogin">
-                        <v-list-item-title>TASK</v-list-item-title>
-                    </v-list-item>
-                    <v-list-item to="/login">
-                        <v-list-item-title>Login / Register</v-list-item-title>
-                    </v-list-item>
-                </v-list-item-group>
-            </v-list>
-        </v-navigation-drawer>
         <v-app-bar
             app
             color="cyan darken-4 indigo--text text--lighten-5"
             dark
             clipped-left
         >
-            <v-app-bar-nav-icon
-                @click="drawer = !drawer"
-                class="d-md-none d-block"
-            ></v-app-bar-nav-icon>
-            <v-toolbar-title>MyHistory</v-toolbar-title>
-            <v-tabs class="d-md-block d-none">
-                <v-tab to="/" v-if="isLogin"> TASK </v-tab>
-                <v-tab to="/learn" v-if="isLogin"> LEARN </v-tab>
-                <v-tab>
-                    <div v-if="isLogin" class="navbar__item">ログイン中</div>
-                    <div v-else class="navbar__item">
-                        <RouterLink class="button button--link" to="/login">
-                            Login / Register
-                        </RouterLink>
-                    </div>
+            <v-toolbar-title>
+                <span class="pl-3">MyHistory</span>
+            </v-toolbar-title>
+            <v-tabs>
+                <v-tab to="/" v-if="isLogin"
+                    ><v-icon class="me-2">mdi-electron-framework</v-icon> TASK
                 </v-tab>
+                <v-tab to="/learn" v-if="isLogin"
+                    ><v-icon class="me-2">mdi-book-open-page-variant</v-icon>
+                    LEARN
+                </v-tab>
+                <v-tab v-if="isLogin" @click="logout"> Logout </v-tab>
             </v-tabs>
         </v-app-bar>
     </header>
 </template>
 <script>
+import { mapState } from "vuex";
 export default {
     data() {
-        return {
-            drawer: false,
-        };
+        return {};
     },
-    methods: {},
+    methods: {
+        async logout() {
+            await this.$store.dispatch("auth/logout");
+
+            if (this.apiStatus) {
+                this.$router.push("/login");
+            }
+        },
+    },
     computed: {
         isLogin() {
             return this.$store.getters["auth/check"];
@@ -61,6 +44,9 @@ export default {
         username() {
             return this.$store.getters["auth/username"];
         },
+        ...mapState({
+            apiStatus: (state) => state.auth.apiStatus,
+        }),
     },
 };
 </script>
