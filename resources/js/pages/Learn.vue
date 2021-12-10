@@ -76,9 +76,6 @@ export default {
     data() {
         return {
             learnLists: [],
-            learnList: {
-                name: "",
-            },
             listNames: [],
             tweet: "api",
             dialogCard: false,
@@ -86,8 +83,8 @@ export default {
         };
     },
     methods: {
-        async learnListsGet(sort) {
-            const response = await axios.get(`/api/learn-list?sort=${sort}`);
+        async learnListsGet() {
+            const response = await axios.get('/api/learn-list');
             this.learnLists = response.data.learnList;
 
             const listNames = [];
@@ -123,13 +120,13 @@ export default {
         },
         stateLearnLists: {
             handler() {
-                this.learnListsGet("created_at");
+                this.learnListsGet();
             },
             deep: true,
         },
         stateLearnCards: {
             handler() {
-                this.learnListsGet("created_at");
+                this.learnListsGet();
             },
             deep: true,
         },

@@ -22,13 +22,10 @@ class LearnCardController extends Controller
         
         $list_id = $request->list_id;
         $sort = $request->sort;
+        $order = $request->order;
 
-        if($request->order == 'asc'){
-            $learnCards = LearnCard::where('user_id',Auth::id())->where('list_id',$list_id)->get()->sortBy($sort)->values();
-        }else {
-            $learnCards = LearnCard::where('user_id',Auth::id())->where('list_id',$list_id)->get()->sortByDesc($sort)->values();
-        }
-        
+        $learnCards = LearnCard::where('user_id',Auth::id())->where('list_id',$list_id)->orderBy($sort,$order)->get();
+    
         foreach ($learnCards as $learnCard) {  
                 $carbon = new Carbon($learnCard->limit);
                 $learnCard->limit = $carbon->format('Y/m/d');    

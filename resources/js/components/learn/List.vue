@@ -53,7 +53,6 @@ import { mapState } from "vuex";
 export default {
     name: "List",
     components: {
-        // TaskCardAdd,
         LearnCard,
     },
     props: {

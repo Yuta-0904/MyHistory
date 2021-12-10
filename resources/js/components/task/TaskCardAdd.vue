@@ -112,7 +112,7 @@
 
         <v-btn
             class="d-flex mx-auto mb-3 px-10"
-            @click="addCardToList"
+            @click="addCard"
             :class="[
                 isEditing || contentExists
                     ? 'cyan red--text text--lighten-5'
@@ -177,7 +177,7 @@ export default {
         }),
     },
     methods: {
-        async addCardToList() {
+        async addCard() {
             if (this.$refs.card_form.validate()) {
                 await this.$store.dispatch(
                     "task/taskCardCreate",

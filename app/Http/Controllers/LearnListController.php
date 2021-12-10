@@ -20,7 +20,7 @@ class LearnListController extends Controller
     public function get()
     {
         //認証ユーザの値のみ取得
-        $learnLists = LearnList::all()->where('user_id',Auth::id()); 
+        $learnLists = LearnList::where('user_id',Auth::id())->orderBy('created_at','desc')->get();  
         return response()->json(['learnList' => $learnLists],201);
     }
 

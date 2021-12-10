@@ -3,9 +3,9 @@ import VueRouter from "vue-router";
 import NotFound from "./pages/errors/NotFound.vue";
 
 // ページコンポーネントをインポートする
-import TaskList from "./pages/TaskList.vue";
-import Login from "./pages/Login.vue";
 import Task from "./pages/Task.vue";
+import Login from "./pages/Login.vue";
+import TaskDetail from "./pages/TaskDetail.vue";
 import Learn from "./pages/Learn.vue";
 import LearnDetail from "./pages/LearnDetail.vue";
 
@@ -23,7 +23,7 @@ export default new VueRouter({
         {
             path: "/",
             name: "taskList",
-            component: TaskList,
+            component: Task,
             beforeEnter(to, from, next) {
                 ///未ログインであればログインページに返却するよう条件判定
                 if (!store.getters["auth/check"]) {
@@ -49,7 +49,7 @@ export default new VueRouter({
         {
             path: "/task/:id",
             name: "taskDetail",
-            component: Task,
+            component: TaskDetail,
             beforeEnter(to, from, next) {
                 ///未ログインであればログインページに返却するよう条件判定
                 if (!store.getters["auth/check"]) {
