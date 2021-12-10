@@ -2538,7 +2538,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     }
   })),
   methods: {
-    addCardToList: function addCardToList() {
+    addCard: function addCard() {
       var _this = this;
 
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
@@ -2783,7 +2783,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "List",
   components: {
-    // TaskCardAdd,
     LearnCard: _LearnCard_vue__WEBPACK_IMPORTED_MODULE_1__["default"]
   },
   props: {
@@ -3530,7 +3529,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     }
   })),
   methods: {
-    addCardToList: function addCardToList() {
+    addCard: function addCard() {
       var _this = this;
 
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
@@ -7973,7 +7972,7 @@ var render = function () {
               ? "cyan red--text text--lighten-5"
               : "indigo darken-4 blue--text text--lighten-5",
           ],
-          on: { click: _vm.addCardToList },
+          on: { click: _vm.addCard },
         },
         [_vm._v("\n        LearnAdd\n    ")]
       ),
@@ -8656,7 +8655,7 @@ var render = function () {
               ? "cyan red--text text--lighten-5"
               : "indigo darken-4 blue--text text--lighten-5",
           ],
-          on: { click: _vm.addCardToList },
+          on: { click: _vm.addCard },
         },
         [_vm._v("\n        TaskAdd\n    ")]
       ),
