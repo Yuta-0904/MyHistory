@@ -2094,6 +2094,11 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -7466,11 +7471,31 @@ var render = function () {
             "v-tabs",
             [
               _vm.isLogin
-                ? _c("v-tab", { attrs: { to: "/" } }, [_vm._v(" TASK ")])
+                ? _c(
+                    "v-tab",
+                    { attrs: { to: "/" } },
+                    [
+                      _c("v-icon", { staticClass: "me-2" }, [
+                        _vm._v("mdi-electron-framework"),
+                      ]),
+                      _vm._v(" TASK\n            "),
+                    ],
+                    1
+                  )
                 : _vm._e(),
               _vm._v(" "),
               _vm.isLogin
-                ? _c("v-tab", { attrs: { to: "/learn" } }, [_vm._v(" LEARN ")])
+                ? _c(
+                    "v-tab",
+                    { attrs: { to: "/learn" } },
+                    [
+                      _c("v-icon", { staticClass: "me-2" }, [
+                        _vm._v("mdi-book-open-page-variant"),
+                      ]),
+                      _vm._v("\n                LEARN\n            "),
+                    ],
+                    1
+                  )
                 : _vm._e(),
               _vm._v(" "),
               _vm.isLogin
@@ -8573,7 +8598,7 @@ var render = function () {
     "div",
     { staticClass: "task-lists" },
     [
-      _c("h1", [_vm._v("学習記録")]),
+      _c("h1", [_vm._v("LearnList")]),
       _vm._v(" "),
       _c(
         "v-row",
@@ -9372,7 +9397,7 @@ var render = function () {
     "div",
     { staticClass: "task-lists" },
     [
-      _c("h1", [_vm._v("タスクリスト一覧")]),
+      _c("h1", [_vm._v("TaskList")]),
       _vm._v(" "),
       _c(
         "v-row",

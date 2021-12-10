@@ -1,6 +1,6 @@
 <template>
     <div class="task-lists">
-        <h1>タスクリスト一覧</h1>
+        <h1>TaskList</h1>
 
         <v-row class="justify-center my-3">
             <v-dialog v-model="dialogList" width="500">

@@ -1,6 +1,6 @@
 <template>
     <div class="task-lists">
-        <h1>学習記録</h1>
+        <h1>LearnList</h1>
 
         <v-row class="justify-center my-3">
             <v-dialog v-model="dialogList" width="500">

@@ -10,8 +10,13 @@
                 <span class="pl-3">MyHistory</span>
             </v-toolbar-title>
             <v-tabs>
-                <v-tab to="/" v-if="isLogin"> TASK </v-tab>
-                <v-tab to="/learn" v-if="isLogin"> LEARN </v-tab>
+                <v-tab to="/" v-if="isLogin"
+                    ><v-icon class="me-2">mdi-electron-framework</v-icon> TASK
+                </v-tab>
+                <v-tab to="/learn" v-if="isLogin"
+                    ><v-icon class="me-2">mdi-book-open-page-variant</v-icon>
+                    LEARN
+                </v-tab>
                 <v-tab v-if="isLogin" @click="logout"> Logout </v-tab>
             </v-tabs>
         </v-app-bar>
