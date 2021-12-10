@@ -2717,6 +2717,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -2897,6 +2898,7 @@ function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
+//
 //
 //
 //
@@ -3739,15 +3741,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 
 
@@ -4433,15 +4426,6 @@ function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
-//
-//
-//
-//
-//
-//
-//
-//
-//
 //
 //
 //
@@ -7905,9 +7889,9 @@ var render = function () {
   return _c(
     "v-card",
     {
-      staticClass: "mx-2 d-flex flex-column mt-3",
+      staticClass: "mx-2 d-flex flex-column mt-5",
       staticStyle: { "min-width": "300px" },
-      attrs: { width: "1000" },
+      attrs: { color: "grey lighten-5", width: "1000" },
     },
     [
       _c(
@@ -8030,9 +8014,9 @@ var render = function () {
   return _c(
     "v-card",
     {
-      staticClass: "mx-2 d-flex flex-column mt-3",
+      staticClass: "mx-2 d-flex flex-column mt-5",
       staticStyle: { "min-width": "300px" },
-      attrs: { width: "1000" },
+      attrs: { color: "grey lighten-5", width: "1000" },
     },
     [
       _c(
@@ -8735,35 +8719,21 @@ var render = function () {
         2
       ),
       _vm._v(" "),
-      _vm.learnLists.length
-        ? _c(
-            "v-card",
-            {
-              staticClass: "d-flex justify-center flex-wrap",
-              attrs: { color: "grey lighten-2 my-5 py-5" },
+      _c(
+        "div",
+        { staticClass: "d-flex justify-center flex-wrap my-5 py-5" },
+        _vm._l(_vm.learnLists, function (learnList) {
+          return _c("List", {
+            key: learnList.id,
+            attrs: {
+              name: learnList.name,
+              listIndex: learnList.id,
+              learnCards: learnList.cards,
             },
-            _vm._l(_vm.learnLists, function (learnList) {
-              return _c("List", {
-                key: learnList.id,
-                attrs: {
-                  name: learnList.name,
-                  listIndex: learnList.id,
-                  learnCards: learnList.cards,
-                },
-              })
-            }),
-            1
-          )
-        : _c(
-            "div",
-            { staticClass: "d-flex justify-center" },
-            [
-              _c("v-card-title", { staticClass: "justify-center" }, [
-                _vm._v("学習リストを登録してください"),
-              ]),
-            ],
-            1
-          ),
+          })
+        }),
+        1
+      ),
     ],
     1
   )
@@ -9548,32 +9518,18 @@ var render = function () {
         2
       ),
       _vm._v(" "),
-      _vm.taskLists.length
-        ? _c(
-            "v-card",
-            {
-              staticClass: "d-flex justify-center flex-wrap",
-              attrs: { color: "grey lighten-2 my-5 py-5" },
-            },
-            _vm._l(_vm.taskLists, function (taskList) {
-              return _c("List", {
-                key: taskList.id,
-                attrs: { name: taskList.name, listIndex: taskList.id },
-                on: { cardSort: _vm.taskListsGet },
-              })
-            }),
-            1
-          )
-        : _c(
-            "div",
-            { staticClass: "d-flex justify-center" },
-            [
-              _c("v-card-title", { staticClass: "justify-center" }, [
-                _vm._v("タスクリストを登録してください"),
-              ]),
-            ],
-            1
-          ),
+      _c(
+        "div",
+        { staticClass: "d-flex justify-center flex-wrap my-5 py-5" },
+        _vm._l(_vm.taskLists, function (taskList) {
+          return _c("List", {
+            key: taskList.id,
+            attrs: { name: taskList.name, listIndex: taskList.id },
+            on: { cardSort: _vm.taskListsGet },
+          })
+        }),
+        1
+      ),
     ],
     1
   )

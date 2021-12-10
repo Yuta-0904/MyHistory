@@ -48,11 +48,7 @@
             </template>
         </v-row>
 
-        <v-card
-            class="d-flex justify-center flex-wrap"
-            color="grey lighten-2 my-5 py-5"
-            v-if="taskLists.length"
-        >
+        <div class="d-flex justify-center flex-wrap my-5 py-5">
             <List
                 v-for="taskList in taskLists"
                 :key="taskList.id"
@@ -60,11 +56,6 @@
                 :listIndex="taskList.id"
                 @cardSort="taskListsGet"
             />
-        </v-card>
-        <div class="d-flex justify-center" v-else>
-            <v-card-title class="justify-center"
-                >タスクリストを登録してください</v-card-title
-            >
         </div>
     </div>
 </template>

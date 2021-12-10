@@ -1,6 +1,7 @@
 <template>
     <v-card
-        class="mx-2 d-flex flex-column mt-3"
+        class="mx-2 d-flex flex-column mt-5"
+        color="grey lighten-5"
         style="min-width: 300px"
         width="1000"
     >
@@ -112,7 +113,7 @@ export default {
             }
         },
     },
-      watch: {
+    watch: {
         $route: {
             async handler() {
                 this.learnCardGet();
