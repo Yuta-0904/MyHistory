@@ -3203,7 +3203,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                   _this.$store.dispatch("task/taskCardsGet");
                 })["catch"](function (error) {
                   console.log(error);
-                  alert("削除に失敗しました");
+                  alert("削除に失敗しました。");
                 });
 
               case 3:

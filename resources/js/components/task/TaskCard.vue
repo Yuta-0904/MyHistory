@@ -68,7 +68,7 @@ export default {
                     })
                     .catch((error) => {
                         console.log(error);
-                        alert("削除に失敗しました");
+                        alert("削除に失敗しました。");
                     });
             }
         },
