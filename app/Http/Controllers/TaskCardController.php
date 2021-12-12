@@ -26,9 +26,6 @@ class TaskCardController extends Controller
 
         $taskCards = TaskCard::where('user_id',Auth::id())->where('list_id',$list_id)->orderBy($sort,$order)->get();
 
-      
-        
-
         foreach ($taskCards as $taskCard) {  
                 $carbon = new Carbon($taskCard->limit);
                 $taskCard->limit = $carbon->format('Y/m/d');    
