@@ -7629,7 +7629,7 @@ var render = function () {
           _vm.tweetError
             ? _c("v-alert", { attrs: { type: "error" } }, [
                 _vm._v(
-                  "\n            Tweet可能文字数はタイトルと合わせて130文字です。\n        "
+                  "\n            Tweet可能な文字数はタイトルと合わせて130文字です。\n        "
                 ),
               ])
             : _vm._e(),

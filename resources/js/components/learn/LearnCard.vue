@@ -45,7 +45,7 @@
             </div>
 
             <v-alert v-if="tweetError" type="error">
-                Tweet可能文字数はタイトルと合わせて130文字です。
+                Tweet可能な文字数はタイトルと合わせて130文字です。
             </v-alert>
         </v-card>
     </router-link>
@@ -108,7 +108,6 @@ export default {
         lengthCheck() {
             const tweetContenstsLength =
                 this.learnCard.name.length + this.learnCard.content.length;
-            
         },
     },
     computed: {
