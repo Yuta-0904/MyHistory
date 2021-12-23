@@ -124,7 +124,7 @@ export default {
 
         dialogList() {
             if (!this.dialogList) {
-                //ダイアログが閉じた時の処理
+                //ダイアログが閉じた時
                 if (this.errorMessages) {
                     this.statusReset();
                 }
