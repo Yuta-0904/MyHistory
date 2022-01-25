@@ -7,7 +7,7 @@
             clipped-left
         >
             <v-toolbar-title>
-                <span class="pl-3">MyHistory</span>
+                <span class="pl-3">Test</span>
             </v-toolbar-title>
             <v-tabs>
                 <v-tab to="/" v-if="isLogin"

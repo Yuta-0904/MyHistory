@@ -94,7 +94,7 @@ export default {
                 "%0a" +
                 this.learnCard.content +
                 "%0a" +
-                "%20%23MyHistory";
+                "%20%23Test";
 
             const tweetContenstsLength =
                 this.learnCard.name.length + this.learnCard.content.length;
