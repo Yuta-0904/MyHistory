@@ -2266,7 +2266,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     },
     twitterShare: function twitterShare() {
       //シェアする画面を設定
-      var shareURL = "https://twitter.com/intent/tweet?text=" + "【" + this.learnCard.name + "】" + "%0a" + this.learnCard.content + "%0a" + "%20%23MyHistory";
+      var shareURL = "https://twitter.com/intent/tweet?text=" + "【" + this.learnCard.name + "】" + "%0a" + this.learnCard.content + "%0a" + "%20%23Test";
       var tweetContenstsLength = this.learnCard.name.length + this.learnCard.content.length;
 
       if (tweetContenstsLength <= 130) {
@@ -4613,7 +4613,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     },
     dialogList: function dialogList() {
       if (!this.dialogList) {
-        //ダイアログが閉じた時の処理
+        //ダイアログが閉じた時
         if (this.errorMessages) {
           this.statusReset();
         }
@@ -7464,7 +7464,7 @@ var render = function () {
         },
         [
           _c("v-toolbar-title", [
-            _c("span", { staticClass: "pl-3" }, [_vm._v("MyHistory")]),
+            _c("span", { staticClass: "pl-3" }, [_vm._v("Test")]),
           ]),
           _vm._v(" "),
           _c(
