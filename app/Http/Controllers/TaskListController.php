@@ -27,7 +27,6 @@ class TaskListController extends Controller
 
     public function create(TaskListRequest $request, TaskList $taskList)
     {
-        
         $taskList->fill($request->all());
         $taskList->user_id = $request->user()->id;
         $taskList->save();

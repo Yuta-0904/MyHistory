@@ -43,6 +43,7 @@ class TaskCardController extends Controller
 
     public function create(TaskCardRequest $request, TaskCard $taskCard)
     {
+        log::info($request);
         $user_id = $request->user()->id;
         $status = $request->status;
         switch ($status){

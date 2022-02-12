@@ -6,6 +6,7 @@ use App\User;
 use Faker\Generator as Faker;
 use Illuminate\Support\Str;
 use App\TaskList;
+use App\TaskCard;
 
 /*
 |--------------------------------------------------------------------------
@@ -33,5 +34,16 @@ $factory->define(TaskList::class, function (Faker $faker) {
         'user_id' => $faker->numberBetween(1,3),
         'name' => $faker->sentence(7,11),
         'created_at' => now(),
+    ];
+});
+
+$factory->define(TaskCard::class, function (Faker $faker) {
+    return [
+        'user_id' => $faker->numberBetween(1,3),
+        'list_id' => $faker->numberBetween(1,3),
+        'name' => $faker->sentence(7,11),
+        'content' => $faker->sentence(7,11),
+        'status' => $faker->numberBetween(1,3),
+        'limit' => now(),
     ];
 });

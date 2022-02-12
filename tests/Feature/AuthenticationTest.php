@@ -10,7 +10,7 @@ use Illuminate\Foundation\Testing\DatabaseMigrations;
 
 class AuthenticationTest extends TestCase
 {
-    use DatabaseMigrations;
+    // use DatabaseMigrations;
     /**
      * A basic feature test example.
      *
