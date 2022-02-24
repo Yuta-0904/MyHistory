@@ -29,11 +29,11 @@ class LearnListRequest extends FormRequest
         ];
     }
 
-     //エラーメッセージの日本語化
-     public function attributes()
-     {
-         return [
+    //エラーメッセージの日本語化
+    public function attributes()
+    {
+        return [
              'name' => 'リスト名',
          ];
-     }
+    }
 }

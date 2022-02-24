@@ -20,27 +20,26 @@ class LearnListController extends Controller
     public function get()
     {
         //認証ユーザの値のみ取得
-        $learnLists = LearnList::where('user_id',Auth::id())->orderBy('created_at','desc')->get();  
-        return response()->json(['learnList' => $learnLists],201);
+        $learnLists = LearnList::where('user_id', Auth::id())->orderBy('created_at', 'desc')->get();
+        return response()->json(['learnList' => $learnLists], 201);
     }
 
     public function create(LearnListRequest $request, LearnList $learnList)
     {
-        
         $learnList->fill($request->all());
         $learnList->user_id = $request->user()->id;
         $learnList->save();
 
-        return response()->json(['taskList' => $learnList],201);
+        return response()->json(['taskList' => $learnList], 201);
     }
 
     public function delete(LearnList $learnList)
-    {        
+    {
         $learnList->cards()->each(function ($cards) {
             $cards->delete();
         });
-        
+
         $learnList->delete();
-        return response()->json(['message' => '削除が完了しました'],201);
+        return response()->json(['message' => '削除が完了しました'], 201);
     }
 }

@@ -30,7 +30,7 @@ class TaskCardRequest extends FormRequest
             'status' => 'required',
             'limit' => 'required',
             'list_name' => 'required'
-            
+
         ];
     }
 
@@ -43,7 +43,7 @@ class TaskCardRequest extends FormRequest
             'status' => 'ステータス',
             'limit' => 'タスク期限',
             'list_name' => 'リスト名'
-        
+
         ];
     }
 }

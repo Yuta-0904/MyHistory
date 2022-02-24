@@ -1,11 +1,12 @@
 <?php
+
 namespace App\Services;
 
 use Abraham\TwitterOAuth\TwitterOAuth;
 use App\LearnCard;
 
-class TweetService{
-
+class TweetService
+{
     protected $twitter;
 
     public function __construct()
@@ -21,7 +22,8 @@ class TweetService{
     /**
      * 基本となるツイート関数
      */
-    public function tweet($tweet_content){
+    public function tweet($tweet_content)
+    {
         $res = $this->twitter->post("statuses/update", [
             "status" => $tweet_content,
         ]);
@@ -31,7 +33,8 @@ class TweetService{
     /**
      * 記事用のツイート関数
      */
-    public function tweetArticle(LearnCard $learnCard, $tweet_tag_str){
+    public function tweetArticle(LearnCard $learnCard, $tweet_tag_str)
+    {
         // カンマ区切りのタグを配列に変換
         $tweet_tag_array = explode(",", $tweet_tag_str);
         // 記事のURL取得
@@ -44,8 +47,8 @@ class TweetService{
         $content .= "『".$title."』". PHP_EOL .PHP_EOL;
         $content .= "#プログラミング";
         // タグがあれば、タグ追加
-        foreach($tweet_tag_array as $tweet_tag){
-            if($tweet_tag !== ""){
+        foreach ($tweet_tag_array as $tweet_tag) {
+            if ($tweet_tag !== "") {
                 $content .= PHP_EOL."#".$tweet_tag;
             }
         }

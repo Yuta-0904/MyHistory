@@ -19,13 +19,13 @@ class LearnList extends Model
         'name'
     ];
 
-    public function user():BelongsTo
+    public function user(): BelongsTo
     {
         return $this->belongsTo('App\User');
     }
 
-    public function cards():HasMany
+    public function cards(): HasMany
     {
-       return $this->hasMany('App\LearnCard','list_id', 'id');
+        return $this->hasMany('App\LearnCard', 'list_id', 'id');
     }
 }

@@ -15,12 +15,12 @@ class TaskCard extends Model
         'name','content','status','limit','list_id','user_id'
     ];
 
-    public function user():BelongsTo
+    public function user(): BelongsTo
     {
         return $this->belongsTo('App\User');
     }
 
-    public function list():BelongsTo
+    public function list(): BelongsTo
     {
         return $this->belongsTo('App\TaskList');
     }

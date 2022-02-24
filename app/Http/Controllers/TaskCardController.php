@@ -18,27 +18,28 @@ class TaskCardController extends Controller
         $this->middleware('auth');
     }
 
-    public function get(Request $request){
-        
+    public function get(Request $request)
+    {
         $list_id = $request->list_id;
         $sort = $request->sort;
         $order = $request->order;
 
-        $taskCards = TaskCard::where('user_id',Auth::id())->where('list_id',$list_id)->orderBy($sort,$order)->get();
+        $taskCards = TaskCard::where('user_id', Auth::id())->where('list_id', $list_id)->orderBy($sort, $order)->get();
 
-        foreach ($taskCards as $taskCard) {  
-                $carbon = new Carbon($taskCard->limit);
-                $taskCard->limit = $carbon->format('Y/m/d');    
-                $createDate = new Carbon($taskCard->created_at, 'Asia/Tokyo');
-                $taskCard->date = $createDate->format('Y/m/d');
-        } 
+        foreach ($taskCards as $taskCard) {
+            $carbon = new Carbon($taskCard->limit);
+            $taskCard->limit = $carbon->format('Y/m/d');
+            $createDate = new Carbon($taskCard->created_at, 'Asia/Tokyo');
+            $taskCard->date = $createDate->format('Y/m/d');
+        }
 
-        return response()->json(['taskCards' => $taskCards],201);
+        return response()->json(['taskCards' => $taskCards], 201);
     }
 
-    public function getAll(Request $request){
-        $taskCards = TaskCard::where('user_id',Auth::id())->get();
-        return response()->json(['taskCards' => $taskCards],201);
+    public function getAll(Request $request)
+    {
+        $taskCards = TaskCard::where('user_id', Auth::id())->get();
+        return response()->json(['taskCards' => $taskCards], 201);
     }
 
     public function create(TaskCardRequest $request, TaskCard $taskCard)
@@ -46,7 +47,7 @@ class TaskCardController extends Controller
         log::info($request);
         $user_id = $request->user()->id;
         $status = $request->status;
-        switch ($status){
+        switch ($status) {
             case '未着手':
                 $status = 0;
                 break;
@@ -61,9 +62,9 @@ class TaskCardController extends Controller
         }
 
         $list_name = $request->list_name;
-        $list = TaskList::where('name',$list_name)->first();
+        $list = TaskList::where('name', $list_name)->first();
         $list_id = $list->id;
-        
+
         $taskCard->fill([
             'user_id' => $user_id,
             'list_id' => $list_id,
@@ -74,30 +75,30 @@ class TaskCardController extends Controller
         ]);
 
         $taskCard->save();
-        return response()->json(['taskCard' => $taskCard],201);
+        return response()->json(['taskCard' => $taskCard], 201);
     }
 
     public function show(TaskCard $taskCard)
-    {   
+    {
         $carbon = new Carbon($taskCard->limit);
         $date = $carbon->format('Y/m/d');
-        
+
         $taskListsName=TaskList::get(['name']);
         $cardListName = $taskCard->list->name;
-        
-        return response()->json(['taskCard' => $taskCard,'date' => $date,'taskListsName' => $taskListsName,'cardListName' => $cardListName],200);
+
+        return response()->json(['taskCard' => $taskCard,'date' => $date,'taskListsName' => $taskListsName,'cardListName' => $cardListName], 200);
     }
 
     public function delete(TaskCard $taskCard)
-    {         
+    {
         $taskCard->delete();
-        return response()->json(['message' => '削除が完了しました'],201);
+        return response()->json(['message' => '削除が完了しました'], 201);
     }
 
-    public function update(TaskCardRequest $request,TaskCard $taskCard)
-    {         
+    public function update(TaskCardRequest $request, TaskCard $taskCard)
+    {
         $status = $request->status;
-        switch ($status){
+        switch ($status) {
             case '未着手':
                 $status = 0;
                 break;
@@ -110,9 +111,9 @@ class TaskCardController extends Controller
             default:
                 $status = 3;
         }
-        
+
         $list_name = $request->list_name;
-        $list = TaskList::where('name',$list_name)->first();
+        $list = TaskList::where('name', $list_name)->first();
         $list_id = $list->id;
 
         $taskCard->update([
@@ -122,6 +123,6 @@ class TaskCardController extends Controller
             'status' => $status,
             'limit' => $request->limit,
         ]);
-        return response()->json(['taskCard' => $taskCard],201);
+        return response()->json(['taskCard' => $taskCard], 201);
     }
 }

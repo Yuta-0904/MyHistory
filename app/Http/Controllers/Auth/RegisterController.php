@@ -72,9 +72,9 @@ class RegisterController extends Controller
         ]);
     }
 
-     // ★ メソッド追加
-     protected function registered(Request $request, $user)
-     {
+    // ★ メソッド追加
+    protected function registered(Request $request, $user)
+    {
         return $user;
-     }
+    }
 }

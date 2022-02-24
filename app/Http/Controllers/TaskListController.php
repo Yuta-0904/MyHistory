@@ -10,7 +10,6 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 use Carbon\Carbon;
 
-
 class TaskListController extends Controller
 {
     public function __construct()
@@ -21,8 +20,8 @@ class TaskListController extends Controller
 
     public function get(Request $request)
     {
-        $taskLists = TaskList::where('user_id',Auth::id())->orderBy('created_at','desc')->get();  
-        return response()->json(['taskList' => $taskLists],201);
+        $taskLists = TaskList::where('user_id', Auth::id())->orderBy('created_at', 'desc')->get();
+        return response()->json(['taskList' => $taskLists], 201);
     }
 
     public function create(TaskListRequest $request, TaskList $taskList)
@@ -31,16 +30,16 @@ class TaskListController extends Controller
         $taskList->user_id = $request->user()->id;
         $taskList->save();
 
-        return response()->json(['taskList' => $taskList],201);
+        return response()->json(['taskList' => $taskList], 201);
     }
 
     public function delete(TaskList $taskList)
-    {        
+    {
         $taskList->cards()->each(function ($cards) {
             $cards->delete();
         });
-        
+
         $taskList->delete();
-        return response()->json(['message' => '削除が完了しました'],201);
+        return response()->json(['message' => '削除が完了しました'], 201);
     }
 }
