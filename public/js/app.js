@@ -4493,6 +4493,65 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -4508,7 +4567,18 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       taskLists: [],
       listNames: [],
       dialogCard: false,
-      dialogList: false
+      dialogList: false,
+      noZoomCode: true,
+      zoomOuthLink: "",
+      cardForm: {
+        Email: "",
+        YourName: "",
+        CompanyName: "",
+        Content: "",
+        StartAt: ""
+      },
+      menu: "",
+      text: ""
     };
   },
   methods: {
@@ -4527,6 +4597,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
               case 2:
                 response = _context.sent;
                 _this.taskLists = response.data.taskList;
+                _this.noZoomCode = response.data.noZoomCode;
+                _this.zoomOuthLink = response.data.zoomOuthLink;
                 listNames = [];
 
                 _this.taskLists.forEach(function (taskList) {
@@ -4535,7 +4607,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
                 _this.listNames = listNames;
 
-              case 7:
+              case 9:
               case "end":
                 return _context.stop();
             }
@@ -4567,6 +4639,32 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     },
     dialogCloseCard: function dialogCloseCard() {
       this.dialogCard = false;
+    },
+    addMeeting: function addMeeting() {
+      var _this3 = this;
+
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee3() {
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee3$(_context3) {
+          while (1) {
+            switch (_context3.prev = _context3.next) {
+              case 0:
+                _context3.next = 2;
+                return axios.post("/api/add-meeting", _this3.cardForm);
+
+              case 2:
+                _this3.cardForm.Email = "";
+                _this3.cardForm.YourName = "";
+                _this3.cardForm.CompanyName = "";
+                _this3.cardForm.Content = "";
+                _this3.cardForm.StartAt = "";
+
+              case 7:
+              case "end":
+                return _context3.stop();
+            }
+          }
+        }, _callee3);
+      }))();
     }
   },
   computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapState"])({
@@ -4583,24 +4681,24 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
   watch: {
     $route: {
       handler: function handler() {
-        var _this3 = this;
+        var _this4 = this;
 
-        return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee3() {
-          return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee3$(_context3) {
+        return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee4() {
+          return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee4$(_context4) {
             while (1) {
-              switch (_context3.prev = _context3.next) {
+              switch (_context4.prev = _context4.next) {
                 case 0:
-                  _this3.taskListsGet();
+                  _this4.taskListsGet();
 
-                  _context3.next = 3;
-                  return _this3.$store.dispatch("task/taskListsGet");
+                  _context4.next = 3;
+                  return _this4.$store.dispatch("task/taskListsGet");
 
                 case 3:
                 case "end":
-                  return _context3.stop();
+                  return _context4.stop();
               }
             }
-          }, _callee3);
+          }, _callee4);
         }))();
       },
       immediate: true
@@ -9555,6 +9653,169 @@ var render = function () {
         }),
         1
       ),
+      _vm._v(" "),
+      _c("div", { staticClass: "main-content" }, [
+        _c(
+          "div",
+          { staticClass: "alert alert-danger mb-3", attrs: { role: "alert" } },
+          [
+            _c("h4", { staticClass: "alert-heading" }, [
+              _vm._v("Zoomとの連携が行われていません。"),
+            ]),
+            _vm._v(" "),
+            _c("p", [
+              _vm._v(
+                "\n                このシステムをご利用する場合、Zoomとの連携を行ってください。\n            "
+              ),
+            ]),
+            _vm._v(" "),
+            _c(
+              "a",
+              {
+                staticClass: "btn btn-danger",
+                attrs: { href: _vm.zoomOuthLink },
+              },
+              [_vm._v("Zoomと連携")]
+            ),
+          ]
+        ),
+        _vm._v(" "),
+        _c(
+          "div",
+          [
+            _c("h2", { staticClass: "my-5 py-5" }, [_vm._v("予約一覧")]),
+            _vm._v(" "),
+            _c(
+              "v-form",
+              { staticClass: "my-5 py-5" },
+              [
+                _c("v-text-field", {
+                  staticClass: "mx-auto pt-0",
+                  attrs: { label: "MeetingEmail" },
+                  model: {
+                    value: _vm.cardForm.Email,
+                    callback: function ($$v) {
+                      _vm.$set(_vm.cardForm, "Email", $$v)
+                    },
+                    expression: "cardForm.Email",
+                  },
+                }),
+                _vm._v(" "),
+                _c("v-text-field", {
+                  staticClass: "mx-auto",
+                  attrs: { label: "MeetingYourName" },
+                  model: {
+                    value: _vm.cardForm.YourName,
+                    callback: function ($$v) {
+                      _vm.$set(_vm.cardForm, "YourName", $$v)
+                    },
+                    expression: "cardForm.YourName",
+                  },
+                }),
+                _vm._v(" "),
+                _c("v-textarea", {
+                  staticClass: "mx-auto",
+                  attrs: { label: "MeetingCompanyName" },
+                  model: {
+                    value: _vm.cardForm.CompanyName,
+                    callback: function ($$v) {
+                      _vm.$set(_vm.cardForm, "CompanyName", $$v)
+                    },
+                    expression: "cardForm.CompanyName",
+                  },
+                }),
+                _vm._v(" "),
+                _c("v-textarea", {
+                  staticClass: "mx-auto",
+                  attrs: { label: "MeetingContent" },
+                  model: {
+                    value: _vm.cardForm.Content,
+                    callback: function ($$v) {
+                      _vm.$set(_vm.cardForm, "Content", $$v)
+                    },
+                    expression: "cardForm.Content",
+                  },
+                }),
+                _vm._v(" "),
+                _c(
+                  "v-menu",
+                  {
+                    scopedSlots: _vm._u([
+                      {
+                        key: "activator",
+                        fn: function (ref) {
+                          var on = ref.on
+                          var attrs = ref.attrs
+                          return [
+                            _c(
+                              "v-text-field",
+                              _vm._g(
+                                _vm._b(
+                                  {
+                                    staticClass: "mx-auto",
+                                    attrs: { label: "MeetingStartAt" },
+                                    model: {
+                                      value: _vm.text,
+                                      callback: function ($$v) {
+                                        _vm.text = $$v
+                                      },
+                                      expression: "text",
+                                    },
+                                  },
+                                  "v-text-field",
+                                  attrs,
+                                  false
+                                ),
+                                on
+                              )
+                            ),
+                          ]
+                        },
+                      },
+                    ]),
+                    model: {
+                      value: _vm.menu,
+                      callback: function ($$v) {
+                        _vm.menu = $$v
+                      },
+                      expression: "menu",
+                    },
+                  },
+                  [
+                    _vm._v(" "),
+                    _c("v-date-picker", {
+                      on: {
+                        input: function ($event) {
+                          return _vm.formatDate(_vm.cardForm.StartAt)
+                        },
+                      },
+                      model: {
+                        value: _vm.cardForm.StartAt,
+                        callback: function ($$v) {
+                          _vm.$set(_vm.cardForm, "StartAt", $$v)
+                        },
+                        expression: "cardForm.StartAt",
+                      },
+                    }),
+                  ],
+                  1
+                ),
+                _vm._v(" "),
+                _c(
+                  "v-btn",
+                  {
+                    staticClass: "d-flex mx-auto mb-3 px-10",
+                    on: { click: _vm.addMeeting },
+                  },
+                  [_vm._v("\n                    MeetingAdd\n                ")]
+                ),
+              ],
+              1
+            ),
+          ],
+          1
+        ),
+      ]),
     ],
     1
   )

@@ -37,6 +37,11 @@ Route::get('/user', fn() => Auth::user())->name('user');
 // タスクリスト取得
 Route::get('/task-list', [TaskListController::class,'get'])->name('taskList');
 
+//Zoom連携テスト
+Route::get('zoomauth/check', [TaskListController::class,'zoomOauth'])->name('zoomOauth');
+Route::post('add-meeting', [TaskListController::class,'createMeeting'])->name('createMeeting');
+
+
 // タスクリスト登録
 Route::post('/task-list', [TaskListController::class,'create'])->name('taskListCreate');
 

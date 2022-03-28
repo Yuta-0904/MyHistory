@@ -57,6 +57,65 @@
                 @cardSort="taskListsGet"
             />
         </div>
+        <div class="main-content">
+            <div class="alert alert-danger mb-3" role="alert">
+                <h4 class="alert-heading">Zoomとの連携が行われていません。</h4>
+                <p>
+                    このシステムをご利用する場合、Zoomとの連携を行ってください。
+                </p>
+                <a :href="zoomOuthLink" class="btn btn-danger">Zoomと連携</a>
+            </div>
+            <div>
+                <h2 class="my-5 py-5">予約一覧</h2>
+
+                <v-form class="my-5 py-5">
+                    <v-text-field
+                        v-model="cardForm.Email"
+                        label="MeetingEmail"
+                        class="mx-auto pt-0"
+                    ></v-text-field>
+
+                    <v-text-field
+                        v-model="cardForm.YourName"
+                        label="MeetingYourName"
+                        class="mx-auto"
+                    ></v-text-field>
+
+                    <v-textarea
+                        v-model="cardForm.CompanyName"
+                        label="MeetingCompanyName"
+                        class="mx-auto"
+                    ></v-textarea>
+                    <v-textarea
+                        v-model="cardForm.Content"
+                        label="MeetingContent"
+                        class="mx-auto"
+                    ></v-textarea>
+                    <v-menu v-model="menu">
+                        <template v-slot:activator="{ on, attrs }">
+                            <v-text-field
+                                v-model="text"
+                                label="MeetingStartAt"
+                                v-bind="attrs"
+                                v-on="on"
+                                class="mx-auto"
+                            ></v-text-field>
+                        </template>
+                        <v-date-picker
+                            v-model="cardForm.StartAt"
+                            @input="formatDate(cardForm.StartAt)"
+                        ></v-date-picker>
+                    </v-menu>
+
+                    <v-btn
+                        class="d-flex mx-auto mb-3 px-10"
+                        @click="addMeeting"
+                    >
+                        MeetingAdd
+                    </v-btn>
+                </v-form>
+            </div>
+        </div>
     </div>
 </template>
 
@@ -77,12 +136,25 @@ export default {
             listNames: [],
             dialogCard: false,
             dialogList: false,
+            noZoomCode: true,
+            zoomOuthLink: "",
+            cardForm: {
+                Email: "",
+                YourName: "",
+                CompanyName: "",
+                Content: "",
+                StartAt: "",
+            },
+            menu: "",
+            text: "",
         };
     },
     methods: {
         async taskListsGet() {
             const response = await axios.get("/api/task-list");
             this.taskLists = response.data.taskList;
+            this.noZoomCode = response.data.noZoomCode;
+            this.zoomOuthLink = response.data.zoomOuthLink;
 
             const listNames = [];
             this.taskLists.forEach(function (taskList) {
@@ -98,6 +170,14 @@ export default {
         },
         dialogCloseCard() {
             this.dialogCard = false;
+        },
+        async addMeeting() {
+            await axios.post("/api/add-meeting", this.cardForm);
+            this.cardForm.Email = "";
+            this.cardForm.YourName = "";
+            this.cardForm.CompanyName = "";
+            this.cardForm.Content = "";
+            this.cardForm.StartAt = "";
         },
     },
     computed: {

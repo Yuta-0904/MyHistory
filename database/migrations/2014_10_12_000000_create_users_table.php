@@ -19,6 +19,10 @@ class CreateUsersTable extends Migration
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
+            $table->longText('zoom_code')->nullable()->default(null);
+            $table->longText('access_token')->nullable()->default(null);
+            $table->longText('refresh_token')->nullable()->default(null);
+            $table->timestamp('zoom_expires_in', 0)->nullable()->default(null);
             $table->rememberToken();
             $table->softDeletes();
             $table->timestamps();
